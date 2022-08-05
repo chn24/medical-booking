@@ -1,0 +1,40 @@
+#profileBg {
+    background: linear-gradient(195deg, rgba(73, 163, 241, 0.6), rgba(26, 115, 232, 0.6)) 50% center / cover, url('../img/Pb.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 18.75rem;
+    border-radius: 15px;
+}
+
+.infor-container {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.infor-header {
+    width: 100%;
+}
+
+.infor-box {
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.infor-box-title {
+    min-width: 45%;
+}
+
+.infor-box-detail {
+    min-width: 50%;
+}
+
+.options-button {
+    width: 100%;
+}

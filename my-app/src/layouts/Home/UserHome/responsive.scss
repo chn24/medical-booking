@@ -1,0 +1,51 @@
+@media screen and (min-width:768px) and (max-width:1023px) {
+
+    .uh-tab-font16 {
+        font-size: 16px !important;
+    }
+
+    .uh-tab-stack {
+        height: 100% !important;
+    }
+
+    .uh-tab-link {
+        width: 45% !important;
+    }
+    
+}
+
+@media screen and (min-width:425px)  and (max-width:767px)  {
+
+    .uh-mobile-font14 {
+        font-size: 14px !important;
+    }
+
+    .uh-mobile-stack {
+        height: 100% !important;
+    }
+
+    .uh-tab-link {
+        width: 90% !important;
+    }
+}
+
+@media screen and (max-width:424px) {
+
+    .uh-resbox-icon {
+        width: 3rem !important;
+        height: 3rem !important;
+    }
+
+    .uh-Smobile-font12 {
+        font-size: 12px !important;
+    }
+
+    .uh-mobile-stack {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .uh-tab-link {
+        width: 90% !important;
+    }
+}
