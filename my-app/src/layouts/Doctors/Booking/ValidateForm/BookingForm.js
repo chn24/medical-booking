@@ -215,7 +215,7 @@ function BookingForm(props) {
       arr.splice(arr.length, 0, {
         docterId: doctorName.value.id,
         patientName: context.customer.name,
-        date: date.value,
+        date: moment(date.value).format('YYYY-MM-DD'),
         time: time.value,
         id: arr.length + 1,
       })

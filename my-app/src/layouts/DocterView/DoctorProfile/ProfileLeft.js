@@ -1,19 +1,30 @@
-import { Avatar, Box, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import './assets/scss/index.scss'
-import { dataState } from '../../../recoil/dataState'
 import { profileTab } from '../../../recoil/profileTab'
 import { useRecoilValue } from 'recoil'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 import InformtionTab from './InformationTab'
 import CommentTab from './CommentTab'
+import { createSearchParams, useSearchParams } from 'react-router-dom'
 
 export const CommentsContext = createContext()
 
 function ProfileLeft() {
-  const loginData = useRecoilValue(dataState)
   const profileTabData = useRecoilValue(profileTab)
   const [comments, setComments] = useState([])
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  // useEffect(() => {
+  //   profileTabData === 'profile'
+  //     ? setSearchParams(createSearchParams({ tab: 'profile' }))
+  //     : setSearchParams(createSearchParams({ tab: 'comments' }))
+  // }, [profileTabData])
+  // for (const entry of searchParams.entries()) {
+  //   const [param, value] = entry
+  //   console.log(param, value)
+  // }
 
   return (
     <CommentsContext.Provider value={{ comments, setComments }}>

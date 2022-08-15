@@ -7,6 +7,9 @@ import NewspaperIcon from '@mui/icons-material/Newspaper'
 import GroupIcon from '@mui/icons-material/Group'
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy'
 
+import './index.scss'
+import './responsive.scss'
+
 const services = [
   {
     id: 1,
@@ -51,7 +54,7 @@ const services = [
   {
     id: 6,
     title: 'Booking Schedule',
-    detail: 'This is your medical examination schedule',
+    detail: 'Your medical schedule',
     to: 'booking-schedule',
     icon: <ScheduleIcon sx={{ color: '#fff' }} />,
     linear: 'linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))',
@@ -63,7 +66,6 @@ function index() {
   return (
     <Box
       sx={{
-        height: `${Height}px`,
         minHeight: `${Height}px`,
         boxSizing: 'border-box',
         padding: '32px',
@@ -83,19 +85,11 @@ function index() {
       >
         {services.map((service) => {
           return (
-            <NavLink
-              to={service.to}
-              style={{
-                textDecoration: 'none',
-                width: '30%',
-              }}
-              key={service.id}
-            >
+            <NavLink className="link" to={service.to} key={service.id}>
               <Paper
                 sx={{
                   width: '100%',
-                  height: '75%',
-                  margin: '15px 0',
+                  height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
                   boxShadow:
@@ -113,6 +107,7 @@ function index() {
                   }}
                 >
                   <Box
+                    className="link-icon"
                     sx={{
                       borderRadius: '15px',
                       background: service.linear,
@@ -127,7 +122,7 @@ function index() {
                     {service.icon}
                   </Box>
                   <Box>
-                    <Typography variant="subtitle1" color={'rgb(123, 128, 154)'}>
+                    <Typography className="link-title" variant="subtitle1" color={'rgb(123, 128, 154)'}>
                       {service.title}
                     </Typography>
                   </Box>

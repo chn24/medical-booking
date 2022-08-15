@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 import './assets/scss/index.scss'
 import ava from './assets/img/ava.jpg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function InformtionTab() {
   const [loginData, setLogiData] = useRecoilState(dataState)
@@ -35,6 +35,36 @@ function InformtionTab() {
       error: false,
     },
   })
+
+  useEffect(() => {
+    setUserData({
+      email: {
+        value: loginData.information.email,
+        error: false,
+      },
+      phone: {
+        value: loginData.information.phone,
+        error: false,
+      },
+      website: {
+        value: loginData.information.website,
+        error: false,
+      },
+      hospital: {
+        value: loginData.information?.company?.name,
+        error: false,
+      },
+      street: {
+        value: loginData.information?.address?.street,
+        error: false,
+      },
+      city: {
+        value: loginData.information?.address?.city,
+        error: false,
+      },
+    })
+  }, [loginData])
+
   const [disabled, setDisabled] = useState(true)
 
   const handleChange = (value, type) => {
@@ -110,7 +140,7 @@ function InformtionTab() {
           ...loginData.information,
           phone: userData.phone.value,
           email: userData.email.value,
-          website: userData.email.value,
+          website: userData.website.value,
           address: {
             ...loginData.information.address,
             city: userData.city.value,

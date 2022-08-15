@@ -1,0 +1,42 @@
+.in4-header {
+    display: flex;
+    padding: 0 0 15px;
+    align-items: center;
+}
+
+.docin4-avatar {
+    display: none !important;
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .docIn4-left,
+    .docIn4-right {
+        width: 100% !important;
+    }
+
+    .docin4-avatar {
+        display: block !important;
+        margin-right: 5px;
+    }
+
+    .tab-docin4-disnone {
+        display: none !important;
+    }
+
+    .docin4-docName {
+        font-size: 24px !important;
+    }
+
+    .docin4-title {
+        font-size: 20px !important;
+    }
+
+    .docin4-detail {
+        font-size: 16px !important;
+    }
+}

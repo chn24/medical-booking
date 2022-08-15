@@ -18,30 +18,34 @@ function SlideNews(props) {
         //   width: '95%',
         // }}
       >
-        <Typography
-          variant="h4"
-          className="news-mobile-font-16"
-          sx={{
-            position: 'absolute',
-            left: '1rem',
-            bottom: '3rem',
-            color: '#fff',
-          }}
-        >
-          {data.title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          className="news-mobile-font-12"
+        <Box
           sx={{
             position: 'absolute',
             left: '1rem',
             bottom: '1rem',
-            color: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          {data.detail}
-        </Typography>
+          <Typography
+            variant="h4"
+            className="news-mobile-font-16"
+            sx={{
+              color: '#fff',
+            }}
+          >
+            {data.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            className="news-mobile-font-12"
+            sx={{
+              color: '#fff',
+            }}
+          >
+            {data.detail}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   )

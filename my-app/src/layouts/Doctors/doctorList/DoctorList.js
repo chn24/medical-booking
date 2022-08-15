@@ -17,8 +17,6 @@ import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
 import DoctorRow from './DoctorRow'
-import { tabState } from '../../../recoil/tabState'
-import { useSetRecoilState } from 'recoil'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
@@ -53,11 +51,6 @@ function DoctorList() {
 
   const [page, setPage] = useState(0)
 
-  const setTabName = useSetRecoilState(tabState)
-  useEffect(() => {
-    setTabName('Docter list')
-  }, [])
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -71,9 +64,6 @@ function DoctorList() {
 
   useEffect(() => {
     doctorInfor()
-    setTimeout(() => {
-      setDataLoading(false)
-    }, 1500)
   }, [])
 
   return (
@@ -126,7 +116,7 @@ function DoctorList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dataLoading ? (
+                {loginData.roll === '' ? (
                   <TableRow>
                     <TableCell align="left">
                       <Skeleton variant="text" animation="wave" />

@@ -12,7 +12,12 @@ function Booking() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav />
+      <LPNav
+        tabs={[
+          { name: 'Doctor list', to: 'doctor-list' },
+          { name: 'Booking', to: '' },
+        ]}
+      />
       <BookingRoot />
     </Box>
   )

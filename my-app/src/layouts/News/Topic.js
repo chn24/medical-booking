@@ -8,9 +8,10 @@ function Topic(props) {
   return (
     <Box className="topic-item">
       <Paper
+        className="news-topic-paper"
         sx={{
           width: '100%',
-          height: '100%',
+          height: '300px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -18,10 +19,10 @@ function Topic(props) {
       >
         <Box className="topic-bg"></Box>
         <Box className="topic-information">
-          <Typography className="title-color news-res-font-16 news-mobile-font-16" variant="h5">
+          <Typography className="title-color  news-mobile-font-16" variant="h5">
             {data.title}
           </Typography>
-          <Typography className="non-title-color news-res-font-12 news-mobile-font-12" variant="subtitle1">
+          <Typography className="non-title-color  news-mobile-font-10" variant="subtitle1">
             {data.detail}
           </Typography>
           <Divider

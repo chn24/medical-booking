@@ -7,7 +7,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import LoggedInNavIcon from './LoggedInNavIcon'
 import { loginState } from '../../recoil/loginState'
 
-import styles from './LPNav.module.scss'
 import { useRecoilValue } from 'recoil'
 
 function LPNavIcon() {
@@ -41,7 +40,7 @@ function LPNavIcon() {
   }
   return (
     <List sx={boxStyles} disablePadding>
-      {isLogin ? (
+      {isLogin.login ? (
         <LoggedInNavIcon />
       ) : (
         <>

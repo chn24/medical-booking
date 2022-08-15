@@ -26,6 +26,7 @@ function DSRight() {
   return (
     <Box>
       <Paper
+        className="dsR-paper"
         sx={{
           display: 'flex',
           flexDirection: 'column',

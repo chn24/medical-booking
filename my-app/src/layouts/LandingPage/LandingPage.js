@@ -2,18 +2,31 @@ import styles from './LandingPage.module.scss'
 import LPNav from './LPNav'
 import DoctorHome from '../Home/DoctorHome'
 import UserHome from '../Home/UserHome'
+import LoadingPage from '../LoadingPage'
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
 import { Box } from '@mui/material'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { useEffect, useState } from 'react'
 
 const Height = window.innerHeight
 
 function LandingPage() {
-  const isLogin = useRecoilValue(loginState)
-  const loginData = useRecoilValue(dataState)
+  const [isLogin, setLogin] = useRecoilState(loginState)
+  const [loginData, setLoginData] = useRecoilState(dataState)
+  const [loading, setLoading] = useState(false)
+
+  // useEffect(() => {
+  //   if (lSLoginData.login === true) {
+  //     setLogin(true)
+  //     setLoginData(lSLoginData.data)
+  //   }
+
+  //   setLoading(false)
+  // }, [])
 
   console.log(loginData)
+  console.log(isLogin)
 
   return (
     <div
@@ -25,8 +38,10 @@ function LandingPage() {
       }}
     >
       <LPNav />
-      {isLogin ? (
-        loginData.roll === 'Doctor' ? (
+      {isLogin.login ? (
+        loginData.roll === '' ? (
+          <LoadingPage />
+        ) : loginData.roll === 'Doctor' ? (
           <DoctorHome />
         ) : (
           <UserHome />

@@ -174,48 +174,65 @@ function DSLeft() {
   }
 
   const handleSubmit = () => {
-    const stringifiedDate = moment(DSFdate.value).format('YYYY-MM-DD')
-    let fullArr = [...loginData.schedule.full]
-    let morningArr = [...loginData.schedule.morning]
-    let afternoonArr = [...loginData.schedule.afternoon]
-    let valueArr = []
-    if (DSFtime.value === 'Afternoon') {
-      let index = morningArr.indexOf(stringifiedDate)
-      if (index >= 0) {
-        morningArr.splice(index, 1)
-        fullArr.splice(fullArr.length, 0, stringifiedDate)
-      } else {
-        afternoonArr.splice(afternoonArr.length, 0, stringifiedDate)
-      }
-    } else if (DSFtime.value === 'Morning') {
-      let index = afternoonArr.indexOf(stringifiedDate)
-      if (index >= 0) {
-        afternoonArr.splice(index, 1)
-        fullArr.splice(fullArr.length, 0, stringifiedDate)
-      } else {
-        morningArr.splice(morningArr.length, 0, stringifiedDate)
-      }
+    if (!DSFdate.choosen) {
+      setDSFdate({
+        ...DSFdate,
+        choosen: true,
+        error: 'Required',
+      })
     }
+    if (!DSFtime.choosen && DSFdate.error === null && DSFdate.choosen) {
+      setDSFtime({
+        ...DSFtime,
+        choosen: true,
+        error: true,
+      })
+    }
+    if (DSFtime.choosen && !DSFtime.error && DSFdate.choosen && !DSFdate.error) {
+      const stringifiedDate = moment(DSFdate.value).format('YYYY-MM-DD')
+      let fullArr = [...loginData.schedule.full]
+      let morningArr = [...loginData.schedule.morning]
+      let afternoonArr = [...loginData.schedule.afternoon]
+      let valueArr = []
+      if (DSFtime.value === 'Afternoon') {
+        let index = morningArr.indexOf(stringifiedDate)
+        if (index >= 0) {
+          morningArr.splice(index, 1)
+          fullArr.splice(fullArr.length, 0, stringifiedDate)
+        } else {
+          afternoonArr.splice(afternoonArr.length, 0, stringifiedDate)
+        }
+      } else if (DSFtime.value === 'Morning') {
+        let index = afternoonArr.indexOf(stringifiedDate)
+        if (index >= 0) {
+          afternoonArr.splice(index, 1)
+          fullArr.splice(fullArr.length, 0, stringifiedDate)
+        } else {
+          morningArr.splice(morningArr.length, 0, stringifiedDate)
+        }
+      }
 
-    valueArr = concatSchedule(fullArr, morningArr, afternoonArr)
+      valueArr = concatSchedule(fullArr, morningArr, afternoonArr)
 
-    putSchedlue(valueArr)
+      putSchedlue(valueArr)
 
-    setDSFdate({
-      value: null,
-      choosen: false,
-      error: null,
-    })
-    setDSFtime({
-      value: null,
-      choosen: false,
-      error: false,
-    })
+      setDSFdate({
+        value: null,
+        choosen: false,
+        error: null,
+      })
+      setDSFtime({
+        value: null,
+        choosen: false,
+        error: false,
+      })
+    }
   }
 
   return (
     <Box>
       <Paper
+        className="dsL-paper"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -223,6 +240,7 @@ function DSLeft() {
         }}
       >
         <Box
+          className="dsL-headBox"
           sx={{
             margin: '-24px 16px 0 16px',
             padding: '24px 16px',
@@ -234,7 +252,7 @@ function DSLeft() {
               'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
           }}
         >
-          <Typography variant="h5" sx={{ color: '#fff' }}>
+          <Typography className="dsL-headBox-typography" variant="h5" sx={{ color: '#fff' }}>
             New schedule
           </Typography>
         </Box>
@@ -307,7 +325,14 @@ function DSLeft() {
                     height: '24px',
                   }}
                 >
-                  <Typography variant="caption">{DSFtime.error ? '*Required' : ''}</Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: 'red',
+                    }}
+                  >
+                    {DSFtime.error ? '*Required' : ''}
+                  </Typography>
                 </Box>
               </Stack>
             </FormControl>

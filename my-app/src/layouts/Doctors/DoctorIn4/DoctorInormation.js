@@ -1,25 +1,14 @@
 import { Box } from '@mui/material'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import LPNav from '../../LandingPage/LPNav'
 import Main from './Main'
 
 const star = Math.floor(Math.random() * 5) + 1
 function DoctorInformation() {
-  const [datas, setDatas] = useState([])
+  const { doctorid } = useParams()
+  console.log(doctorid)
 
-  const callApi = async () => {
-    const res = await axios.get('https://62c65d1874e1381c0a5d833e.mockapi.io/user')
-    if (res.data) {
-      setDatas(res.data[res.data.length - 1])
-    }
-  }
-
-  useEffect(() => {
-    callApi()
-  }, [])
-
-  const Height = window.innerHeight - 1
+  const Height = window.innerHeight
   return (
     <Box
       sx={{
@@ -29,8 +18,13 @@ function DoctorInformation() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav />
-      <Main doctor={datas} star={star} />
+      <LPNav
+        tabs={[
+          { name: 'Doctor list', to: 'doctor-list' },
+          { name: 'Doctor information', to: '' },
+        ]}
+      />
+      <Main doctorid={doctorid} star={star} />
     </Box>
   )
 }

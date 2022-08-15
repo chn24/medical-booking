@@ -1,8 +1,8 @@
-import { Box, Button, Collapse, IconButton, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, Collapse, IconButton, TableCell, TableRow } from '@mui/material'
 import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import { useState } from 'react'
-import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { LoadingButton } from '@mui/lab'
 function DoctorRow(props) {
@@ -11,20 +11,15 @@ function DoctorRow(props) {
   const [button1Load, setButton1Load] = useState(false)
   const [button2Load, setButton2Load] = useState(false)
   const [open, setOpen] = useState(false)
-  const [data, setData] = useState(datas)
   const navigate = useNavigate()
-
-  const callApi = async () => {}
 
   const handleMoreIn4 = async () => {
     await setButton1Load(true)
-    await axios.post('https://62c65d1874e1381c0a5d833e.mockapi.io/user', data)
-    await navigate(`/doctor-list/${datas.id}`)
+    await navigate(`/doctor-list/doctor-information/${datas.id}`)
   }
 
   const handleBooking = async () => {
     await setButton2Load(true)
-    await axios.post('https://62c65d1874e1381c0a5d833e.mockapi.io/user', data)
     await navigate('/doctor-list/booking')
   }
 

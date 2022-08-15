@@ -1,9 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import SlideNews from './SlideNews'
 import Slider from 'react-slick'
+import Topic from './Topic'
+import LoadingPage from '../LoadingPage'
+
+import { dataState } from '../../recoil/dataState'
+import { useRecoilValue } from 'recoil'
+
 import './assets/scss/index.scss'
 import './assets/scss/responsive.scss'
-import Topic from './Topic'
 
 const slideList = [
   {
@@ -72,6 +77,7 @@ const newsList = [
 ]
 
 function Body() {
+  const loginData = useRecoilValue(dataState)
   const settings = {
     dots: true,
     infinite: true,
@@ -79,7 +85,9 @@ function Body() {
     slidesToShow: 1,
     slidesToScroll: 1,
   }
-  return (
+  return loginData.roll === '' ? (
+    <LoadingPage />
+  ) : (
     <Box
       sx={{
         padding: '3rem 2rem',

@@ -1,7 +1,8 @@
-import { Box, FormControl, Grid } from '@mui/material'
+import { Box, Button, FormControl, Grid } from '@mui/material'
 import LPNav from '../../LandingPage/LPNav'
-import DSLeft from './DSLeft'
-import DSRight from './DSRight'
+import Body from './Body'
+
+import './assets/scss/responsive.scss'
 
 function index() {
   return (
@@ -13,22 +14,8 @@ function index() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav />
-      <Box
-        sx={{
-          height: `max-content`,
-          padding: '48px 64px 0',
-        }}
-      >
-        <Grid container>
-          <Grid item xs={4}>
-            <DSLeft />
-          </Grid>
-          <Grid item xs={8}>
-            <DSRight />
-          </Grid>
-        </Grid>
-      </Box>
+      <LPNav tabs={[{ name: 'Your schedule', to: '' }]} />
+      <Body />
     </Box>
   )
 }

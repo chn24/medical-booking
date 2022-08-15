@@ -8,7 +8,7 @@
         height: 100% !important;
     }
 
-    .uh-tab-link {
+    .uh-link {
         width: 45% !important;
     }
     
@@ -16,15 +16,11 @@
 
 @media screen and (min-width:425px)  and (max-width:767px)  {
 
-    .uh-mobile-font14 {
-        font-size: 14px !important;
-    }
-
     .uh-mobile-stack {
         height: 100% !important;
     }
 
-    .uh-tab-link {
+    .uh-link {
         width: 90% !important;
     }
 }
@@ -36,8 +32,8 @@
         height: 3rem !important;
     }
 
-    .uh-Smobile-font12 {
-        font-size: 12px !important;
+    .uh-link-name {
+        width: min-content;
     }
 
     .uh-mobile-stack {
@@ -45,7 +41,7 @@
         height: 100% !important;
     }
 
-    .uh-tab-link {
+    .uh-link {
         width: 90% !important;
     }
 }

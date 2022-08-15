@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import LPNav from '../../LandingPage/LPNav'
+import Body from './Body'
 
 function index() {
   return (
@@ -11,7 +12,8 @@ function index() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav />
+      <LPNav tabs={[{ name: 'Your booking schedule', to: '' }]} />
+      <Body />
     </Box>
   )
 }

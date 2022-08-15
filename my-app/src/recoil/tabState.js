@@ -2,5 +2,10 @@ import { atom } from 'recoil'
 
 export const tabState = atom({
   key: 'tabState',
-  default: 'Home',
+  default: [
+    {
+      name: 'Home',
+      to: '',
+    },
+  ],
 })

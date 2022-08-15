@@ -1,8 +1,6 @@
 import { Box, Grid } from '@mui/material'
-import { createContext, useState } from 'react'
 import LPNav from '../../LandingPage/LPNav'
-import ProfileLeft from './ProfileLeft'
-import ProfileRight from './ProfileRight'
+import Body from './Body'
 
 function index() {
   return (
@@ -14,22 +12,9 @@ function index() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav />
-      <Box
-        sx={{
-          height: `max-content`,
-          padding: '48px 64px 48px',
-        }}
-      >
-        <Grid container>
-          <Grid item xs={9}>
-            <ProfileLeft />
-          </Grid>
-          <Grid item xs={3}>
-            <ProfileRight />
-          </Grid>
-        </Grid>
-      </Box>
+      <LPNav tabs={[{ name: 'Your profile', to: '' }]} />
+
+      <Body />
     </Box>
   )
 }

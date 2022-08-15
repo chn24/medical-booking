@@ -1,0 +1,15 @@
+@media screen  and (max-width:767px) {
+    .bsBox-header {
+        flex-direction: column !important;
+    }
+    
+    .bsBox-header-1 {
+        width: 90% !important;
+        margin: -24px 5% 0 5%;
+    }
+    
+    .bsBox-header-2 {
+        display: flex;
+        justify-content: end;
+    }
+}

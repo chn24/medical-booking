@@ -10,6 +10,7 @@
     background: linear-gradient(195deg, rgba(73, 163, 241, 0.6), rgba(26, 115, 232, 0.6)) 50%  / cover,url('../img/slidebg.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     height: 20rem;
     width: 95%;
     border-radius: 15px;
@@ -47,6 +48,7 @@
     background-image: url('../img/news.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     width: 90%;
     height: 60%;
 }

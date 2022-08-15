@@ -26,9 +26,9 @@ const serviceList = [
   },
   {
     id: 3,
-    name: 'Pharmacies',
-    detail: 'Finding the nearest pharmacy',
-    to: '',
+    name: 'Booking schedules',
+    detail: 'Your booking schdules',
+    to: 'your-booking',
     linear: 'linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))',
     icon: <LocalPharmacyIcon sx={{ color: '#fff', fontWeight: '500' }} />,
   },
@@ -38,7 +38,6 @@ function index() {
   return (
     <Box
       sx={{
-        height: `${Height}px`,
         minHeight: `${Height}px`,
         boxSizing: 'border-box',
         padding: '32px',
@@ -61,18 +60,19 @@ function index() {
           return (
             <NavLink
               to={service.to}
-              className="uh-tab-link uh-tab-link"
+              className="uh-link "
               style={{
                 textDecoration: 'none',
                 width: '30%',
+                height: '150px',
+                margin: '15px 0',
               }}
               key={service.id}
             >
               <Paper
                 sx={{
                   width: '100%',
-                  height: '75%',
-                  margin: '15px 0',
+                  height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
                   boxShadow:
@@ -105,7 +105,7 @@ function index() {
                     {service.icon}
                   </Box>
                   <Box>
-                    <Typography variant="subtitle1" color={'rgb(123, 128, 154)'}>
+                    <Typography className="uh-link-name" variant="subtitle1" color={'rgb(123, 128, 154)'}>
                       {service.name}
                     </Typography>
                   </Box>
@@ -123,7 +123,7 @@ function index() {
                     boxSizing: 'border-box',
                   }}
                 >
-                  <Typography variant="h6" className="uh-tab-font16 uh-mobile-font14 uh-Smobile-font12">
+                  <Typography variant="subtitle1" className="uh-tab-font16 ">
                     {service.detail}
                   </Typography>
                 </Box>

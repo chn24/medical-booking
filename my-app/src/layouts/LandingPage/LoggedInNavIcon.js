@@ -10,7 +10,7 @@ import { tabState } from '../../recoil/tabState'
 import { profileTab } from '../../recoil/profileTab'
 
 function LoggedInNavIcon() {
-  const setIsLogin = useSetRecoilState(loginState)
+  const resetIsLogin = useResetRecoilState(loginState)
   const navigate = useNavigate()
   const resetLoginData = useResetRecoilState(dataState)
   const restProileTab = useResetRecoilState(profileTab)
@@ -18,7 +18,7 @@ function LoggedInNavIcon() {
   const setDefaultTabName = useResetRecoilState(tabState)
 
   const handleClick = () => {
-    setIsLogin(false)
+    resetIsLogin()
     resetLoginData()
     setDefaultTabName()
     restProileTab()
