@@ -31,8 +31,9 @@ function BookingRight() {
             padding: '16px',
           }}
         >
-          <Stack>
+          <Stack className="bR-stack">
             <Box
+              className="bookingR-img"
               sx={{
                 display: 'flex',
                 justifyContent: 'center',

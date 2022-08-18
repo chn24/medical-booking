@@ -1,11 +1,42 @@
 import { Button, Divider, Paper, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { useLocation, useSearchParams } from 'react-router-dom'
+
 import './assets/scss/index.scss'
-import { profileTab } from '../../../recoil/profileTab'
-import { useRecoilState } from 'recoil'
+import { TabContext } from './Body'
+import { useContext, useEffect } from 'react'
 
 function ProfileRight() {
-  const [profileTabData, setProfileTabData] = useRecoilState(profileTab)
+  const tabContext = useContext(TabContext)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const a = useLocation()
+
+  useEffect(() => {
+    a.search === '?tab=profile' || a.search === '' ? tabContext.setTab('profile') : tabContext.setTab('comment')
+  }, [a.search])
+
+  const handleTabProfile = () => {
+    setSearchParams({ tab: 'profile' })
+  }
+
+  const handleTabComments = () => {
+    setSearchParams({ tab: 'comment' })
+  }
+
+  // const useNavigateParams = () => {
+  //   const navigate = useNavigate()
+
+  //   return (url, params) => {
+  //     const path = generatePath(':url?:queryString', {
+  //       url,
+  //       queryString: params,
+  //     })
+  //     navigate(path)
+  //   }
+  // }
+
+  // const navigate = useNavigateParams()
+
   return (
     <Box
       sx={{
@@ -38,21 +69,13 @@ function ProfileRight() {
         </Box>
         <Stack>
           <Box>
-            <Button
-              disabled={profileTabData === 'profile'}
-              className="options-button"
-              onClick={() => setProfileTabData('profile')}
-            >
+            <Button disabled={tabContext.tab === 'profile'} className="options-button" onClick={handleTabProfile}>
               Profile
             </Button>
             <Divider />
           </Box>
           <Box>
-            <Button
-              disabled={profileTabData === 'comment'}
-              className="options-button"
-              onClick={() => setProfileTabData('comment')}
-            >
+            <Button disabled={tabContext.tab === 'comment'} className="options-button" onClick={handleTabComments}>
               Comments
             </Button>
             <Divider />

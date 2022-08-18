@@ -10,6 +10,7 @@ import ava3 from './assets/img/ava3.png'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { CommentsContext } from './ProfileLeft'
+import Options from './Options'
 
 const avaList = [ava1, ava2, ava3]
 
@@ -32,97 +33,108 @@ function CommentTab() {
   }, [])
 
   return (
-    <Fade
-      in={profileTabData === 'comment'}
-      mountOnEnter
-      unmountOnExit
-      {...(profileTabData === 'comment' ? { timeout: 1000 } : {})}
-    >
-      <Stack>
-        <Box
+    <Stack>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar
+          alt="avatar"
+          src={ava}
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar
-            alt="avatar"
-            src={ava}
-            sx={{
-              width: '5rem',
-              height: 'auto',
-            }}
-          />
-          <Stack
-            sx={{
-              padding: '0 0 0 1.5rem',
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'rgb(52, 71, 103)',
-              }}
-            >
-              {loginData.information.name}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                color: 'rgb(123, 128, 154)',
-              }}
-            >
-              Doctor
-            </Typography>
-          </Stack>
-        </Box>
-        <Divider
-          sx={{
-            margin: '1rem 0',
+            width: '5rem',
+            height: 'auto',
           }}
         />
-        <Stack>
-          {context.comments.map((comment) => {
-            return (
-              <Grid
-                key={comment.id}
-                container
+        <Stack
+          sx={{
+            padding: '0 0 0 1.5rem',
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'rgb(52, 71, 103)',
+            }}
+          >
+            {loginData.information.name}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: 'rgb(123, 128, 154)',
+            }}
+          >
+            Doctor
+          </Typography>
+        </Stack>
+      </Box>
+      <Options />
+      <Divider
+        sx={{
+          margin: '1rem 0',
+        }}
+      />
+      <Stack>
+        {context.comments.map((comment) => {
+          return (
+            <Box
+              key={comment.id}
+              sx={{
+                display: 'flex',
+                marginTop: '16px',
+              }}
+            >
+              <Box
+                className="comment-ava-box"
                 sx={{
-                  margin: '1rem 0',
+                  width: 'max-content',
+                  display: 'flex',
+                  justifyContent: 'end',
+                  padding: '0 16px',
+                  boxSizing: 'border-box',
                 }}
               >
-                <Grid
-                  item
-                  xs={2}
+                <Avatar
+                  className="comment-ava"
+                  alt={`user-${comment.id}`}
+                  src={avaList[Math.floor(Math.random() * 3)]}
+                />
+              </Box>
+              <Box
+                sx={{
+                  width: '75%',
+                }}
+              >
+                <Paper
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'end',
-                    padding: '0 16px',
-                    boxSizing: 'border-box',
+                    padding: '15px',
+                    background: 'linear-gradient(195deg, rgb(235, 239, 244), rgb(206, 212, 218))',
+                    borderRadius: '15px',
                   }}
                 >
-                  <Avatar alt={`user-${comment.id}`} src={avaList[Math.floor(Math.random() * 3)]} />
-                </Grid>
-                <Grid item xs={9}>
-                  <Paper
-                    sx={{
-                      padding: '15px',
-                      background: 'linear-gradient(195deg, rgb(235, 239, 244), rgb(206, 212, 218))',
-                      borderRadius: '15px',
-                    }}
-                  >
-                    <Typography variant="overline">{`user ${comment.id + 1}`}</Typography>
-                    <Typography variant="body1">{`${comment.body}`}</Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            )
-          })}
-        </Stack>
+                  <Typography variant="overline">{`user ${comment.id}`}</Typography>
+                  <Typography className="comment-detail" variant="body1">{`${comment.body}`}</Typography>
+                </Paper>
+              </Box>
+            </Box>
+          )
+        })}
       </Stack>
-    </Fade>
+    </Stack>
   )
 }
 
 export default CommentTab
+// <Fade
+//   in={profileTabData === 'comment'}
+//   mountOnEnter
+//   unmountOnExit
+//   {...(profileTabData === 'comment' ? { timeout: 1000 } : {})}
+// >
+{
+  /* </Fade> */
+}

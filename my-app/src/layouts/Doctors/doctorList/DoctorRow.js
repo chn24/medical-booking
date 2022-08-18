@@ -35,7 +35,7 @@ function DoctorRow(props) {
         <TableCell align="left" key={`email-${datas.id}`}>
           {datas.email}
         </TableCell>
-        <TableCell align="left" key={`phone-${datas.id}`}>
+        <TableCell className="mobile-hide" align="left" key={`phone-${datas.id}`}>
           {datas.phone}
         </TableCell>
         <TableCell align="left" key={`button-${datas.id}`}>

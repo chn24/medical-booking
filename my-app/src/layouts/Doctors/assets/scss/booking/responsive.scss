@@ -1,0 +1,68 @@
+@media screen and  (max-width:767px) {
+    .booking-box {
+        padding: 64px 0 32px !important;
+    }
+
+    .booking-container {
+        flex-direction: column-reverse;
+    }
+    .booking-box-1 {
+        margin-top: 68px;
+    }
+
+    .booking-item {
+        width: 100% !important;
+    }
+
+    .bR-stack {
+        flex-direction: row !important;
+    }
+
+    .bookingR-img {
+        width: 45%;
+    }
+
+//------------------------------------------------------Information form
+
+
+
+//------------------------------------------------------Booking form
+
+//------------------------------------------------------Booking complete
+
+    .b-complete-title {
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and  (max-width:554px) {
+    .booking-mobile-dis-none {
+        display: none !important;
+    }
+
+    .bookg-complete-form {
+        width: 100% !important;
+    }
+}
+
+@media screen and  (max-width:424px) {
+
+//------------------------------------------------------Information form
+
+    .b-stepper {
+        width: 100% !important;
+    }
+
+    .b-container {
+        display: flex;
+        flex-direction: column !important;
+    }   
+
+    .b-item {
+        width: 100% !important;
+    }
+
+    .form-btn {
+        position: relative !important;
+    }
+}

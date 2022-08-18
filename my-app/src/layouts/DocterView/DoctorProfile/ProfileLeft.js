@@ -1,20 +1,17 @@
 import { Box } from '@mui/material'
 import './assets/scss/index.scss'
-import { profileTab } from '../../../recoil/profileTab'
-import { useRecoilValue } from 'recoil'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 import InformtionTab from './InformationTab'
 import CommentTab from './CommentTab'
-import { createSearchParams, useSearchParams } from 'react-router-dom'
+
+import { TabContext } from './Body'
 
 export const CommentsContext = createContext()
 
 function ProfileLeft() {
-  const profileTabData = useRecoilValue(profileTab)
+  const tabContext = useContext(TabContext)
   const [comments, setComments] = useState([])
-
-  const [searchParams, setSearchParams] = useSearchParams()
 
   // useEffect(() => {
   //   profileTabData === 'profile'
@@ -31,6 +28,7 @@ function ProfileLeft() {
       <Box>
         <Box id="profileBg"></Box>
         <Box
+          className="profile-content"
           sx={{
             padding: '1.5rem',
             margin: '-4rem 1.5rem 0',
@@ -41,7 +39,7 @@ function ProfileLeft() {
             borderRadius: '15px',
           }}
         >
-          {profileTabData === 'profile' ? <InformtionTab /> : <CommentTab />}
+          {tabContext.tab === 'profile' ? <InformtionTab /> : <CommentTab />}
         </Box>
       </Box>
     </CommentsContext.Provider>

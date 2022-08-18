@@ -20,6 +20,8 @@ import DoctorRow from './DoctorRow'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
+import '../assets/scss/doctorList/responsive.scss'
+
 const list = [
   {
     name: 'Id',
@@ -68,6 +70,7 @@ function DoctorList() {
 
   return (
     <Box
+      className="table-box"
       sx={{
         height: `max-content`,
         padding: '48px 64px 32px',
@@ -108,11 +111,13 @@ function DoctorList() {
             <Table stickyHeader={true}>
               <TableHead>
                 <TableRow>
-                  {list.map((listItem, index) => (
-                    <TableCell align="left" key={index}>
-                      {listItem.name}
-                    </TableCell>
-                  ))}
+                  <TableCell align="left">Id</TableCell>
+                  <TableCell align="left">Name</TableCell>
+                  <TableCell align="left">Email</TableCell>
+                  <TableCell className="mobile-hide" align="left">
+                    Phone number
+                  </TableCell>
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

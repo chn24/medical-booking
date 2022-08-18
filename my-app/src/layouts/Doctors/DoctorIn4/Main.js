@@ -20,17 +20,23 @@ function Main(props) {
   const loginData = useRecoilValue(dataState)
 
   const callApi = async () => {
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${doctorid}`)
-    if (res.data) {
-      setDoctor(res.data)
-    }
+    await axios
+      .get(`https://jsonplaceholder.typicode.com/users/${doctorid}`)
+      .then((response) => {
+        setDoctor(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   useEffect(() => {
-    callApi()
-  }, [])
+    if (doctorid !== undefined) {
+      callApi()
+    }
+  }, [doctorid])
 
-  return doctor === [] || loginData.roll === '' ? (
+  return doctorid === undefined || loginData.roll === '' ? (
     <LoadingPage />
   ) : (
     <Box>

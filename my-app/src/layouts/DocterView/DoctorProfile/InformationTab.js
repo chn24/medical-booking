@@ -2,6 +2,7 @@ import { Fade } from '@mui/material'
 import { Avatar, Box, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import Options from './Options'
 
 import './assets/scss/index.scss'
 import ava from './assets/img/ava.jpg'
@@ -162,6 +163,7 @@ function InformtionTab() {
         sx={{
           display: 'flex',
           flexDirection: 'row',
+          flexWrap: 'wrap',
           alignItems: 'center',
         }}
       >
@@ -234,6 +236,7 @@ function InformtionTab() {
           </Button>
         )}
       </Box>
+      <Options />
       <Divider
         sx={{
           margin: '1rem 0',

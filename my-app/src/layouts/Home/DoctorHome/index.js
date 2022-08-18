@@ -22,7 +22,7 @@ const services = [
   {
     id: 2,
     title: 'Doctor list',
-    detail: 'Doctor detail',
+    detail: 'Doctor list',
     to: 'doctor-list',
     linear: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
     icon: <GroupIcon sx={{ color: '#fff', fontWeight: '500' }} />,
@@ -65,6 +65,7 @@ const Height = window.innerHeight - 86.6 - 64
 function index() {
   return (
     <Box
+      className="doctorhome-box"
       sx={{
         minHeight: `${Height}px`,
         boxSizing: 'border-box',

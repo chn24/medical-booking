@@ -11,10 +11,14 @@ function CommentTab() {
   const context = useContext(DocIn4Context)
 
   const callApi = async () => {
-    var res = await axios.get(`https://jsonplaceholder.typicode.com/posts/${context.docId}/comments`)
-    if (res.data) {
-      context.setComments(res.data)
-    }
+    var res = await axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${context.docId}/comments`)
+      .then((response) => {
+        context.setComments(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   useEffect(() => {

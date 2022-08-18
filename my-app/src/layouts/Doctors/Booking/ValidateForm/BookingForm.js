@@ -298,17 +298,17 @@ function BookingForm(props) {
         <Typography variant="h5">Doctor Booking</Typography>
       </Box>
       <Box
+        className="b-container"
         component="form"
         sx={{
           '& > :not(style)': { m: 1 },
           position: 'relative',
-          // display:'flex',
-          // flexDirection: 'column'
         }}
         noValidate
         autoComplete="off"
       >
         <FormControl
+          className="b-item margin1"
           sx={{
             width: '50%',
           }}
@@ -338,6 +338,7 @@ function BookingForm(props) {
           </Stack>
         </FormControl>
         <FormControl
+          className="b-item margin1"
           sx={{
             width: '40%',
           }}
@@ -372,6 +373,7 @@ function BookingForm(props) {
           </Stack>
         </FormControl>
         <FormControl
+          className="b-item margin1"
           sx={{
             width: '30%',
           }}

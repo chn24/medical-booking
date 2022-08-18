@@ -89,6 +89,8 @@ function Body() {
     <Box
       sx={{
         marginTop: '32px',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <Paper

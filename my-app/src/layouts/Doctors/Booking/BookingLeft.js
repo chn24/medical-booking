@@ -104,6 +104,7 @@ function BookingLeft() {
               }}
             >
               <Stepper
+                className="b-stepper"
                 activeStep={activeStep}
                 sx={{
                   width: '70%',

@@ -2,29 +2,40 @@ import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Paper, Tab } from '@mui/material'
 import { Box } from '@mui/system'
 import { createContext, useEffect, useState } from 'react'
-import { createSearchParams, useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import CommentTab from './CommentTab'
 
 export const DocIn4Context = createContext()
 
 function InformationRight(props) {
   const { docId } = props
+  const { search } = useLocation()
   const [tab, setTab] = useState('1')
   const [comments, setComments] = useState([])
   const [schedule, setSchedule] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
 
+  // const useNavigateParams = () => {
+  //   const navigate = useNavigate()
+
+  //   return (url, params) => {
+  //     const path = generatePath(':url?:queryString', {
+  //       url,
+  //       queryString: params,
+  //     })
+  //     navigate(path)
+  //   }
+  // }
+
+  // const navigate = useNavigateParams()
+
+  useEffect(() => {
+    search === '?tab=schedule' || search === '' ? setTab('1') : setTab('2')
+  }, [search])
+
   const handleChange = (event, newValue) => {
-    setTab(newValue)
+    newValue === '1' ? setSearchParams({ tab: 'schedule' }) : setSearchParams({ tab: 'comments' })
   }
-
-  // useEffect(() => {
-  //   tab === '1'
-  //     ? setSearchParams(createSearchParams({ tab: 'schedule' }))
-  //     : setSearchParams(createSearchParams({ tab: 'comments' }))
-  // }, [tab])
-
-  // console.log(searchParams)
 
   return (
     <DocIn4Context.Provider value={{ docId, comments, setComments, schedule, setSchedule }}>

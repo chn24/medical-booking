@@ -2,6 +2,8 @@ import { Box } from '@mui/material'
 import LPNav from '../../LandingPage/LPNav'
 import BookingRoot from './BookingRoot'
 
+import '../assets/scss/booking/responsive.scss'
+
 function Booking() {
   return (
     <Box

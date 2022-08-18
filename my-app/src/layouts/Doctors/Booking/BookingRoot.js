@@ -2,22 +2,40 @@ import { Box, Grid } from '@mui/material'
 import BookingLeft from './BookingLeft'
 import BookingRight from './BookingRight'
 
+import '../assets/scss/booking/responsive.scss'
+
 function BookingRoot() {
   return (
     <Box
+      className="booking-box"
       sx={{
         padding: '64px 32px 32px',
         boxSizing: 'content-box',
       }}
     >
-      <Grid container>
-        <Grid item xs={8}>
+      <Box
+        className="booking-container"
+        sx={{
+          display: 'flex',
+        }}
+      >
+        <Box
+          className="booking-item booking-box-1"
+          sx={{
+            width: '67%',
+          }}
+        >
           <BookingLeft />
-        </Grid>
-        <Grid item xs={4}>
+        </Box>
+        <Box
+          className="booking-item"
+          sx={{
+            width: '33%',
+          }}
+        >
           <BookingRight />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }

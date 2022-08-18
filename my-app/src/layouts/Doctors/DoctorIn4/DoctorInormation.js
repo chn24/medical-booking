@@ -6,7 +6,6 @@ import Main from './Main'
 const star = Math.floor(Math.random() * 5) + 1
 function DoctorInformation() {
   const { doctorid } = useParams()
-  console.log(doctorid)
 
   const Height = window.innerHeight
   return (
