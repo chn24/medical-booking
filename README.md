@@ -1,6 +1,7 @@
 # medical-booking :
 
     - Là website đặt lịch khám bác sĩ
+    - Đã deploy lên Vercel : https://medical-booking.vercel.app/
 
 # Các framework sử dụng :
 
