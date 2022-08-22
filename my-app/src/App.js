@@ -27,37 +27,37 @@ function App() {
 
   const getDoctorData = async (index) => {
     const information = await axios.get(`https://jsonplaceholder.typicode.com/users/${index}`)
-    const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
-    if (schedule.data) {
-      let arr = schedule.data.dates
-      let fullArr = []
-      let morningArr = []
-      let afternoonArr = []
-      for (let key in arr) {
-        switch (arr[key].time) {
-          case 'Full':
-            fullArr.splice(fullArr.length, 0, arr[key].date)
-            break
-          case 'Morning':
-            morningArr.splice(morningArr.length, 0, arr[key].date)
-            break
-          default:
-            afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
-            break
-        }
-      }
-      setLoginData({
-        information: information.data,
-        roll: 'Doctor',
-        schedule: {
-          value: schedule.data.dates,
-          full: fullArr,
-          morning: morningArr,
-          afternoon: afternoonArr,
-        },
-        booking: schedule.data.bookings,
-      })
-    }
+    // const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
+    // if (schedule.data) {
+    //   let arr = schedule.data.dates
+    //   let fullArr = []
+    //   let morningArr = []
+    //   let afternoonArr = []
+    //   for (let key in arr) {
+    //     switch (arr[key].time) {
+    //       case 'Full':
+    //         fullArr.splice(fullArr.length, 0, arr[key].date)
+    //         break
+    //       case 'Morning':
+    //         morningArr.splice(morningArr.length, 0, arr[key].date)
+    //         break
+    //       default:
+    //         afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
+    //         break
+    //     }
+    //   }
+    // }
+    setLoginData({
+      information: information.data,
+      roll: 'Doctor',
+      // schedule: {
+      //   value: schedule.data.dates,
+      //   full: fullArr,
+      //   morning: morningArr,
+      //   afternoon: afternoonArr,
+      // },
+      // booking: schedule.data.bookings,
+    })
   }
 
   const getUserData = async (index) => {

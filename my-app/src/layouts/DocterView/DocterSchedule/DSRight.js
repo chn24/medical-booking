@@ -15,7 +15,8 @@ import TRow from './TRow'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
-function DSRight() {
+function DSRight(props) {
+  const { schedules, setSchedules } = props
   const loginData = useRecoilValue(dataState)
   const [page, setPage] = useState(0)
 
@@ -70,7 +71,7 @@ function DSRight() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {loginData.schedule.value.slice(page * 5, page * 5 + 5).map((schedule, index) => (
+                {schedules.value.slice(page * 5, page * 5 + 5).map((schedule, index) => (
                   <TRow key={index} schedule={schedule} id={index} />
                 ))}
               </TableBody>
@@ -79,7 +80,7 @@ function DSRight() {
               rowsPerPageOptions={[5]}
               rowsPerPage={5}
               component="div"
-              count={loginData.schedule.value.length}
+              count={schedules.value.length}
               page={page}
               onPageChange={handleChangePage}
             />

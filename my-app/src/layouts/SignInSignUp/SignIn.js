@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, OutlinedInput, Typography } from '@mui/material'
+import { Box, FormControl, Grid, IconButton, OutlinedInput, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import SignInAlert from './SignInAlert'
 import axios from 'axios'
 import './assets/scss/signIn.scss'
+import HomeIcon from '@mui/icons-material/Home'
 
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
@@ -48,41 +49,42 @@ function SignIn() {
 
   const getDoctorData = async (index) => {
     const information = await axios.get(`https://jsonplaceholder.typicode.com/users/${index}`)
-    const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
-    if (schedule.data) {
-      let arr = schedule.data.dates
-      let fullArr = []
-      let morningArr = []
-      let afternoonArr = []
-      for (let key in arr) {
-        switch (arr[key].time) {
-          case 'Full':
-            fullArr.splice(fullArr.length, 0, arr[key].date)
-            break
-          case 'Morning':
-            morningArr.splice(morningArr.length, 0, arr[key].date)
-            break
-          default:
-            afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
-            break
-        }
-      }
-      setLoginData({
-        information: information.data,
-        roll: 'Doctor',
-        schedule: {
-          value: schedule.data.dates,
-          full: fullArr,
-          morning: morningArr,
-          afternoon: afternoonArr,
-        },
-        booking: schedule.data.bookings,
-      })
-      setIsLogin({
-        login: true,
-        id: index,
-      })
-    }
+    // const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
+    // if (schedule.data) {
+    //   let arr = schedule.data.dates
+    //   let fullArr = []
+    //   let morningArr = []
+    //   let afternoonArr = []
+    //   for (let key in arr) {
+    //     switch (arr[key].time) {
+    //       case 'Full':
+    //         fullArr.splice(fullArr.length, 0, arr[key].date)
+    //         break
+    //       case 'Morning':
+    //         morningArr.splice(morningArr.length, 0, arr[key].date)
+    //         break
+    //       default:
+    //         afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
+    //         break
+    //     }
+    //   }
+
+    // }
+    setLoginData({
+      information: information.data,
+      roll: 'Doctor',
+      // schedule: {
+      //   value: schedule.data.dates,
+      //   full: fullArr,
+      //   morning: morningArr,
+      //   afternoon: afternoonArr,
+      // },
+      // booking: schedule.data.bookings,
+    })
+    setIsLogin({
+      login: true,
+      id: index,
+    })
 
     navigate('/')
   }
@@ -179,6 +181,10 @@ function SignIn() {
     }
   }
 
+  const handleHomeClick = () => {
+    navigate('/')
+  }
+
   return (
     <div className="sign-In">
       <Box
@@ -199,117 +205,127 @@ function SignIn() {
         >
           <Box className="sI-bg"></Box>
         </Box>
-        <Box
-          className="sI-item"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-            backgroundColor: 'rgb(240, 242, 245)',
-          }}
-        >
-          <Box className="sI-res-form" sx={{ width: '50%', position: 'relative' }}>
-            <SignInAlert in={usernameAlert} changeAlert={setUsernameAlert} title={'Username required'} />
-            <SignInAlert in={passwordAlert} changeAlert={setPasswordAlert} title={'Password required'} />
-            <SignInAlert in={error} changeAlert={setError} title={'Login fail'} />
-            <Typography variant="h4" margin={'8px'} fontWeight="700">
-              Account Login
-            </Typography>
-            <Typography variant="subtitle2" align="justify" color={'#8692A6'} margin={'8px'}>
-              If you are already a member you can login with your email address and password.
-            </Typography>
-            <Box
-              component="form"
-              sx={{
-                '& > :not(style)': { m: 1 },
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <FormControl
+        <Box className="sI-item">
+          <Box
+            sx={{
+              padding: '16px',
+            }}
+          >
+            <IconButton onClick={handleHomeClick}>
+              <HomeIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              backgroundColor: 'rgb(240, 242, 245)',
+            }}
+          >
+            <Box className="sI-res-form" sx={{ width: '50%', position: 'relative' }}>
+              <SignInAlert in={usernameAlert} changeAlert={setUsernameAlert} title={'Username required'} />
+              <SignInAlert in={passwordAlert} changeAlert={setPasswordAlert} title={'Password required'} />
+              <SignInAlert in={error} changeAlert={setError} title={'Login fail'} />
+              <Typography variant="h4" margin={'8px'} fontWeight="700">
+                Account Login
+              </Typography>
+              <Typography variant="subtitle2" align="justify" color={'#8692A6'} margin={'8px'}>
+                If you are already a member you can login with your email address and password.
+              </Typography>
+              <Box
+                component="form"
                 sx={{
-                  margin: '0 5px',
+                  '& > :not(style)': { m: 1 },
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
+                noValidate
+                autoComplete="off"
               >
-                <Box
+                <FormControl
                   sx={{
-                    width: '100%',
-                    height: '20px',
-                  }}
-                ></Box>
-                <Typography variant="subtitle1">Username</Typography>
-                <OutlinedInput
-                  placeholder="Username"
-                  error={username.error}
-                  value={username.value}
-                  onChange={(e) =>
-                    setUsername({
-                      ...username,
-                      changed: true,
-                      value: e.target.value,
-                    })
-                  }
-                />
-              </FormControl>
-              <FormControl
-                sx={{
-                  margin: '0 5px',
-                }}
-              >
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: '20px',
-                  }}
-                ></Box>
-                <Typography variant="subtitle1">Password</Typography>
-                <OutlinedInput
-                  placeholder="Password"
-                  type="password"
-                  error={password.error}
-                  value={password.value}
-                  onChange={(e) =>
-                    setPassword({
-                      ...password,
-                      changed: true,
-                      value: e.target.value,
-                    })
-                  }
-                />
-              </FormControl>
-              <LoadingButton
-                variant="contained"
-                loading={loading}
-                sx={{
-                  height: '56px',
-                }}
-                onClick={handleClick}
-              >
-                Login
-              </LoadingButton>
-
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  textAlign: 'center',
-                  color: '#696F79',
-                }}
-              >
-                Don't have an account ?
-                <NavLink
-                  to="/signUp"
-                  style={{
-                    textDecoration: 'none',
-                    color: '#2C73EB',
+                    margin: '0 5px',
                   }}
                 >
-                  Sign up here
-                </NavLink>
-              </Typography>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '20px',
+                    }}
+                  ></Box>
+                  <Typography variant="subtitle1">Username</Typography>
+                  <OutlinedInput
+                    placeholder="Username"
+                    error={username.error}
+                    value={username.value}
+                    onChange={(e) =>
+                      setUsername({
+                        ...username,
+                        changed: true,
+                        value: e.target.value,
+                      })
+                    }
+                  />
+                </FormControl>
+                <FormControl
+                  sx={{
+                    margin: '0 5px',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '20px',
+                    }}
+                  ></Box>
+                  <Typography variant="subtitle1">Password</Typography>
+                  <OutlinedInput
+                    placeholder="Password"
+                    type="password"
+                    error={password.error}
+                    value={password.value}
+                    onChange={(e) =>
+                      setPassword({
+                        ...password,
+                        changed: true,
+                        value: e.target.value,
+                      })
+                    }
+                  />
+                </FormControl>
+                <LoadingButton
+                  variant="contained"
+                  loading={loading}
+                  sx={{
+                    height: '56px',
+                  }}
+                  onClick={handleClick}
+                >
+                  Login
+                </LoadingButton>
+
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    textAlign: 'center',
+                    color: '#696F79',
+                  }}
+                >
+                  Don't have an account ?
+                  <NavLink
+                    to="/signUp"
+                    style={{
+                      textDecoration: 'none',
+                      color: '#2C73EB',
+                    }}
+                  >
+                    Sign up here
+                  </NavLink>
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>

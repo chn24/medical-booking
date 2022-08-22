@@ -12,7 +12,8 @@ import { concatSchedule } from '../../../function/concatSchedule'
 
 const times = ['Morning', 'Afternoon']
 
-function DSLeft() {
+function DSLeft(props) {
+  const { schedules, setSchedules } = props
   const [loginData, setLoginData] = useRecoilState(dataState)
 
   const [DSFdate, setDSFdate] = useState({
@@ -33,7 +34,7 @@ function DSLeft() {
 
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
     const stringifiedDate = moment(date).format('YYYY-MM-DD')
-    if (loginData.schedule.full.includes(stringifiedDate)) {
+    if (schedules.full.includes(stringifiedDate)) {
       return <PickersDay {...pickersDayProps} disabled />
     }
     return <PickersDay {...pickersDayProps} />
@@ -43,9 +44,9 @@ function DSLeft() {
     if (DSFdate.value !== null) {
       const stringifiedDate = moment(DSFdate.value).format('YYYY-MM-DD')
       var timesArr = []
-      if (loginData.schedule.morning.includes(stringifiedDate)) {
+      if (schedules.morning.includes(stringifiedDate)) {
         timesArr = ['Afternoon']
-      } else if (loginData.schedule.afternoon.includes(stringifiedDate)) {
+      } else if (schedules.afternoon.includes(stringifiedDate)) {
         timesArr = ['Morning']
       } else {
         timesArr = times
@@ -161,6 +162,13 @@ function DSLeft() {
         }
       }
 
+      setSchedules({
+        value: array,
+        full: fullArr,
+        morning: morningArr,
+        afternoon: afternoonArr,
+      })
+
       setLoginData({
         ...loginData,
         schedule: {
@@ -190,9 +198,9 @@ function DSLeft() {
     }
     if (DSFtime.choosen && !DSFtime.error && DSFdate.choosen && !DSFdate.error) {
       const stringifiedDate = moment(DSFdate.value).format('YYYY-MM-DD')
-      let fullArr = [...loginData.schedule.full]
-      let morningArr = [...loginData.schedule.morning]
-      let afternoonArr = [...loginData.schedule.afternoon]
+      let fullArr = [...schedules.full]
+      let morningArr = [...schedules.morning]
+      let afternoonArr = [...schedules.afternoon]
       let valueArr = []
       if (DSFtime.value === 'Afternoon') {
         let index = morningArr.indexOf(stringifiedDate)

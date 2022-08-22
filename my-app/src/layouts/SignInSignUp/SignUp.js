@@ -5,6 +5,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  IconButton,
   OutlinedInput,
   TextField,
 } from '@mui/material'
@@ -13,6 +14,8 @@ import { Box, Grid, Typography } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import HomeIcon from '@mui/icons-material/Home'
+
 import HP from '../assets/image/HealthProfessional.png'
 import './assets/scss/signUp.scss'
 
@@ -167,6 +170,10 @@ function SignUp() {
     }
   }
 
+  const handleHomeClick = () => {
+    navigate('/')
+  }
+
   return (
     <div>
       <Box
@@ -188,131 +195,143 @@ function SignUp() {
         >
           <Box className="sU-bg"></Box>
         </Box>
-        <Box
-          className="sU-item "
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgb(240, 242, 245)',
-          }}
-        >
+        <Box className="sU-item ">
           <Box
-            component="form"
-            className="sU-res-form"
             sx={{
-              width: '55%',
-              '& > :not(style)': { m: 1 },
+              padding: '16px',
+            }}
+          >
+            <IconButton onClick={handleHomeClick}>
+              <HomeIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
               display: 'flex',
               flexDirection: 'column',
-              padding: '36px 0',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgb(240, 242, 245)',
             }}
-            noValidate
-            autoComplete="off"
           >
-            <Typography variant="h4" fontWeight={700}>
-              Account sign up
-            </Typography>
-            <Typography variant="subtitle2" align="justify" color={'#8692A6'}>
-              Become a member and enjoy exclusive promotions.
-            </Typography>
-            <FormControl>
-              <Typography variant="subtitle2">Username</Typography>
-              <OutlinedInput
-                placeholder="Username"
-                error={username.error}
-                value={username.value}
-                onChange={(e) => handleUsernameChange(e)}
-              ></OutlinedInput>
-              <Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!username.changed ? '#8692A6' : `${username.error ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  {'Length: >=6 and <=22'}
-                </Typography>
-              </Box>
-            </FormControl>
-            <FormControl>
-              <Typography variant="subtitle2">Password</Typography>
-              <OutlinedInput
-                placeholder="Password"
-                type="password"
-                error={password.error.isError}
-                value={password.value}
-                onChange={(e) => handlePassChange(e)}
-              ></OutlinedInput>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!password.changed ? '#8692A6' : `${password.error.length ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  {'Length: >=9 and <=22'}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!password.changed ? '#8692A6' : `${password.error.specialLetter ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  Need 1 special letter
-                </Typography>
-              </Box>
-            </FormControl>
-            <FormControl>
-              <Typography variant="subtitle2">Email</Typography>
-              <OutlinedInput
-                placeholder="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></OutlinedInput>
-            </FormControl>
-            <FormControl>
-              <Box>
-                <Typography variant="subtitle2">Gender</Typography>
-                <FormGroup
+            <Box
+              component="form"
+              className="sU-res-form"
+              sx={{
+                width: '55%',
+                '& > :not(style)': { m: 1 },
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '36px 0',
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <Typography variant="h4" fontWeight={700}>
+                Account sign up
+              </Typography>
+              <Typography variant="subtitle2" align="justify" color={'#8692A6'}>
+                Become a member and enjoy exclusive promotions.
+              </Typography>
+              <FormControl>
+                <Typography variant="subtitle2">Username</Typography>
+                <OutlinedInput
+                  placeholder="Username"
+                  error={username.error}
+                  value={username.value}
+                  onChange={(e) => handleUsernameChange(e)}
+                ></OutlinedInput>
+                <Box>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: `${!username.changed ? '#8692A6' : `${username.error ? 'red' : '#00b004'}`}`,
+                    }}
+                  >
+                    {'Length: >=6 and <=22'}
+                  </Typography>
+                </Box>
+              </FormControl>
+              <FormControl>
+                <Typography variant="subtitle2">Password</Typography>
+                <OutlinedInput
+                  placeholder="Password"
+                  type="password"
+                  error={password.error.isError}
+                  value={password.value}
+                  onChange={(e) => handlePassChange(e)}
+                ></OutlinedInput>
+                <Box
                   sx={{
                     display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
+                    flexDirection: 'column',
                   }}
                 >
-                  <FormControlLabel
-                    control={<Checkbox checked={gender === 'male' ? true : false} onChange={() => setGender('male')} />}
-                    label="Male"
-                  ></FormControlLabel>
-                  <FormControlLabel
-                    control={
-                      <Checkbox checked={gender === 'female' ? true : false} onChange={() => setGender('female')} />
-                    }
-                    label="Female"
-                  ></FormControlLabel>
-                </FormGroup>
-              </Box>
-              <Box>
-                <Typography variant="subtitle2">Role</Typography>
-                <Autocomplete
-                  options={roles}
-                  value={role.value}
-                  onChange={(event, newValue) => handleRoleChange(event, newValue)}
-                  renderInput={(params) => <TextField {...params} placeholder="Role" />}
-                />
-              </Box>
-            </FormControl>
-            <Button variant="contained" sx={{ height: '56px' }} onClick={handleRegister}>
-              Register
-            </Button>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: `${!password.changed ? '#8692A6' : `${password.error.length ? 'red' : '#00b004'}`}`,
+                    }}
+                  >
+                    {'Length: >=9 and <=22'}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: `${!password.changed ? '#8692A6' : `${password.error.specialLetter ? 'red' : '#00b004'}`}`,
+                    }}
+                  >
+                    Need 1 special letter
+                  </Typography>
+                </Box>
+              </FormControl>
+              <FormControl>
+                <Typography variant="subtitle2">Email</Typography>
+                <OutlinedInput
+                  placeholder="Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                ></OutlinedInput>
+              </FormControl>
+              <FormControl>
+                <Box>
+                  <Typography variant="subtitle2">Gender</Typography>
+                  <FormGroup
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox checked={gender === 'male' ? true : false} onChange={() => setGender('male')} />
+                      }
+                      label="Male"
+                    ></FormControlLabel>
+                    <FormControlLabel
+                      control={
+                        <Checkbox checked={gender === 'female' ? true : false} onChange={() => setGender('female')} />
+                      }
+                      label="Female"
+                    ></FormControlLabel>
+                  </FormGroup>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2">Role</Typography>
+                  <Autocomplete
+                    options={roles}
+                    value={role.value}
+                    onChange={(event, newValue) => handleRoleChange(event, newValue)}
+                    renderInput={(params) => <TextField {...params} placeholder="Role" />}
+                  />
+                </Box>
+              </FormControl>
+              <Button variant="contained" sx={{ height: '56px' }} onClick={handleRegister}>
+                Register
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>

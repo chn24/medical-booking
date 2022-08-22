@@ -1,12 +1,55 @@
 import { Box, Button, FormControl, Grid } from '@mui/material'
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import LPNav from '../../LandingPage/LPNav'
 import DSLeft from './DSLeft'
 import DSRight from './DSRight'
 import ResDialog from './ResDialog'
+import LoadingPage from '../../LoadingPage'
+
+import { loginState } from '../../../recoil/loginState'
+import { useRecoilValue } from 'recoil'
 
 function Body() {
   const [openDialog, setOpenDialog] = useState(false)
+  const [schedules, setSchedules] = useState()
+  const isLogin = useRecoilValue(loginState)
+
+  const getSchedule = async () => {
+    await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${isLogin.id}`).then((response) => {
+      let arr = response.data.dates
+      let fullArr = []
+      let morningArr = []
+      let afternoonArr = []
+      for (let key in arr) {
+        switch (arr[key].time) {
+          case 'Full':
+            fullArr.splice(fullArr.length, 0, arr[key].date)
+            break
+          case 'Morning':
+            morningArr.splice(morningArr.length, 0, arr[key].date)
+            break
+          default:
+            afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
+            break
+        }
+      }
+      setSchedules({
+        value: response.data.dates,
+        full: fullArr,
+        morning: morningArr,
+        afternoon: afternoonArr,
+      })
+    })
+  }
+  console.log(schedules)
+  useEffect(() => {
+    getSchedule()
+  }, [])
+
+  if (schedules === undefined) {
+    return <LoadingPage />
+  }
 
   return (
     <Box
@@ -41,7 +84,7 @@ function Body() {
             width: '33%',
           }}
         >
-          <DSLeft />
+          <DSLeft schedules={schedules} setSchedules={setSchedules} />
         </Box>
         <Box
           className="ds-body-item"
@@ -49,7 +92,7 @@ function Body() {
             width: '67%',
           }}
         >
-          <DSRight />
+          <DSRight schedules={schedules} setSchedules={setSchedules} />
         </Box>
       </Box>
     </Box>
