@@ -68,6 +68,7 @@ function Body() {
           }
         }
         setShows(arr)
+        setPage(0)
       }
     }
   }, [date])
