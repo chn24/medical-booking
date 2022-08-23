@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.docin4-avatar {
+.docIn4-left-avatar {
     display: none !important;
 }
 
@@ -19,24 +19,29 @@
         width: 100% !important;
     }
 
-    .docin4-avatar {
+    .docIn4-left{
+        
+        &-avatar {
         display: block !important;
         margin-right: 5px;
+        }
+
+        &-docName {
+            font-size: 24px !important;
+        }
+
+        &-title {
+            font-size: 20px !important;
+        }
+
+        &-detail {
+            font-size: 16px !important;
+        }
+
     }
 
     .tab-docin4-disnone {
         display: none !important;
     }
 
-    .docin4-docName {
-        font-size: 24px !important;
-    }
-
-    .docin4-title {
-        font-size: 20px !important;
-    }
-
-    .docin4-detail {
-        font-size: 16px !important;
-    }
 }

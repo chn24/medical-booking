@@ -35,9 +35,3 @@
             + Xem và chỉnh sửa profile của bác sĩ đó (Your profile)
             + Chỉnh sửa các ngày bận (Your schedule)
             + Xem lịch khám các bệnh nhân đã book bác sĩ đó (Booking schedule)
-
-# Một vài điểm còn tồn tại trong lúc code :
-
-    - CSS inline -> responsive hay dùng !important
-    - Một vài chỗ không đặt tên class theo BEM -> chưa tận dụng tốt 1 vài tiện ích của scss
-    - Đặt file scss cạnh file js

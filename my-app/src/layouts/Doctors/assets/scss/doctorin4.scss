@@ -4,10 +4,9 @@
 
 .docIn4-left {
     width: 30%;
-}
-
-.docIn4-left .docin4-docName {
-    font-size: 2.25rem ;
+    &-docName {
+        font-size: 2.25rem !important;
+    }
 }
 
 .docIn4-right {
