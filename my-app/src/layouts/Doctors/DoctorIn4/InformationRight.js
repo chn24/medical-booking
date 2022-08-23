@@ -38,7 +38,7 @@ function InformationRight(props) {
   }
 
   return (
-    <DocIn4Context.Provider value={{ docId, comments, setComments, schedule, setSchedule }}>
+    <DocIn4Context.Provider value={{ docId, schedule, setSchedule }}>
       <Paper
         sx={{
           margin: '0 1%',

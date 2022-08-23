@@ -7,25 +7,25 @@ import ava from './assets/img/ava.jpg'
 import ava1 from './assets/img/ava1.jpg'
 import ava2 from './assets/img/ava2.jpg'
 import ava3 from './assets/img/ava3.png'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { CommentsContext } from './ProfileLeft'
 import Options from './Options'
 
 const avaList = [ava1, ava2, ava3]
 
 function CommentTab() {
-  const context = useContext(CommentsContext)
   const loginData = useRecoilValue(dataState)
-  const profileTabData = useRecoilValue(profileTab)
+  const [comments, setComments] = useState([])
 
   const getComments = async () => {
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/posts/${loginData.information.id}/comments`)
-    if (res.data) {
-      if (context.comments !== res.data) {
-        context.setComments(res.data)
-      }
-    }
+    const res = await axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${loginData.information.id}/comments`)
+      .then((response) => {
+        setComments(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   useEffect(() => {
@@ -79,7 +79,7 @@ function CommentTab() {
         }}
       />
       <Stack>
-        {context.comments.map((comment) => {
+        {comments.map((comment) => {
           return (
             <Box
               key={comment.id}

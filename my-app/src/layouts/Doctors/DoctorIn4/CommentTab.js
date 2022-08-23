@@ -1,6 +1,6 @@
 import { Avatar, Grid, Paper, Stack, Typography } from '@mui/material'
 import axios from 'axios'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { DocIn4Context } from './InformationRight'
 import ava1 from '../pic/ava1.jpg'
 import ava2 from '../pic/ava2.jpg'
@@ -9,12 +9,13 @@ import ava3 from '../pic/ava3.png'
 const avaList = [ava1, ava2, ava3]
 function CommentTab() {
   const context = useContext(DocIn4Context)
+  const [comments, setComments] = useState([])
 
   const callApi = async () => {
     var res = await axios
       .get(`https://jsonplaceholder.typicode.com/posts/${context.docId}/comments`)
       .then((response) => {
-        context.setComments(response.data)
+        setComments(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -22,14 +23,12 @@ function CommentTab() {
   }
 
   useEffect(() => {
-    if (context.comments.length === 0) {
-      callApi()
-    }
+    callApi()
   }, [])
 
   return (
     <Stack>
-      {context.comments.map((comment, index) => {
+      {comments.map((comment, index) => {
         return (
           <Grid
             container

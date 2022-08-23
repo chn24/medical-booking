@@ -36,7 +36,7 @@ function Main(props) {
     }
   }, [doctorid])
 
-  return doctorid === undefined || loginData.roll === '' ? (
+  return doctorid === undefined || loginData.roll === '' || doctor.length === 0 ? (
     <LoadingPage />
   ) : (
     <Box>
