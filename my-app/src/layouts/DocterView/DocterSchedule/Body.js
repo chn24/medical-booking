@@ -42,7 +42,7 @@ function Body() {
       })
     })
   }
-  console.log(schedules)
+
   useEffect(() => {
     getSchedule()
   }, [])

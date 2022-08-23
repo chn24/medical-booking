@@ -76,8 +76,8 @@ function Main(props) {
             </Box>
             <Box>
               <div className="in4-header">
-                <Avatar className="docin4-avatar" alt="avatar" src={avaList[rand]} />
-                <Typography className="docin4-docName" variant="h3">{`Dr.${doctor.name}`}</Typography>
+                <Avatar className="docIn4-left-avatar" alt="avatar" src={avaList[rand]} />
+                <Typography className="docIn4-left-docName" variant="h3">{`Dr.${doctor.name}`}</Typography>
               </div>
               <Divider></Divider>
               <Box
@@ -85,9 +85,9 @@ function Main(props) {
                   margin: '10px 0',
                 }}
               >
-                <Typography className="docin4-title" variant="h4">{`Hospital :`}</Typography>
+                <Typography className="docIn4-left-title" variant="h4">{`Hospital :`}</Typography>
                 <Typography
-                  className="docin4-detail docin4-mobile"
+                  className="docIn4-left-detail docin4-mobile"
                   variant="h5"
                 >{`${doctor?.company?.name}`}</Typography>
               </Box>
@@ -96,13 +96,13 @@ function Main(props) {
                   margin: '10px 0',
                 }}
               >
-                <Typography className="docin4-title" variant="h4">{`Contact :`}</Typography>
+                <Typography className="docIn4-left-title" variant="h4">{`Contact :`}</Typography>
                 <Typography
-                  className="docin4-detail docin4-mobile"
+                  className="docIn4-left-detail docin4-mobile"
                   variant="subtitle1"
                 >{`Phone number : ${doctor.phone}`}</Typography>
                 <Typography
-                  className="docin4-detail docin4-mobile"
+                  className="docIn4-left-detail docin4-mobile"
                   variant="subtitle1"
                 >{`Email : ${doctor.email}`}</Typography>
               </Box>

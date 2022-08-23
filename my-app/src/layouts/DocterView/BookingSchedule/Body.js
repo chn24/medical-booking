@@ -1,6 +1,7 @@
 import {
   Box,
   Paper,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -176,16 +177,33 @@ function Body() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {shows.slice(page * 5, page * 5 + 5).map((show, index) => {
-                  return (
-                    <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell align="left">{index + 1}</TableCell>
-                      <TableCell align="left">{show.patientName}</TableCell>
-                      <TableCell align="left">{show.date}</TableCell>
-                      <TableCell align="left">{show.time}</TableCell>
-                    </TableRow>
-                  )
-                })}
+                {shows.length === 0 ? (
+                  <TableRow>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  shows.slice(page * 5, page * 5 + 5).map((show, index) => {
+                    return (
+                      <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align="left">{index + 1}</TableCell>
+                        <TableCell align="left">{show.patientName}</TableCell>
+                        <TableCell align="left">{show.date}</TableCell>
+                        <TableCell align="left">{show.time}</TableCell>
+                      </TableRow>
+                    )
+                  })
+                )}
               </TableBody>
             </Table>
             <TablePagination
