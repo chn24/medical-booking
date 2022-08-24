@@ -1,0 +1,26 @@
+///-------------------------DocterView
+@import './DocterView/BookingSchdule/index.scss';
+@import './DocterView/DoctorSchedule/index.scss';
+@import './DocterView/DoctorProfile/index.scss';
+
+///-------------------------Doctor
+@import './Doctor/DoctorIn4/index.scss';
+@import './Doctor/Booking/index.scss';
+@import './Doctor/DoctorList/index.scss';
+
+///-------------------------Home
+@import './Home/DoctorHome/index.scss';
+@import './Home/UserHome/index.scss';
+
+///-------------------------LandingPage
+@import './LandingPage/index.scss';
+
+///-------------------------LoadingPage
+@import './LoadingPage/index.scss';
+
+///-------------------------News;
+@import './News/index.scss';
+
+.error-text {
+    color: red;
+}

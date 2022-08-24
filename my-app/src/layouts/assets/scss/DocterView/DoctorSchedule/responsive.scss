@@ -1,0 +1,49 @@
+@media screen  and (max-width:1023px) {
+    .ds-body {
+        padding: 48px 0 0 !important;
+    }
+}
+
+@media screen and  (max-width:767px) {
+
+    .ds-body {
+        &-container {
+            flex-direction: column ;
+
+            &-button {
+                display: block !important;
+            }
+        }
+
+        &-item-1 {
+            display: none ;
+        }
+
+        &-item-2 {
+            margin-top: 24px;
+            width: 100% ;
+        }
+    }
+
+    .dsL-paper{
+        width: 100% !important;
+        border-radius: 15px;
+
+        &-head {
+            margin-top: 0 !important;
+            background: #fff !important;
+            box-shadow: none !important;
+
+            &-typography{
+                color: #333 !important;
+                font-weight: 500 !important;
+                text-align: center !important;
+            }
+        }
+    }
+
+
+    .dsR-paper {
+        width: 100% !important;
+    }
+}

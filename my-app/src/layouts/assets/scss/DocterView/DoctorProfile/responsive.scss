@@ -1,0 +1,80 @@
+@media screen and (max-width: 1023px) {
+    .profile-body-item-1 {
+        width: 100% !important;
+    }
+
+    .profile-body-item-2 {
+        display: none;
+    }
+
+    .inforTab-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-options {
+        display: flex !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-body {
+        padding: 48px 0 48px !important;
+
+        & button {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    }
+
+    .pL-Bg {
+        height: 15rem;
+    }
+
+    .inforTab-item {
+        width: 95%;
+
+        &-detail {
+            width: 95%;
+        }
+    }
+}
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .inforTab-container-headText {
+        font-size: 1.75rem !important;
+    }
+
+    //-----------------------------------------------------------Comment tab
+    .commentTab-comment-paper-detail {
+        font-size: 0.85rem !important;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .pL-content {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .inforTab-container-headText {
+        font-size: 1.5rem !important;
+    }
+
+    .inforTab-item-detail input {
+        font-size: 0.75rem;
+    }
+
+    .commentTab-comment-avaBox {
+        padding: 0 !important;
+        justify-content: center !important;
+
+        &-ava {
+            width: 30px !important;
+            height: max-content !important;
+        }
+    }
+
+    .commentTab-comment-paper-detail {
+        font-size: 0.65rem !important;
+    }
+}

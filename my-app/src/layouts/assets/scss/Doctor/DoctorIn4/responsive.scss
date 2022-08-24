@@ -1,0 +1,40 @@
+
+@media screen  and (max-width:1023px) {
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .dIL,
+    .docIn4-right {
+        width: 100% !important;
+    }
+
+    .dIL-paper-content {
+
+        &-1{
+            &-ava {
+                display: block !important;
+                margin-right: 5px;
+            }
+            &-docName {
+                font-size: 24px !important;
+            }
+        }
+
+        &-title {
+            font-size: 20px !important;
+        }
+
+        &-detail {
+            font-size: 16px !important;
+        }
+    }
+
+    
+
+    .dIL-paper-bigAvaBox {
+        display: none !important;
+    }
+
+}

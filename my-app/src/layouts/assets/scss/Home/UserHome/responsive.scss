@@ -1,0 +1,49 @@
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .uh-tab-font16 {
+        font-size: 16px !important;
+    }
+
+    .userhome-stack {
+        height: 100% !important;
+    }
+
+    .userhome-link {
+        width: 45% !important;
+    }
+}
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .userhome-stack {
+        height: 100% !important;
+    }
+
+    .userhome-link {
+        width: 90% !important;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .userhome {
+        padding: 32px 0;
+
+        &-stack {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        &-link {
+            width: 90% !important;
+
+            &-paper-head {
+                &-icon {
+                    width: 3rem !important;
+                    height: 3rem !important;
+                }
+
+                &-name {
+                    width: min-content !important;
+                }
+            }
+        }
+    }
+}

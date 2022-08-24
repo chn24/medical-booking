@@ -23,12 +23,12 @@ function Options() {
   return (
     <Box className="profile-options">
       <Box>
-        <Button disabled={tabContext.tab === 'profile'} className="options-button" onClick={handleTabProfile}>
+        <Button disabled={tabContext.tab === 'profile'} className="profile-options-button" onClick={handleTabProfile}>
           Profile
         </Button>
       </Box>
       <Box>
-        <Button disabled={tabContext.tab === 'comment'} className="options-button" onClick={handleTabComments}>
+        <Button disabled={tabContext.tab === 'comment'} className="profile-options-button" onClick={handleTabComments}>
           Comments
         </Button>
       </Box>

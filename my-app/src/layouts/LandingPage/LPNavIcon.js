@@ -9,7 +9,8 @@ import { loginState } from '../../recoil/loginState'
 
 import { useRecoilValue } from 'recoil'
 
-function LPNavIcon() {
+function LPNavIcon(props) {
+  const { open, setOpen } = props
   const navigate = useNavigate()
   const isLogin = useRecoilValue(loginState)
 
@@ -41,7 +42,7 @@ function LPNavIcon() {
   return (
     <List sx={boxStyles} disablePadding>
       {isLogin.login ? (
-        <LoggedInNavIcon />
+        <LoggedInNavIcon open={open} setOpen={setOpen} />
       ) : (
         <>
           <ListItem disablePadding>

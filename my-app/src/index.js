@@ -4,6 +4,8 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { RecoilRoot } from 'recoil'
+import './layouts/assets/scss/index.scss'
+import './layouts/assets/scss/responsive.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

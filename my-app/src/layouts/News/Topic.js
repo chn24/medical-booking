@@ -1,14 +1,12 @@
 import { Box, Divider, Paper, Typography } from '@mui/material'
 import { display } from '@mui/system'
-import './assets/scss/index.scss'
-import './assets/scss/responsive.scss'
 
 function Topic(props) {
   const { data } = props
   return (
-    <Box className="topic-item">
+    <Box className="topic">
       <Paper
-        className="news-topic-paper"
+        className="topic-paper"
         sx={{
           width: '100%',
           height: '300px',
@@ -19,10 +17,10 @@ function Topic(props) {
       >
         <Box className="topic-bg"></Box>
         <Box className="topic-information">
-          <Typography className="title-color  news-mobile-font-16" variant="h5">
+          <Typography className="topic-information-title " variant="h5">
             {data.title}
           </Typography>
-          <Typography className="non-title-color  news-mobile-font-10" variant="subtitle1">
+          <Typography className="topic-information-detail " variant="subtitle1">
             {data.detail}
           </Typography>
           <Divider
@@ -32,10 +30,10 @@ function Topic(props) {
             }}
           ></Divider>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography className="non-title-color news-mobile-font-9" variant="caption">
+            <Typography className="topic-information-credit " variant="caption">
               {data.since}
             </Typography>
-            <Typography className="non-title-color news-mobile-font-9" variant="caption">
+            <Typography className="topic-information-credit " variant="caption">
               {data.author}
             </Typography>
           </Box>

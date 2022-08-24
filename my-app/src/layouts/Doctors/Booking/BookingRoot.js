@@ -2,8 +2,6 @@ import { Box, Grid } from '@mui/material'
 import BookingLeft from './BookingLeft'
 import BookingRight from './BookingRight'
 
-import '../assets/scss/booking/responsive.scss'
-
 function BookingRoot() {
   return (
     <Box

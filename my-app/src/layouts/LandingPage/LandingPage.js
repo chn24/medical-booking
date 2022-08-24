@@ -1,4 +1,3 @@
-import styles from './LandingPage.module.scss'
 import LPNav from './LPNav'
 import DoctorHome from '../Home/DoctorHome'
 import UserHome from '../Home/UserHome'
@@ -6,8 +5,8 @@ import LoadingPage from '../LoadingPage'
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
 import { Box } from '@mui/material'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { useState } from 'react'
 
 const Height = window.innerHeight
 
@@ -30,7 +29,7 @@ function LandingPage() {
 
   return (
     <div
-      className={styles.main}
+      className="lPmain"
       style={{
         minHeight: `${Height - 1}px`,
         padding: '1.5rem',

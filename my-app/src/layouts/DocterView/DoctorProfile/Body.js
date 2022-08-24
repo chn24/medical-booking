@@ -3,8 +3,6 @@ import ProfileLeft from './ProfileLeft'
 import ProfileRight from './ProfileRight'
 import LoadingPage from '../../LoadingPage'
 
-import './assets/scss/responsive.scss'
-
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 import { createContext, useState } from 'react'
@@ -18,33 +16,12 @@ function Body() {
     <LoadingPage />
   ) : (
     <TabContext.Provider value={{ tab, setTab }}>
-      <Box
-        className="profile-body"
-        sx={{
-          height: `max-content`,
-          padding: '48px 64px 48px',
-        }}
-      >
-        <Box
-          className="profile-container"
-          sx={{
-            display: 'flex',
-          }}
-        >
-          <Box
-            className="profile-item-1"
-            sx={{
-              width: '75%',
-            }}
-          >
+      <Box className="profile-body">
+        <Box className="profile-body-container">
+          <Box className="profile-body-item-1">
             <ProfileLeft />
           </Box>
-          <Box
-            className="profile-item-2"
-            sx={{
-              width: '25%',
-            }}
-          >
+          <Box className="profile-body-item-2">
             <ProfileRight />
           </Box>
         </Box>

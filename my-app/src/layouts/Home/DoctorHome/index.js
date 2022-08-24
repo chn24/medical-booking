@@ -7,9 +7,6 @@ import NewspaperIcon from '@mui/icons-material/Newspaper'
 import GroupIcon from '@mui/icons-material/Group'
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy'
 
-import './index.scss'
-import './responsive.scss'
-
 const services = [
   {
     id: 1,
@@ -65,65 +62,31 @@ const Height = window.innerHeight - 86.6 - 64
 function index() {
   return (
     <Box
-      className="doctorhome-box"
+      className="doctorhome"
       sx={{
         minHeight: `${Height}px`,
-        boxSizing: 'border-box',
-        padding: '32px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
-      <Stack
-        sx={{
-          width: '85%',
-          height: '75%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-around',
-        }}
-      >
+      <Stack className="doctorhome-stack">
         {services.map((service) => {
           return (
-            <NavLink className="link" to={service.to} key={service.id}>
-              <Paper
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow:
-                    'rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem',
-                  borderRadius: '15px',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: '0.5rem 1rem 0',
-                    boxSizing: 'border-box',
-                  }}
-                >
+            <NavLink className="doctorhome-link" to={service.to} key={service.id}>
+              <Paper className="doctorhome-link-paper">
+                <Box className="doctorhome-link-paper-head">
                   <Box
-                    className="link-icon"
+                    className="doctorhome-link-paper-head-icon"
                     sx={{
-                      borderRadius: '15px',
                       background: service.linear,
-                      width: '4rem',
-                      height: '4rem',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginTop: '-1.5rem',
                     }}
                   >
                     {service.icon}
                   </Box>
                   <Box>
-                    <Typography className="link-title" variant="subtitle1" color={'rgb(123, 128, 154)'}>
+                    <Typography
+                      className="doctorhome-link-paper-title"
+                      variant="subtitle1"
+                      color={'rgb(123, 128, 154)'}
+                    >
                       {service.title}
                     </Typography>
                   </Box>
@@ -135,12 +98,7 @@ function index() {
                 >
                   <Divider variant="middle" />
                 </Box>
-                <Box
-                  sx={{
-                    padding: '0 1rem 0.5rem',
-                    boxSizing: 'border-box',
-                  }}
-                >
+                <Box className="doctorhome-link-paper-description">
                   <Typography variant="subtitle1">{service.detail}</Typography>
                 </Box>
               </Paper>
