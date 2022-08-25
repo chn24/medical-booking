@@ -7,9 +7,6 @@ import LoadingPage from '../LoadingPage'
 import { dataState } from '../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
-import './assets/scss/index.scss'
-import './assets/scss/responsive.scss'
-
 const slideList = [
   {
     id: 1,
@@ -93,27 +90,17 @@ function Body() {
     <LoadingPage />
   ) : (
     <Box
+      className="news"
       sx={{
         padding: '3rem 2rem',
       }}
     >
       <Box className="news-container">
-        <Typography
-          className="news-mobile-font-38"
-          variant="h2"
-          sx={{
-            marginBottom: '2rem',
-          }}
-        >
+        <Typography className="news-container-header" variant="h2">
           Hot topics
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Box
-            sx={{
-              width: '80%',
-            }}
-            className="slider-container"
-          >
+        <Box className="news-slideBox">
+          <Box className="news-slideBox-container">
             <Slider {...settings}>
               {slideList.map((slide) => {
                 return <SlideNews key={slide.id} data={slide} />
@@ -123,16 +110,10 @@ function Body() {
         </Box>
       </Box>
       <Box className="news-container">
-        <Typography
-          variant="h2"
-          className="news-mobile-font-38"
-          sx={{
-            marginBottom: '2rem',
-          }}
-        >
+        <Typography variant="h2" className="news-container-header">
           Latest topics
         </Typography>
-        <Box className="topic-container">
+        <Box className="topic-container news-topicBox">
           {newsList.map((news) => {
             return <Topic key={news.id} data={news} />
           })}

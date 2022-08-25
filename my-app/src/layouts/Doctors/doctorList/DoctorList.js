@@ -20,8 +20,6 @@ import DoctorRow from './DoctorRow'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
-import '../assets/scss/doctorList/responsive.scss'
-
 const list = [
   {
     name: 'Id',
@@ -69,40 +67,14 @@ function DoctorList() {
   }, [])
 
   return (
-    <Box
-      className="table-box"
-      sx={{
-        height: `max-content`,
-        padding: '48px 64px 32px',
-      }}
-    >
-      <Paper
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: 'max-content',
-        }}
-      >
-        <Box
-          sx={{
-            margin: '-24px 16px 0 16px',
-            padding: '24px 16px',
-            opacity: '1',
-            background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-            color: '#fff',
-            borderRadius: '0.5rem',
-            boxShadow:
-              'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-          }}
-        >
+    <Box className="table-box dList">
+      <Paper className="dList-paper">
+        <Box className="dList-paper-head">
           <Typography variant="h6">Doctor list</Typography>
         </Box>
-        <Box
-          sx={{
-            height: '90%',
-          }}
-        >
+        <Box className="dList-paper-body">
           <TableContainer
+            className="dList-paper-body-table"
             sx={{
               width: '100%',
               height: '100%',

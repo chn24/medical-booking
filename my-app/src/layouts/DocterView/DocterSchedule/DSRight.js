@@ -25,42 +25,15 @@ function DSRight(props) {
   }
 
   return (
-    <Box>
-      <Paper
-        className="dsR-paper"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '95%',
-        }}
-      >
-        <Box
-          sx={{
-            margin: '-24px 16px 0 16px',
-            padding: '24px 16px',
-            opacity: '1',
-            background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-            color: 'rgb(52, 71, 103)',
-            borderRadius: '0.5rem',
-            boxShadow:
-              'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-          }}
-        >
+    <Box className="dsR">
+      <Paper className="dsR-paper">
+        <Box className="dsR-paper-head">
           <Typography variant="h5" sx={{ color: '#fff' }}>
             Schedule table
           </Typography>
         </Box>
-        <Box
-          sx={{
-            paddingTop: '16px',
-          }}
-        >
-          <TableContainer
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
+        <Box className="dsR-paper-body">
+          <TableContainer className="dsR-paper-body-table">
             <Table stickyHeader={true}>
               <TableHead>
                 <TableRow>

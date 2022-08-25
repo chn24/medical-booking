@@ -1,0 +1,116 @@
+//----------------------------------Body.js
+
+.news {
+    padding: 3rem 2rem;
+
+    &-container {
+        margin-bottom: 5rem;
+
+        &-header {
+            margin-bottom: 2rem !important;
+        }
+    }
+
+    &-slideBox {
+        display: flex;
+        justify-content: center;
+
+        &-container {
+            width: 80%;
+        }
+    }
+
+    &-topicBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        min-height: 40rem;
+        width: 100%;
+    }
+}
+
+//----------------------------------Slideews.js
+
+.slideNews {
+    display: flex;
+    justify-content: center;
+
+    &-bg {
+        position: relative;
+        background: linear-gradient(195deg, rgba(73, 163, 241, 0.6), rgba(26, 115, 232, 0.6)) 50% / cover,
+            url("../../image/slidebg.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 20rem;
+        width: 95%;
+        border-radius: 15px;
+    }
+
+    &-inforation {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        &-title {
+            color: #fff;
+        }
+
+        &-detail {
+            color: #fff;
+        }
+    }
+}
+
+//----------------------------------Topic.js
+
+.topic {
+    position: relative;
+    border-radius: 15px;
+    margin: 2.5% 1%;
+    width: 30%;
+    min-height: 45%;
+
+    &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+    &-paper {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &-bg {
+        margin: -2rem 5% 0;
+        border-radius: 15px;
+        background-image: url("..//../image/news.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 90%;
+        height: 60%;
+    }
+
+    &-information {
+        padding: 1rem;
+
+        &-title {
+            color: rgb(52, 71, 103);
+        }
+
+        &-detail {
+            color: rgb(123, 128, 154);
+        }
+
+        &-credit {
+            color: rgb(123, 128, 154);
+        }
+    }
+}

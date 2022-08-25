@@ -7,9 +7,6 @@ import ava3 from '../pic/ava3.png'
 import InformationRight from './InformationRight'
 import LoadingPage from '../../LoadingPage'
 import { dataState } from '../../../recoil/dataState'
-
-import '../assets/scss/responsiveDoctorin4.scss'
-import '../assets/scss/doctorin4.scss'
 import { useRecoilValue } from 'recoil'
 
 const rand = Math.floor(Math.random() * 3)
@@ -41,16 +38,9 @@ function Main(props) {
   ) : (
     <Box>
       <Box className="main-container">
-        <Box
-          className="docIn4-left"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            margin: '1% 0',
-          }}
-        >
+        <Box className="dIL">
           <Paper
+            className="dIL-paper"
             sx={{
               width: '90%',
               padding: '15px',
@@ -59,7 +49,7 @@ function Main(props) {
             }}
           >
             <Box
-              className="tab-docin4-disnone"
+              className="dIL-paper-bigAvaBox"
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -74,10 +64,10 @@ function Main(props) {
                 }}
               />
             </Box>
-            <Box>
-              <div className="in4-header">
-                <Avatar className="docIn4-left-avatar" alt="avatar" src={avaList[rand]} />
-                <Typography className="docIn4-left-docName" variant="h3">{`Dr.${doctor.name}`}</Typography>
+            <Box className="dIL-paper-content">
+              <div className="dIL-paper-content-1">
+                <Avatar className="dIL-paper-content-1-ava" alt="avatar" src={avaList[rand]} />
+                <Typography className="dIL-paper-content-1-docName" variant="h3">{`Dr.${doctor.name}`}</Typography>
               </div>
               <Divider></Divider>
               <Box
@@ -85,24 +75,21 @@ function Main(props) {
                   margin: '10px 0',
                 }}
               >
-                <Typography className="docIn4-left-title" variant="h4">{`Hospital :`}</Typography>
-                <Typography
-                  className="docIn4-left-detail docin4-mobile"
-                  variant="h5"
-                >{`${doctor?.company?.name}`}</Typography>
+                <Typography className="dIL-paper-content-title" variant="h4">{`Hospital :`}</Typography>
+                <Typography className="dIL-paper-content-detail" variant="h5">{`${doctor?.company?.name}`}</Typography>
               </Box>
               <Box
                 sx={{
                   margin: '10px 0',
                 }}
               >
-                <Typography className="docIn4-left-title" variant="h4">{`Contact :`}</Typography>
+                <Typography className="dIL-paper-content-title" variant="h4">{`Contact :`}</Typography>
                 <Typography
-                  className="docIn4-left-detail docin4-mobile"
+                  className="dIL-paper-content-detail"
                   variant="subtitle1"
                 >{`Phone number : ${doctor.phone}`}</Typography>
                 <Typography
-                  className="docIn4-left-detail docin4-mobile"
+                  className="dIL-paper-content-detail"
                   variant="subtitle1"
                 >{`Email : ${doctor.email}`}</Typography>
               </Box>

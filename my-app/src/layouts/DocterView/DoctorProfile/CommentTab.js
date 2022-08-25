@@ -33,14 +33,8 @@ function CommentTab() {
   }, [])
 
   return (
-    <Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+    <Stack className="commentTab">
+      <Box className="commentTab-head">
         <Avatar
           alt="avatar"
           src={ava}
@@ -81,25 +75,10 @@ function CommentTab() {
       <Stack>
         {comments.map((comment) => {
           return (
-            <Box
-              key={comment.id}
-              sx={{
-                display: 'flex',
-                marginTop: '16px',
-              }}
-            >
-              <Box
-                className="comment-ava-box"
-                sx={{
-                  width: 'max-content',
-                  display: 'flex',
-                  justifyContent: 'end',
-                  padding: '0 16px',
-                  boxSizing: 'border-box',
-                }}
-              >
+            <Box className="commentTab-comment" key={comment.id}>
+              <Box className="commentTab-comment-avaBox">
                 <Avatar
-                  className="comment-ava"
+                  className="commentTab-comment-avaBox-ava"
                   alt={`user-${comment.id}`}
                   src={avaList[Math.floor(Math.random() * 3)]}
                 />
@@ -109,15 +88,12 @@ function CommentTab() {
                   width: '75%',
                 }}
               >
-                <Paper
-                  sx={{
-                    padding: '15px',
-                    background: 'linear-gradient(195deg, rgb(235, 239, 244), rgb(206, 212, 218))',
-                    borderRadius: '15px',
-                  }}
-                >
+                <Paper className="commentTab-comment-paper">
                   <Typography variant="overline">{`user ${comment.id}`}</Typography>
-                  <Typography className="comment-detail" variant="body1">{`${comment.body}`}</Typography>
+                  <Typography
+                    className="commentTab-comment-paper-detail"
+                    variant="body1"
+                  >{`${comment.body}`}</Typography>
                 </Paper>
               </Box>
             </Box>

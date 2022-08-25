@@ -1,48 +1,26 @@
-import { Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import './assets/scss/index.scss'
-import './assets/scss/responsive.scss'
+import { Box, Typography } from '@mui/material'
 
 function SlideNews(props) {
   const { data } = props
   return (
     <Box
+      className="slideNews"
       sx={{
         display: 'flex',
         justifyContent: 'center',
       }}
     >
       <Box
-        className="slide-bg"
+        className="slideNews-bg"
         // sx={{
         //   width: '95%',
         // }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            left: '1rem',
-            bottom: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <Typography
-            variant="h4"
-            className="news-mobile-font-16"
-            sx={{
-              color: '#fff',
-            }}
-          >
+        <Box className="slideNews-inforation">
+          <Typography variant="h4" className="slideNews-inforation-title">
             {data.title}
           </Typography>
-          <Typography
-            variant="subtitle1"
-            className="news-mobile-font-12"
-            sx={{
-              color: '#fff',
-            }}
-          >
+          <Typography variant="subtitle1" className="slideNews-inforation-detail">
             {data.detail}
           </Typography>
         </Box>

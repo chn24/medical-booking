@@ -1,6 +1,3 @@
-import './LPNav.scss'
-import './lpNavResponsive.scss'
-
 import AccountIcon from '@mui/icons-material/AccountCircle'
 import SearchIcon from '@mui/icons-material/Search'
 import HomeIcon from '@mui/icons-material/Home'
@@ -76,9 +73,8 @@ function LPNav(props) {
 
   return (
     <Box
+      className="nav"
       sx={{
-        position: 'sticky',
-        top: '0.75rem',
         backgroundColor: `${scroll ? 'rgba(255, 255, 255, 0.8)' : 'rgb(240, 242, 245)'}`,
         boxShadow: `${
           scroll
@@ -86,27 +82,16 @@ function LPNav(props) {
             : ''
         }`,
         backdropFilter: `${scroll ? 'saturate(200%) blur(1.875rem)' : ''}`,
-        zIndex: '5',
-        margin: ' 0 16px',
-        borderRadius: '15px',
       }}
     >
-      <Box
-        className="nav-res-padLR0"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '10px 32px',
-        }}
-      >
+      <Box className=" nav-container">
         <Stack
           sx={{
             width: 'max-content',
           }}
         >
           <Box
+            className="nav-breadcrumbs"
             sx={{
               display: 'flex',
               flexDirection: 'row',
@@ -137,7 +122,7 @@ function LPNav(props) {
                               <Link
                                 key={index}
                                 to={tab.to}
-                                className="breadcrumb-link "
+                                className="nav-breadcrumbs-link "
                                 onClick={handleBreadcrumsClick}
                               >
                                 {tab.name}
@@ -168,16 +153,8 @@ function LPNav(props) {
             </Typography>
           </Box>
         </Stack>
-        <Box
-          sx={{
-            minWidth: 'max-content',
-            width: '30%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-          }}
-        >
-          <Box alignItems={'center'} sx={{ width: 'max-content', display: 'flex' }}>
+        <Box className="nav-right">
+          <Box className="nav-right-search">
             <TextField className="nav-mobile-disnone" id="standard-basic" placeholder="Search" variant="standard" />
             {isLogin.login && loginData.roll === '' ? (
               <div
@@ -189,7 +166,7 @@ function LPNav(props) {
                 <Skeleton variant="circular" animation="wave" />
               </div>
             ) : (
-              <IconButton aria-label="Search" className="nav-icon-button">
+              <IconButton aria-label="Search" className="nav-right-search-icon-button">
                 <SearchIcon />
               </IconButton>
             )}
@@ -209,7 +186,7 @@ function LPNav(props) {
                 <IconButton aria-label="User" onClick={handleClick}>
                   <AccountIcon />
                 </IconButton>
-                {open ? <LPNavIcon /> : null}
+                {open ? <LPNavIcon open={open} setOpen={setOpen} /> : null}
               </Box>
             )}
           </ClickAwayListener>

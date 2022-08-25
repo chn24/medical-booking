@@ -37,45 +37,15 @@ function Body() {
   }, [])
 
   return (
-    <Box
-      sx={{
-        marginTop: '32px',
-        padding: '0 32px',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <Paper
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '95%',
-        }}
-      >
-        <Box
-          sx={{
-            width: '90%',
-            maxHeight: '80px',
-            margin: '-24px 5% 0 5%',
-            padding: '24px 16px',
-            boxSizing: 'border-box',
-            opacity: '1',
-            background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-            color: 'rgb(52, 71, 103)',
-            borderRadius: '0.5rem',
-            boxShadow:
-              'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-          }}
-        >
-          <Typography variant="h5">Your booking list</Typography>
+    <Box className="uBooking">
+      <Paper className="uBooking-paper">
+        <Box className="uBooking-paper-head">
+          <Typography sx={{ color: '#fff' }} variant="h5">
+            Your booking list
+          </Typography>
         </Box>
         <Box>
-          <TableContainer
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
+          <TableContainer className="uBooking-paper-table">
             <Table stickyHeader={true}>
               <TableHead>
                 <TableRow>

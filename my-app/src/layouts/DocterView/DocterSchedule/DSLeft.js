@@ -238,54 +238,24 @@ function DSLeft(props) {
   }
 
   return (
-    <Box>
-      <Paper
-        className="dsL-paper"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '95%',
-        }}
-      >
-        <Box
-          className="dsL-headBox"
-          sx={{
-            margin: '-24px 16px 0 16px',
-            padding: '24px 16px',
-            opacity: '1',
-            background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-            color: 'rgb(52, 71, 103)',
-            borderRadius: '0.5rem',
-            boxShadow:
-              'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-          }}
-        >
-          <Typography className="dsL-headBox-typography" variant="h5" sx={{ color: '#fff' }}>
+    <Box className="dsL">
+      <Paper className="dsL-paper">
+        <Box className="dsL-paper-head">
+          <Typography className="dsL-paper-head-typography" variant="h5" sx={{ color: '#fff' }}>
             New schedule
           </Typography>
         </Box>
-        <Box
-          sx={{
-            padding: '16px',
-          }}
-        >
+        <Box className="dsL-paper-body">
           <Box
             component="form"
+            className="dsL-paper-body-form"
             sx={{
               '& > :not(style)': { m: 1 },
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
             }}
             noValidate
             autoComplete="off"
           >
-            <FormControl
-              sx={{
-                width: '80%',
-              }}
-            >
+            <FormControl className="dsL-paper-body-form-item">
               <Stack>
                 <Typography variant="subtitle1">Date</Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -298,27 +268,14 @@ function DSLeft(props) {
                     renderDay={customDayRenderer}
                   />
                 </LocalizationProvider>
-                <Box
-                  sx={{
-                    height: '24px',
-                  }}
-                >
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      color: 'red',
-                    }}
-                  >
+                <Box className="dsL-paper-body-form-item-error">
+                  <Typography className="error-text" variant="caption">
                     {DSFdate.error === null ? '' : `*${DSFdate.error}`}
                   </Typography>
                 </Box>
               </Stack>
             </FormControl>
-            <FormControl
-              sx={{
-                width: '80%',
-              }}
-            >
+            <FormControl className="dsL-paper-body-form-item">
               <Stack>
                 <Typography variant="subtitle1">Time</Typography>
                 <Autocomplete
@@ -328,12 +285,9 @@ function DSLeft(props) {
                   onChange={(event, newValue) => handleDFStimeChange(event, newValue)}
                   renderInput={(params) => <TextField {...params} error={DSFtime.error} placeholder="Time" />}
                 />
-                <Box
-                  sx={{
-                    height: '24px',
-                  }}
-                >
+                <Box className="dsL-paper-body-form-item-error">
                   <Typography
+                    className="error-text"
                     variant="caption"
                     sx={{
                       color: 'red',
@@ -344,13 +298,7 @@ function DSLeft(props) {
                 </Box>
               </Stack>
             </FormControl>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-around',
-                width: '80%',
-              }}
-            >
+            <Box className="dsL-paper-body-form-buttonBox">
               <Button variant="contained" onClick={handleClear}>
                 Clear
               </Button>

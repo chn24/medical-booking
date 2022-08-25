@@ -5,8 +5,6 @@ import NewspaperIcon from '@mui/icons-material/Newspaper'
 import GroupIcon from '@mui/icons-material/Group'
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy'
 
-import './responsive.scss'
-
 const serviceList = [
   {
     id: 1,
@@ -37,18 +35,13 @@ const Height = window.innerHeight - 86.6 - 64
 function index() {
   return (
     <Box
-      className="userhome-box"
+      className="userhome"
       sx={{
         minHeight: `${Height}px`,
-        boxSizing: 'border-box',
-        padding: '32px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
       <Stack
-        className="uh-tab-stack uh-mobile-stack"
+        className="userhome-stack"
         sx={{
           width: '85%',
           height: '50%',
@@ -59,54 +52,23 @@ function index() {
       >
         {serviceList.map((service) => {
           return (
-            <NavLink
-              to={service.to}
-              className="uh-link "
-              style={{
-                textDecoration: 'none',
-                width: '30%',
-                height: '150px',
-                margin: '15px 0',
-              }}
-              key={service.id}
-            >
-              <Paper
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow:
-                    'rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem',
-                  borderRadius: '15px',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    padding: '0.5rem 1rem 0',
-                    boxSizing: 'border-box',
-                  }}
-                >
+            <NavLink to={service.to} className="uh-link userhome-link" key={service.id}>
+              <Paper className="userhome-link-paper">
+                <Box className="userhome-link-paper-head">
                   <Box
-                    className="uh-resbox-icon"
+                    className=" userhome-link-paper-head-icon"
                     sx={{
-                      borderRadius: '15px',
                       background: service.linear,
-                      width: '4rem',
-                      height: '4rem',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginTop: '-1.5rem',
                     }}
                   >
                     {service.icon}
                   </Box>
                   <Box>
-                    <Typography className="uh-link-name" variant="subtitle1" color={'rgb(123, 128, 154)'}>
+                    <Typography
+                      className="userhome-link-paper-head-name"
+                      variant="subtitle1"
+                      color={'rgb(123, 128, 154)'}
+                    >
                       {service.name}
                     </Typography>
                   </Box>
@@ -118,12 +80,7 @@ function index() {
                 >
                   <Divider variant="middle" />
                 </Box>
-                <Box
-                  sx={{
-                    padding: '0 1rem 0.5rem',
-                    boxSizing: 'border-box',
-                  }}
-                >
+                <Box className="userhome-link-paper-description">
                   <Typography variant="subtitle1" className="uh-tab-font16 ">
                     {service.detail}
                   </Typography>

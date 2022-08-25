@@ -4,7 +4,6 @@ import { dataState } from '../../../recoil/dataState'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import Options from './Options'
 
-import './assets/scss/index.scss'
 import ava from './assets/img/ava.jpg'
 import { useEffect, useState } from 'react'
 
@@ -158,8 +157,9 @@ function InformtionTab() {
   }
 
   return (
-    <Stack>
+    <Stack className="inforTab">
       <Box
+        className="inforTab-head"
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -168,6 +168,7 @@ function InformtionTab() {
         }}
       >
         <Avatar
+          className="inforTab-head-avatar"
           alt="avatar"
           src={ava}
           sx={{
@@ -242,56 +243,56 @@ function InformtionTab() {
           margin: '1rem 0',
         }}
       />
-      <Box className="infor-container">
-        <Typography variant="h4" className="infor-header">
+      <Box className="inforTab-container">
+        <Typography variant="h4" className="inforTab-container-headText">
           Contact information
         </Typography>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title">
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title">
             Email
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.email.error}
             disabled={disabled}
             value={`${userData.email.value}`}
             onChange={(e) => handleChange(e.target.value, 'email')}
           ></TextField>
         </Box>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title">
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title">
             Phone number
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.phone.error}
             disabled={disabled}
             value={userData.phone.value}
             onChange={(e) => handleChange(e.target.value, 'phone')}
           ></TextField>
         </Box>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title">
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title">
             Website
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.website.error}
             disabled={disabled}
             value={`${userData.website.value}`}
             onChange={(e) => handleChange(e.target.value, 'website')}
           ></TextField>
         </Box>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title">
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title">
             Hospital
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.hospital.error}
             disabled={disabled}
             value={`${userData.hospital.value}`}
@@ -299,30 +300,30 @@ function InformtionTab() {
           ></TextField>
         </Box>
       </Box>
-      <Box className="infor-container">
-        <Typography variant="h4" className="infor-header">
+      <Box className="inforTab-container">
+        <Typography variant="h4" className="inforTab-container-headText">
           Address
         </Typography>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title" disabled={disabled}>
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title" disabled={disabled}>
             Street
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.street.error}
             disabled={disabled}
             value={`${userData.street.value}`}
             onChange={(e) => handleChange(e.target.value, 'street')}
           ></TextField>
         </Box>
-        <Box className="infor-box">
-          <Typography variant="subtitle1" className="infor-box-title">
+        <Box className="inforTab-item">
+          <Typography variant="subtitle1" className="inforTab-item-title">
             City
           </Typography>
           <TextField
             variant="outlined"
-            className="infor-box-detail"
+            className="inforTab-item-detail"
             error={userData.city.error}
             disabled={disabled}
             value={`${userData.city.value}`}

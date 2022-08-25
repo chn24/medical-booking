@@ -3,8 +3,6 @@ import { useContext, useEffect, useState } from 'react'
 import styles from '../assets/InformationForm.scss'
 import { BookingData } from '../BookingLeft'
 
-// import '../../assets/scss/booking/responsive.scss'
-
 const titleList = ['Mr', 'Mrs']
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 

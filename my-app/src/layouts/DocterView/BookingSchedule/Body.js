@@ -24,8 +24,6 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { set } from 'date-fns'
 
-import './assets/scss/responsive.scss'
-
 function Body() {
   const isLogin = useRecoilValue(loginState)
   const [bookingSchedule, setBookingSchedule] = useState([])
@@ -88,53 +86,15 @@ function Body() {
   console.log(shows)
 
   return (
-    <Box
-      sx={{
-        marginTop: '32px',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <Paper
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '95%',
-        }}
-      >
-        <Box
-          className="bsBox-header"
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box
-            className="bsBox-header-1"
-            sx={{
-              width: '45%',
-              maxHeight: '80px',
-              margin: '-24px 0 0 16px',
-              padding: '24px 16px',
-              boxSizing: 'border-box',
-              opacity: '1',
-              background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-              color: 'rgb(52, 71, 103)',
-              borderRadius: '0.5rem',
-              boxShadow:
-                'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-            }}
-          >
+    <Box className="drBs">
+      <Paper className="drBs-paper">
+        <Box className="drBs-paper-header">
+          <Box className="drBs-paper-header-1">
             <Typography variant="h5" sx={{ color: '#fff' }}>
               Booking schedule
             </Typography>
           </Box>
-          <Box
-            className="bsBox-header-2"
-            sx={{
-              margin: '16px 16px 16px 0',
-            }}
-          >
+          <Box className="drBs-paper-header-2">
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={date.value}
@@ -151,22 +111,15 @@ function Body() {
                 )}
               />
             </LocalizationProvider>
-            <Box
-              sx={{
-                height: '28px',
-              }}
-            >
-              <Typography variant="subtitle1">{date.error}</Typography>
+            <Box className="drBs-paper-header-2-error">
+              <Typography className="drBs-paper-header-2-error-text" variant="subtitle1">
+                {date.error}
+              </Typography>
             </Box>
           </Box>
         </Box>
-        <Box>
-          <TableContainer
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
+        <Box className="drBS-paper-body">
+          <TableContainer className="drBS-paper-body-table">
             <Table stickyHeader={true}>
               <TableHead>
                 <TableRow>

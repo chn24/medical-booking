@@ -2,8 +2,6 @@ import { Box, Button, FormControl, Grid } from '@mui/material'
 import LPNav from '../../LandingPage/LPNav'
 import Body from './Body'
 
-import './assets/scss/responsive.scss'
-
 function index() {
   return (
     <Box

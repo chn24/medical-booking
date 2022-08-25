@@ -1,0 +1,16 @@
+@media screen and (max-width: 767px) {
+    .signUp-item1 {
+        display: none !important;
+    }
+    .signUp-item2 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .signUp-item2-body-formBox {
+        width: 100% !important;
+        padding: 15px !important;
+        box-sizing: border-box;
+    }
+}

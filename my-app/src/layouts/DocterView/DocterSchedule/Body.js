@@ -52,46 +52,16 @@ function Body() {
   }
 
   return (
-    <Box
-      className="ds-body"
-      sx={{
-        height: `max-content`,
-        padding: '48px 64px 0',
-      }}
-    >
-      <Box
-        className="ds-body-container"
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}
-      >
-        <Button
-          className="mobileDisplay"
-          sx={{
-            marginBottom: '32px',
-            width: 'max-content',
-            display: 'none',
-          }}
-          onClick={() => setOpenDialog(true)}
-        >
+    <Box className="ds-body">
+      <Box className="ds-body-container">
+        <Button className="ds-body-container-button mobileDisplay" onClick={() => setOpenDialog(true)}>
           Add new schedule
         </Button>
         <ResDialog open={openDialog} setOpen={setOpenDialog} />
-        <Box
-          className="ds-body-item ds-body-item-disNone"
-          sx={{
-            width: '33%',
-          }}
-        >
+        <Box className="ds-body-item-1 ">
           <DSLeft schedules={schedules} setSchedules={setSchedules} />
         </Box>
-        <Box
-          className="ds-body-item"
-          sx={{
-            width: '67%',
-          }}
-        >
+        <Box className="ds-body-item-2">
           <DSRight schedules={schedules} setSchedules={setSchedules} />
         </Box>
       </Box>

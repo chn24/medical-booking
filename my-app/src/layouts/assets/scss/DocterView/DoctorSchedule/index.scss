@@ -1,0 +1,105 @@
+//----------------------------------index.js
+.ds-body {
+    height: max-content;
+    padding: 48px 64px 0;
+
+    &-container {
+        display: flex;
+        flex-direction: row;
+
+        &-button {
+            margin-bottom: 32px;
+            width: max-content;
+            display: none !important;
+        }
+    }
+
+    &-item-1 {
+        width: 33%;
+    }
+
+    &-item-2 {
+        width: 67%;
+    }
+}
+
+//----------------------------------DSLeft.js
+
+.dsL {
+    &-paper {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+    
+        &-head {
+            margin: -24px 16px 0 16px;
+            padding: 24px 16px;
+            opacity: 1;
+            background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232));
+            color: rgb(52, 71, 103);
+            border-radius: 0.5rem;
+            box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+        }
+        &-body {
+            padding: 16px;
+
+            &-form {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                &-item {
+                    width: 80%;
+
+                    &-error {
+                        height: 24px;
+
+                    }
+                }
+
+                &-buttonBox {
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-around;
+                }
+            }
+        }
+    }
+}
+
+//----------------------------------DSRight.js
+
+.dsR {
+
+    &-paper {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+
+        &-head {
+            margin: -24px 16px 0 16px;
+            padding: 24px 16px;
+            opacity: 1;
+            background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232));
+            color: rgb(52, 71, 103);
+            border-radius: 0.5rem;
+            box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+        }
+
+        &-body {
+            padding-top: 16px;
+
+            &-table {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+//----------------------------------TRow.js
+
+//----------------------------------DeleteDialog.js
+
+//----------------------------------ResDialog.js

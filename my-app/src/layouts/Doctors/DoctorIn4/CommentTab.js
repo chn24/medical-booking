@@ -27,34 +27,15 @@ function CommentTab() {
   }, [])
 
   return (
-    <Stack>
+    <Stack className="commentsTab">
       {comments.map((comment, index) => {
         return (
-          <Grid
-            container
-            key={index}
-            sx={{
-              margin: '5px 0',
-            }}
-          >
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
+          <Grid className="commentsTab-commentContainer" container key={index}>
+            <Grid item className="commentsTab-commentItem-1" xs={2}>
               <Avatar alt={`user-${index}`} src={avaList[Math.floor(Math.random() * 3)]} />
             </Grid>
-            <Grid item xs={9}>
-              <Paper
-                sx={{
-                  padding: '15px',
-                  background: 'linear-gradient(195deg, rgb(235, 239, 244), rgb(206, 212, 218))',
-                  borderRadius: '15px',
-                }}
-              >
+            <Grid className="commentsTab-commentItem-2" item xs={9}>
+              <Paper className="commentsTab-commentItem-2-paper">
                 <Typography variant="overline">{`user ${index + 1}`}</Typography>
                 <Typography variant="body1">{`${comment.body}`}</Typography>
               </Paper>

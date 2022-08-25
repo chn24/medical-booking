@@ -1,0 +1,66 @@
+//-----------------------------------Main.js
+.main-container {
+    display: flex;
+}
+
+.dIL {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1% 0;
+
+    &-paper {
+        width: 90%;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 15px;
+
+        &-bigAvaBox {
+            display: flex;
+            justify-content: center;
+
+            & img {
+                max-width: 65%;
+                border-radius: 50%;
+            }
+        }
+
+        &-content {
+            &-1 {
+                display: flex;
+                padding: 0 0 15px;
+                align-items: center;
+
+                &-ava {
+                    display: none !important;
+                }
+
+                &-docName {
+                    font-size: 2.25rem !important;
+                }
+            }
+        }
+    }
+}
+
+.docIn4-right {
+    width: 70%;
+}
+
+//-----------------------------------CommentTab.js
+
+.commentsTab {
+    &-commentContainer {
+        margin: 5px 0;
+    }
+    &-commentItem-1 {
+        display: flex;
+        justify-content: center;
+    }
+    &-commentItem-2-paper {
+        padding: 15px;
+        background: linear-gradient(195deg, rgb(235, 239, 244), rgb(206, 212, 218));
+        border-radius: 15px;
+    }
+}
