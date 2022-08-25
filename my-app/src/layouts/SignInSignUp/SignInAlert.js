@@ -20,14 +20,8 @@ export default function SignInAlert({ ...prop }) {
   // };
 
   return (
-    <Box
-      sx={{
-        position: 'absolute',
-        right: '-100px',
-        top: '-25px',
-      }}
-    >
-      <Box sx={{ width: `max-content` }}>
+    <Box className="sIAlert">
+      <Box className="sIAlert-box">
         <Slide direction="left" in={checked} mountOnEnter unmountOnExit>
           <Paper sx={{ m: 1 }} elevation={4}>
             <Box>

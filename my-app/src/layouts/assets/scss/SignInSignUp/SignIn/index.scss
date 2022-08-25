@@ -1,0 +1,83 @@
+//-----------------------------SignIn.js
+.signIn {
+    &-container {
+        display: flex;
+    }
+
+    &-item1 {
+        width: 50%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #2C73EB;
+    }
+
+    &-bg {
+        width: 75%;
+        background-position: center;
+        background-image: url('../../../image/Doctors-amico.png');
+    height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    }
+
+    &-item2 {
+        width: 50%;
+
+        &-head {
+            padding: 16px;
+        }
+
+        &-body {
+            height: calc(100% - 72px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: rgb(240, 242, 245);
+        }
+
+        &-formBox {
+            width: 50%;
+            position: relative;
+        }
+
+        &-form {
+            display: flex;
+            flex-direction: column;
+
+            &-item {
+                margin: 0 5px;
+            }
+
+            &-button {
+                height: 56px;
+            }
+
+            &-note {
+                text-align: center;
+                color: #696F79;
+            }
+
+            &-note a {
+                text-decoration: none;
+                color: #2C73EB;
+            }
+        }
+    }
+}
+
+//-----------------------------SignInAlert.js
+
+.sIAlert {
+    position: absolute;
+    right: -100px;
+    top: -25px;
+
+    &-box {
+        width: max-content;
+    }
+}

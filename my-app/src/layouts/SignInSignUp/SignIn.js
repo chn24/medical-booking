@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 import SignInAlert from './SignInAlert'
 import axios from 'axios'
-import './assets/scss/signIn.scss'
 import HomeIcon from '@mui/icons-material/Home'
 
 import { loginState } from '../../recoil/loginState'
@@ -186,46 +185,24 @@ function SignIn() {
   }
 
   return (
-    <div className="sign-In">
+    <div className="signIn">
       <Box
+        className="signIn-container"
         sx={{
           minHeight: `${window.innerHeight}px`,
-          display: 'flex',
         }}
       >
-        <Box
-          className="sI-item sI-res-disNone "
-          sx={{
-            backgroundColor: '#2C73EB',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box className="sI-bg"></Box>
+        <Box className="signIn-item1">
+          <Box className="sI-bg signIn-bg"></Box>
         </Box>
-        <Box className="sI-item">
-          <Box
-            sx={{
-              padding: '16px',
-            }}
-          >
+        <Box className="signIn-item2">
+          <Box className="signIn-item2-head">
             <IconButton onClick={handleHomeClick}>
               <HomeIcon />
             </IconButton>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              backgroundColor: 'rgb(240, 242, 245)',
-            }}
-          >
-            <Box className="sI-res-form" sx={{ width: '50%', position: 'relative' }}>
+          <Box className="signIn-item2-body">
+            <Box className=" signIn-item2-formBox" sx={{ width: '50%', position: 'relative' }}>
               <SignInAlert in={usernameAlert} changeAlert={setUsernameAlert} title={'Username required'} />
               <SignInAlert in={passwordAlert} changeAlert={setPasswordAlert} title={'Password required'} />
               <SignInAlert in={error} changeAlert={setError} title={'Login fail'} />
@@ -236,20 +213,15 @@ function SignIn() {
                 If you are already a member you can login with your email address and password.
               </Typography>
               <Box
+                className="signIn-item2-form"
                 component="form"
                 sx={{
                   '& > :not(style)': { m: 1 },
-                  display: 'flex',
-                  flexDirection: 'column',
                 }}
                 noValidate
                 autoComplete="off"
               >
-                <FormControl
-                  sx={{
-                    margin: '0 5px',
-                  }}
-                >
+                <FormControl className="signIn-item2-form-item">
                   <Box
                     sx={{
                       width: '100%',
@@ -270,11 +242,7 @@ function SignIn() {
                     }
                   />
                 </FormControl>
-                <FormControl
-                  sx={{
-                    margin: '0 5px',
-                  }}
-                >
+                <FormControl className="signIn-item2-form-item">
                   <Box
                     sx={{
                       width: '100%',
@@ -299,31 +267,14 @@ function SignIn() {
                 <LoadingButton
                   variant="contained"
                   loading={loading}
-                  sx={{
-                    height: '56px',
-                  }}
+                  className="signIn-item2-form-button"
                   onClick={handleClick}
                 >
                   Login
                 </LoadingButton>
 
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    textAlign: 'center',
-                    color: '#696F79',
-                  }}
-                >
-                  Don't have an account ?
-                  <NavLink
-                    to="/signUp"
-                    style={{
-                      textDecoration: 'none',
-                      color: '#2C73EB',
-                    }}
-                  >
-                    Sign up here
-                  </NavLink>
+                <Typography variant="subtitle2" className="signIn-item2-form-note">
+                  Don't have an account ?<NavLink to="/signUp">Sign up here</NavLink>
                 </Typography>
               </Box>
             </Box>

@@ -21,6 +21,13 @@
 ///-------------------------News;
 @import './News/index.scss';
 
+///-------------------------SignIn - SignUp
+@import './SignInSignUp/SignIn/index.scss';
+@import './SignInSignUp/SignUp/index.scss';
+
+///-------------------------UserBooking
+@import './UserBooking/index.scss';
+
 .error-text {
     color: red;
 }
