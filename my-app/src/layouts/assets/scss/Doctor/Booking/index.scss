@@ -1,1 +1,176 @@
+.margin1 {
+    margin: 1% !important;
+}
+
 //----------------------------------BookingRoot.scss
+
+.booking {
+    padding: 64px 32px 32px;
+    box-sizing: content-box;
+
+    &-container {
+        display: flex;
+    }
+
+    &-item1 {
+        width: 67%;
+    }
+
+    &-item2 {
+        width: 33%;
+    }
+}
+//----------------------------------InformationForm.js
+.in4Tab {
+    padding: 16px;
+    box-sizing: border-box;
+
+    &-form {
+        padding-bottom: 32px;
+        position: relative;
+
+        &-item1 {
+            margin-bottom: 20px !important;
+            box-sizing: border-box;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between;
+
+            &-1 {
+                width: 20%;
+            }
+
+            &-2 {
+                width: 37%;
+            }
+
+            &-3 {
+                width: 37%;
+            }
+        }
+
+        &-item2 {
+            margin-bottom: 20px !important;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        &-item3 {
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            width: 50%;
+        }
+
+        &-button {
+            position: absolute !important;
+            right: 8px;
+            bottom: 16px;
+        }
+    }
+}
+
+//----------------------------------BookingLeft.js
+
+.bLeft {
+
+    &-paper {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+
+        &-head {
+            margin: -35px 16px 0 16px;
+            padding: 24px 16px;
+            opacity: 1;
+            background: linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232));
+            color: #fff;
+            border-radius: 0.5rem !important;
+            box-shadow: rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem;
+        }
+
+        &-stepperBox {
+            display: flex;
+            justify-content: center;
+            padding: 32px 0;
+
+            &-stepper {
+                width: 70%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+//----------------------------------BookingForm.js
+
+.bookingTab {
+    padding: 16px;
+    box-sizing: border-box;
+
+    &-form {
+        position: relative;
+
+        &-item {
+
+            &-1 {
+                width: 50%;
+            }
+
+            &-2 {
+                width: 40%;
+            }
+
+            &-3 {
+                width: 30%;
+            }
+
+            &-errorBox {
+                height: 24px;
+            }
+
+            &-errorText {
+                color: red;
+            }
+        }
+
+        &-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}
+
+//----------------------------------BookingComplete.js
+
+.bComplete {
+    padding: 16px;
+    box-sizing: border-box;
+
+    &-header {
+        &-text {
+            text-align: center;
+        }
+    }
+
+    &-body {
+        display: flex;
+
+        &-form {
+            width: 65%;
+
+            &-item {
+                display: flex;
+                align-items: center;
+
+                &-title {
+                    width: max-content;
+                }
+
+                &-detail {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

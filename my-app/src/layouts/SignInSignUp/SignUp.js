@@ -13,14 +13,32 @@ import {
 import { Grid, Typography } from '@mui/material'
 
 import axios from 'axios'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home'
 
-import HP from '../assets/image/HealthProfessional.png'
+import * as yup from 'yup'
+import { useFormik } from 'formik'
 
 const specialChars = ['!', ',', '.', '/']
 const roles = ['User', 'Doctor']
+
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .min(9, 'Min length : 9')
+    .max(22, 'Max length : 22')
+    .matches(/^\S*$/, 'Username do not contain whitespace')
+    .required('Please enter your username'),
+  password: yup
+    .string()
+    .min(9, 'Min length : 9')
+    .max(22, 'Max length : 22')
+    .matches(/^(?=.*[!@#\$%\^&\*])/, 'One Special Case Character')
+    .required('Please enter your password'),
+  email: yup.string().email('Enter a valid email').required('Please enter your email'),
+  role: yup.string().required('Role is required'),
+})
 
 function SignUp() {
   const navigate = useNavigate()
@@ -39,13 +57,28 @@ function SignUp() {
       isError: false,
     },
   })
-  const [role, setRole] = useState({
-    value: null,
-    changed: false,
-    error: false,
-  })
+  const [role, setRole] = useState('')
   const [email, setEmail] = useState('')
   const [gender, setGender] = useState('')
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+      email: '',
+      role,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const newValues = {
+        ...values,
+        email: values.email.trim(),
+        gender,
+      }
+      console.log(newValues)
+      navigate('/signIn')
+    },
+  })
 
   // const signUpRequest = async() => {
   //     const postValue = {
@@ -57,93 +90,6 @@ function SignUp() {
   //     }
   //     var post = await axios.post('https://62c65d1874e1381c0a5d833e.mockapi.io/signUpRequest', postValue);
   // }
-
-  const handleUsernameChange = (e) => {
-    const value = e.target.value
-    if (value.length < 6 || value.length > 22) {
-      setUsername({
-        value,
-        changed: true,
-        error: true,
-      })
-    } else {
-      setUsername({
-        value,
-        changed: true,
-        error: false,
-      })
-    }
-  }
-
-  const handlePassChange = (e) => {
-    const value = e.target.value
-    const prevP = password.value
-    console.log(prevP)
-    var length = false
-    var numSL = password.error.numSL
-    var specialLetter = false
-    var isError = false
-    if (value.length > prevP.length) {
-      //insert letter
-      const lastChar = value[value.length - 1]
-      if (specialChars.includes(lastChar)) {
-        numSL += 1
-      }
-    } else {
-      //delete letter
-      let deleteChar = prevP[prevP.length - 1]
-      for (let i = 0; i < value.length; i++) {
-        if (prevP[i] !== value[i]) {
-          deleteChar = prevP[i]
-          break
-        }
-      }
-      if (specialChars.includes(deleteChar) && numSL === 1) {
-        numSL = 0
-      } else if (specialChars.includes(deleteChar) && numSL > 1) {
-        numSL -= 1
-      }
-    }
-
-    if (numSL === 0) {
-      specialLetter = true
-    }
-    if (value.length < 9 || value.length > 22) {
-      length = true
-    } else {
-      length = false
-    }
-    if (length || specialLetter) {
-      isError = true
-    }
-    setPassword({
-      value,
-      changed: true,
-      error: {
-        length,
-        specialLetter,
-        numSL,
-        isError,
-      },
-    })
-  }
-
-  const handleRoleChange = (event, newValue) => {
-    var value = newValue
-    if (value !== null) {
-      setRole({
-        value,
-        changed: true,
-        error: false,
-      })
-    } else {
-      setRole({
-        value,
-        changed: true,
-        error: true,
-      })
-    }
-  }
 
   const handleRegister = () => {
     if (username.changed === false) {
@@ -196,82 +142,49 @@ function SignUp() {
           </IconButton>
         </Box>
         <Box className="signUp-item2-body">
-          <Box
-            component="form"
-            className=" signUp-item2-body-formBox"
-            sx={{
-              width: '55%',
-              '& > :not(style)': { m: 1 },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <Typography variant="h4" fontWeight={700}>
-              Account sign up
-            </Typography>
-            <Typography variant="subtitle2" align="justify" color={'#8692A6'}>
-              Become a member and enjoy exclusive promotions.
-            </Typography>
-            <FormControl>
+          <form className=" signUp-item2-body-formBox" onSubmit={formik.handleSubmit}>
+            <div className="signUp-item2-body-formBox-head">
+              <Typography variant="h4" fontWeight={700}>
+                Account sign up
+              </Typography>
+              <Typography variant="subtitle2" align="justify" color={'#8692A6'}>
+                Become a member and enjoy exclusive promotions.
+              </Typography>
+            </div>
+            <FormControl className="signUp-item2-body-formBox-item">
               <Typography variant="subtitle2">Username</Typography>
-              <OutlinedInput
+              <TextField
                 placeholder="Username"
-                error={username.error}
-                value={username.value}
-                onChange={(e) => handleUsernameChange(e)}
-              ></OutlinedInput>
-              <Box>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!username.changed ? '#8692A6' : `${username.error ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  {'Length: >=6 and <=22'}
-                </Typography>
-              </Box>
+                name="username"
+                error={formik.touched.username && Boolean(formik.errors.username)}
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                helperText={formik.touched.username && formik.errors.username}
+              />
             </FormControl>
-            <FormControl>
+            <FormControl className="signUp-item2-body-formBox-item">
               <Typography variant="subtitle2">Password</Typography>
-              <OutlinedInput
+              <TextField
                 placeholder="Password"
                 type="password"
-                error={password.error.isError}
-                value={password.value}
-                onChange={(e) => handlePassChange(e)}
-              ></OutlinedInput>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!password.changed ? '#8692A6' : `${password.error.length ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  {'Length: >=9 and <=22'}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    color: `${!password.changed ? '#8692A6' : `${password.error.specialLetter ? 'red' : '#00b004'}`}`,
-                  }}
-                >
-                  Need 1 special letter
-                </Typography>
-              </Box>
+                name="password"
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                helperText={formik.touched.password && formik.errors.password}
+              />
             </FormControl>
-            <FormControl>
+            <FormControl className="signUp-item2-body-formBox-item">
               <Typography variant="subtitle2">Email</Typography>
-              <OutlinedInput
+              <TextField
                 placeholder="Email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></OutlinedInput>
+                name="email"
+                value={formik.values.email}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                onChange={formik.handleChange}
+                helperText={formik.touched.email && formik.errors.email}
+              />
             </FormControl>
             <FormControl>
               <Box>
@@ -289,20 +202,31 @@ function SignUp() {
                   ></FormControlLabel>
                 </FormGroup>
               </Box>
-              <Box>
+              <Box className="signUp-item2-body-formBox-item">
                 <Typography variant="subtitle2">Role</Typography>
                 <Autocomplete
                   options={roles}
-                  value={role.value}
-                  onChange={(event, newValue) => handleRoleChange(event, newValue)}
-                  renderInput={(params) => <TextField {...params} placeholder="Role" />}
+                  onInputChange={(event, newValue) =>
+                    formik.setFieldValue('role', newValue !== null ? newValue : formik.initialValues.role)
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      name="role"
+                      value={formik.values.role}
+                      error={formik.touched.role && Boolean(formik.errors.role)}
+                      // onChange={handleroleChange}
+                      helperText={formik.touched.role && formik.errors.role}
+                      {...params}
+                      placeholder="Role"
+                    />
+                  )}
                 />
               </Box>
             </FormControl>
-            <Button className="signUp-item2-body-button" variant="contained" onClick={handleRegister}>
+            <Button className="signUp-item2-body-button" variant="contained" type="submit">
               Register
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>
