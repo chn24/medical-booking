@@ -16,6 +16,7 @@
     - React-slick
     - moment, date-fns, dayjs
     - Axios
+    - formik, yup
     - Fake API qua web : mock API
 
 # Các chức năng
