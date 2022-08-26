@@ -169,12 +169,7 @@ function SignIn() {
               </Typography>
               <form className="signIn-item2-form" onSubmit={formik.handleSubmit}>
                 <FormControl className="signIn-item2-form-item">
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: '20px',
-                    }}
-                  ></Box>
+                  <Box className="signIn-item2-form-box"></Box>
                   <Typography variant="subtitle1">Username</Typography>
                   <TextField
                     placeholder="Username"
@@ -185,12 +180,7 @@ function SignIn() {
                   />
                 </FormControl>
                 <FormControl className="signIn-item2-form-item">
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: '20px',
-                    }}
-                  ></Box>
+                  <Box className="signIn-item2-form-box"></Box>
                   <Typography variant="subtitle1">Password</Typography>
                   <TextField
                     placeholder="Password"
@@ -201,6 +191,8 @@ function SignIn() {
                     onChange={formik.handleChange}
                   />
                 </FormControl>
+
+                <Box className="signIn-item2-form-box"></Box>
                 <LoadingButton variant="contained" loading={loading} className="signIn-item2-form-button" type="submit">
                   Login
                 </LoadingButton>

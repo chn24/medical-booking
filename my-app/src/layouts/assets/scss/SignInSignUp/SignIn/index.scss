@@ -49,12 +49,16 @@
             display: flex;
             flex-direction: column;
 
+            &-box {
+                width: 100%;
+                height: 20px;
+            }
+
             &-item {
                 margin: 0 5px;
             }
 
             &-button {
-                margin-top: 16px !important;
                 height: 56px;
             }
 
