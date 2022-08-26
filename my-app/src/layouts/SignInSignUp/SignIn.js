@@ -56,7 +56,6 @@ function SignIn() {
         username: values.username.trim(),
         password: values.password.trim(),
       }
-      console.log(newValues)
       handleClick(newValues)
     },
   })

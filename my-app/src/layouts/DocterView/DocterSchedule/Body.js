@@ -1,7 +1,6 @@
-import { Box, Button, FormControl, Grid } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import LPNav from '../../LandingPage/LPNav'
 import DSLeft from './DSLeft'
 import DSRight from './DSRight'
 import ResDialog from './ResDialog'
