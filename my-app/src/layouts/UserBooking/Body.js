@@ -27,7 +27,6 @@ function Body() {
   const callApi = async () => {
     const res = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${isLogin.id}`)
     if (res.data) {
-      console.log(res.data)
       setDates(res.data.dates)
     }
   }

@@ -113,7 +113,6 @@ function BookingForm(props) {
       doctorSchedule()
     }
   }, [doctorName])
-  console.log(1)
 
   useEffect(() => {
     if (date.value !== null) {
@@ -227,7 +226,6 @@ function BookingForm(props) {
         `https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`,
         data,
       )
-      console.log(arr)
     }
     // const push = await axios.put()
   }
