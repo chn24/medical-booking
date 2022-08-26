@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, IconButton, OutlinedInput, Typography } from '@mui/material'
+import { Box, FormControl, Grid, IconButton, OutlinedInput, TextField, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -10,6 +10,8 @@ import HomeIcon from '@mui/icons-material/Home'
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+import * as yup from 'yup'
+import { useFormik } from 'formik'
 
 const doctors = [
   'doctor1',
@@ -26,6 +28,11 @@ const doctors = [
 
 const users = ['user1', 'user2', 'user3', 'user4', 'user5']
 
+const validationSchema = yup.object({
+  username: yup.string().required(),
+  password: yup.string().required(),
+})
+
 function SignIn() {
   const navigate = useNavigate()
 
@@ -33,52 +40,33 @@ function SignIn() {
   const [loginData, setLoginData] = useRecoilState(dataState)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [username, setUsername] = useState({
-    value: '',
-    changed: false,
-    error: false,
-  })
+
   const [usernameAlert, setUsernameAlert] = useState(false)
-  const [password, setPassword] = useState({
-    value: '',
-    changed: false,
-    error: false,
-  })
+
   const [passwordAlert, setPasswordAlert] = useState(false)
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      let newValues = {
+        username: values.username.trim(),
+        password: values.password.trim(),
+      }
+      console.log(newValues)
+      handleClick(newValues)
+    },
+  })
 
   const getDoctorData = async (index) => {
     const information = await axios.get(`https://jsonplaceholder.typicode.com/users/${index}`)
-    // const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
-    // if (schedule.data) {
-    //   let arr = schedule.data.dates
-    //   let fullArr = []
-    //   let morningArr = []
-    //   let afternoonArr = []
-    //   for (let key in arr) {
-    //     switch (arr[key].time) {
-    //       case 'Full':
-    //         fullArr.splice(fullArr.length, 0, arr[key].date)
-    //         break
-    //       case 'Morning':
-    //         morningArr.splice(morningArr.length, 0, arr[key].date)
-    //         break
-    //       default:
-    //         afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
-    //         break
-    //     }
-    //   }
 
-    // }
     setLoginData({
       information: information.data,
       roll: 'Doctor',
-      // schedule: {
-      //   value: schedule.data.dates,
-      //   full: fullArr,
-      //   morning: morningArr,
-      //   afternoon: afternoonArr,
-      // },
-      // booking: schedule.data.bookings,
     })
     setIsLogin({
       login: true,
@@ -114,70 +102,39 @@ function SignIn() {
     //   "https://62c65d1874e1381c0a5d833e.mockapi.io/signInRequest",
     //   postValue
     // );
-    var res = await axios.get('https://62c65d1874e1381c0a5d833e.mockapi.io/signinEr')
+    const res = await axios.get('https://62c65d1874e1381c0a5d833e.mockapi.io/signinEr')
     if (res.data) {
-      var random = Math.floor(Math.random() * res.data.length)
+      const random = Math.floor(Math.random() * res.data.length)
       if (res.data[random].isError) {
         setError(true)
         if (res.data[random].usernameError) {
-          setUsername({
-            ...username,
-            error: true,
-          })
+          setUsernameAlert(true)
         } else {
-          setUsername({
-            ...username,
-            error: false,
-          })
+          setUsernameAlert(false)
         }
         if (res.data[random].passwordError) {
-          setPassword({
-            ...password,
-            error: true,
-          })
+          setPasswordAlert(true)
         } else {
-          setPassword({
-            ...password,
-            error: false,
-          })
+          setPasswordAlert(false)
         }
       }
     }
   }
 
-  const handleClick = async () => {
-    if (!username.changed || username.value === '') {
-      setUsernameAlert(true)
-      setUsername({
-        ...username,
-        error: true,
-      })
-    } else if ((username.changed && !password.changed) || password.value === '') {
-      setUsernameAlert(false)
-      setUsername({
-        ...username,
-        error: false,
-      })
-      setPasswordAlert(true)
-      setPassword({
-        ...password,
-        error: true,
-      })
+  const handleClick = async (values) => {
+    setUsernameAlert(false)
+    setPasswordAlert(false)
+    setLoading(true)
+    if (doctors.includes(values.username)) {
+      let index = doctors.indexOf(values.username) + 1
+      await getDoctorData(index)
+    } else if (users.includes(values.username)) {
+      let index = users.includes(values.username) + 10
+      getUserData(index)
     } else {
-      setUsernameAlert(false)
-      setPasswordAlert(false)
-      setLoading(true)
-      if (doctors.includes(username.value)) {
-        let index = doctors.indexOf(username.value) + 1
-        await getDoctorData(index)
-      } else if (users.includes(username.value)) {
-        let index = users.includes(username.value) + 10
-        getUserData(index)
-      } else {
-        await testApi()
-      }
-      setLoading(false)
+      await testApi()
     }
+    setLoading(false)
   }
 
   const handleHomeClick = () => {
@@ -203,8 +160,6 @@ function SignIn() {
           </Box>
           <Box className="signIn-item2-body">
             <Box className=" signIn-item2-formBox" sx={{ width: '50%', position: 'relative' }}>
-              <SignInAlert in={usernameAlert} changeAlert={setUsernameAlert} title={'Username required'} />
-              <SignInAlert in={passwordAlert} changeAlert={setPasswordAlert} title={'Password required'} />
               <SignInAlert in={error} changeAlert={setError} title={'Login fail'} />
               <Typography variant="h4" margin={'8px'} fontWeight="700">
                 Account Login
@@ -212,15 +167,7 @@ function SignIn() {
               <Typography variant="subtitle2" align="justify" color={'#8692A6'} margin={'8px'}>
                 If you are already a member you can login with your email address and password.
               </Typography>
-              <Box
-                className="signIn-item2-form"
-                component="form"
-                sx={{
-                  '& > :not(style)': { m: 1 },
-                }}
-                noValidate
-                autoComplete="off"
-              >
+              <form className="signIn-item2-form" onSubmit={formik.handleSubmit}>
                 <FormControl className="signIn-item2-form-item">
                   <Box
                     sx={{
@@ -229,17 +176,12 @@ function SignIn() {
                     }}
                   ></Box>
                   <Typography variant="subtitle1">Username</Typography>
-                  <OutlinedInput
+                  <TextField
                     placeholder="Username"
-                    error={username.error}
-                    value={username.value}
-                    onChange={(e) =>
-                      setUsername({
-                        ...username,
-                        changed: true,
-                        value: e.target.value,
-                      })
-                    }
+                    name="username"
+                    error={(formik.touched.username && Boolean(formik.errors.username)) || usernameAlert}
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
                   />
                 </FormControl>
                 <FormControl className="signIn-item2-form-item">
@@ -250,33 +192,23 @@ function SignIn() {
                     }}
                   ></Box>
                   <Typography variant="subtitle1">Password</Typography>
-                  <OutlinedInput
+                  <TextField
                     placeholder="Password"
                     type="password"
-                    error={password.error}
-                    value={password.value}
-                    onChange={(e) =>
-                      setPassword({
-                        ...password,
-                        changed: true,
-                        value: e.target.value,
-                      })
-                    }
+                    name="password"
+                    error={(formik.touched.password && Boolean(formik.errors.password)) || passwordAlert}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                   />
                 </FormControl>
-                <LoadingButton
-                  variant="contained"
-                  loading={loading}
-                  className="signIn-item2-form-button"
-                  onClick={handleClick}
-                >
+                <LoadingButton variant="contained" loading={loading} className="signIn-item2-form-button" type="submit">
                   Login
                 </LoadingButton>
 
                 <Typography variant="subtitle2" className="signIn-item2-form-note">
                   Don't have an account ?<NavLink to="/signUp">Sign up here</NavLink>
                 </Typography>
-              </Box>
+              </form>
             </Box>
           </Box>
         </Box>

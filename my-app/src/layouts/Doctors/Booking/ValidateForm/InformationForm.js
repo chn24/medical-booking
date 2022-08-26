@@ -1,6 +1,5 @@
 import { Autocomplete, Box, Button, FormControl, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
-import styles from '../assets/InformationForm.scss'
 import { BookingData } from '../BookingLeft'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
