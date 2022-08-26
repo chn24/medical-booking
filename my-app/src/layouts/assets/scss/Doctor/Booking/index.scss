@@ -30,7 +30,7 @@
         position: relative;
 
         &-item1 {
-            margin-bottom: 20px !important;
+            margin-bottom: 8px !important;
             box-sizing: border-box;
             display: flex !important;
             flex-direction: row !important;
@@ -38,27 +38,32 @@
 
             &-1 {
                 width: 20%;
+                height: 107px;
             }
 
             &-2 {
                 width: 37%;
+                height: 107px;
             }
 
             &-3 {
                 width: 37%;
+                height: 107px;
             }
         }
 
         &-item2 {
-            margin-bottom: 20px !important;
+            margin-bottom: 8px !important;
             box-sizing: border-box;
             width: 100%;
+            height: 107px;
         }
 
         &-item3 {
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             box-sizing: border-box;
             width: 50%;
+            height: 107px;
         }
 
         &-button {
