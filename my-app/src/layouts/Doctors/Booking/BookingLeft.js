@@ -1,5 +1,5 @@
-import { Divider, Paper, Step, StepLabel, Stepper, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { Box, Divider, Paper, Step, StepLabel, Stepper, Typography } from '@mui/material'
+
 import { createContext, useState } from 'react'
 import BookingForm from './ValidateForm/BookingForm'
 import InformationForm from './ValidateForm/InformationForm'
@@ -12,29 +12,11 @@ function BookingLeft() {
   const [activeStep, setActiveStep] = useState(0)
   const [customer, setCustomer] = useState({
     title: '',
-    firstName: {
-      value: '',
-      isChanged: false,
-      error: false,
-    },
-    lastName: {
-      value: '',
-      isChanged: false,
-      error: false,
-    },
+    firstName: '',
+    lastName: '',
     name: '',
     email: '',
-    phoneNumber: {
-      value: '',
-      isChanged: false,
-      error: {
-        isError: false,
-        required: false,
-        justNumber: false,
-        notNum: 0,
-        length: false,
-      },
-    },
+    phoneNumber: '',
   })
   const [booking, setBooking] = useState({
     doctorName: {
@@ -61,7 +43,6 @@ function BookingLeft() {
     full: [],
   })
   const [doctorList, setDoctorList] = useState([])
-
   return (
     <BookingData.Provider
       value={{
@@ -73,44 +54,14 @@ function BookingLeft() {
         setDoctorList,
       }}
     >
-      <Box>
-        <Paper
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '95%',
-          }}
-        >
-          <Box
-            sx={{
-              margin: '-35px 16px 0 16px',
-              padding: '24px 16px',
-              opacity: '1',
-              background: 'linear-gradient(195deg, rgb(73, 163, 241), rgb(26, 115, 232))',
-              color: '#fff',
-              borderRadius: '0.5rem',
-              boxShadow:
-                'rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(0 187 212 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem',
-            }}
-          >
+      <Box className="bLeft">
+        <Paper className="bLeft-paper">
+          <Box className="bLeft-paper-head">
             <Typography variant="h5">Booking</Typography>
           </Box>
           <Box>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                padding: '32px 0',
-              }}
-            >
-              <Stepper
-                className="b-stepper"
-                activeStep={activeStep}
-                sx={{
-                  width: '70%',
-                  textAlign: 'center',
-                }}
-              >
+            <Box className="bLeft-paper-stepperBox">
+              <Stepper className=" bLeft-paper-stepperBox-stepper" activeStep={activeStep}>
                 {steps.map((label, index) => {
                   return (
                     <Step key={label}>

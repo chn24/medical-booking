@@ -4,33 +4,17 @@ import BookingRight from './BookingRight'
 
 function BookingRoot() {
   return (
-    <Box
-      className="booking-box"
-      sx={{
-        padding: '64px 32px 32px',
-        boxSizing: 'content-box',
-      }}
-    >
+    <Box className="booking">
       <Box
         className="booking-container"
         sx={{
           display: 'flex',
         }}
       >
-        <Box
-          className="booking-item booking-box-1"
-          sx={{
-            width: '67%',
-          }}
-        >
+        <Box className="booking-item booking-box-1 booking-item1">
           <BookingLeft />
         </Box>
-        <Box
-          className="booking-item"
-          sx={{
-            width: '33%',
-          }}
-        >
+        <Box className="booking-item booking-item2">
           <BookingRight />
         </Box>
       </Box>

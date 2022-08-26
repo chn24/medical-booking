@@ -70,74 +70,56 @@ function BookingComplete(props) {
   }
 
   return (
-    <Box
-      sx={{
-        padding: '16px ',
-        boxSizing: 'border-box',
-      }}
-    >
-      <Box>
-        <Typography variant="h5" sx={{ textAlign: 'center' }}>
+    <Box className="bComplete">
+      <Box className="bComplete-header">
+        <Typography className="bComplete-header-text" variant="h5">
           Thank you for using our service
         </Typography>
-        <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+        <Typography className="bComplete-header-text" variant="subtitle1">
           Here is your booking information
         </Typography>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-        }}
-      >
+      <Box className="bComplete-body">
         <Box
-          className="bookg-complete-form"
+          className="bookg-complete-form bComplete-body-form"
           component="form"
           sx={{
             '& > :not(style)': { m: 1 },
             position: 'relative',
-            width: '65%',
             // display:'flex',
             // flexDirection: 'column'
           }}
           noValidate
           autoComplete="off"
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="h6" className="b-complete-title" sx={{ width: 'max-content' }}>
+          <Box className="bComplete-body-form-item">
+            <Typography variant="h6" className="bComplete-body-form-item-title" sx={{ width: 'max-content' }}>
               Your name :{' '}
             </Typography>
-            <TextField variant="standard" disabled defaultValue={`${context.customer.name}`}></TextField>
+            <TextField
+              className="bComplete-body-form-item-detail"
+              variant="standard"
+              disabled
+              defaultValue={`${context.customer.name}`}
+            ></TextField>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="h6" className="b-complete-title" sx={{ width: 'max-content' }}>
+          <Box className="bComplete-body-form-item">
+            <Typography variant="h6" className="bComplete-body-form-item-title" sx={{ width: 'max-content' }}>
               Your doctor :{' '}
             </Typography>
             <TextField
+              className="bComplete-body-form-item-detail"
               variant="standard"
               disabled
               defaultValue={`${context.booking.doctorName.value.name}`}
             ></TextField>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="h6" className="b-complete-title" sx={{ width: 'max-content' }}>
+          <Box className="bComplete-body-form-item">
+            <Typography variant="h6" className="bComplete-body-form-item-title" sx={{ width: 'max-content' }}>
               Date :{' '}
             </Typography>
             <TextField
+              className="bComplete-body-form-item-detail"
               variant="standard"
               disabled
               defaultValue={`${context.booking.time.value} ${context.booking.date.day} ${context.booking.date.month} ${context.booking.date.year} 

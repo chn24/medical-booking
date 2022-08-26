@@ -113,6 +113,7 @@ function BookingForm(props) {
       doctorSchedule()
     }
   }, [doctorName])
+  console.log(1)
 
   useEffect(() => {
     if (date.value !== null) {
@@ -288,31 +289,20 @@ function BookingForm(props) {
   }
 
   return (
-    <Box
-      sx={{
-        padding: '16px ',
-        boxSizing: 'border-box',
-      }}
-    >
+    <Box className="bookingTab">
       <Box>
         <Typography variant="h5">Doctor Booking</Typography>
       </Box>
       <Box
-        className="b-container"
+        className="b-container bookingTab-form"
         component="form"
         sx={{
           '& > :not(style)': { m: 1 },
-          position: 'relative',
         }}
         noValidate
         autoComplete="off"
       >
-        <FormControl
-          className="b-item margin1"
-          sx={{
-            width: '50%',
-          }}
-        >
+        <FormControl className="b-item bookingTab-form-item margin1 bookingTab-form-item-1">
           <Stack>
             <Typography variant="subtitle1">Doctors</Typography>
             <Autocomplete
@@ -321,28 +311,14 @@ function BookingForm(props) {
               onChange={(event, newValue) => handleDoctorChange(event, newValue)}
               renderInput={(params) => <TextField {...params} error={doctorName.error} placeholder="Doctors" />}
             />
-            <Box
-              sx={{
-                height: '24px',
-              }}
-            >
-              <Typography
-                variant="caption"
-                sx={{
-                  color: 'red',
-                }}
-              >
+            <Box className="bookingTab-form-item-errorBox">
+              <Typography variant="caption" className="bookingTab-form-item-errorText">
                 {doctorName.error ? '*Required' : ''}
               </Typography>
             </Box>
           </Stack>
         </FormControl>
-        <FormControl
-          className="b-item margin1"
-          sx={{
-            width: '40%',
-          }}
-        >
+        <FormControl className="b-item bookingTab-form-item margin1 bookingTab-form-item-2">
           <Stack>
             <Typography variant="subtitle1">Choose Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -356,28 +332,14 @@ function BookingForm(props) {
                 renderDay={customDayRenderer}
               />
             </LocalizationProvider>
-            <Box
-              sx={{
-                height: '24px',
-              }}
-            >
-              <Typography
-                variant="caption"
-                sx={{
-                  color: 'red',
-                }}
-              >
+            <Box className="bookingTab-form-item-errorBox">
+              <Typography variant="caption" className="bookingTab-form-item-errorText">
                 {date.error !== null ? `*${date.error}` : ''}
               </Typography>
             </Box>
           </Stack>
         </FormControl>
-        <FormControl
-          className="b-item margin1"
-          sx={{
-            width: '30%',
-          }}
-        >
+        <FormControl className="b-item bookingTab-form-item margin1 bookingTab-form-item-3">
           <Stack>
             <Typography variant="subtitle1">Time</Typography>
             <Autocomplete
@@ -387,29 +349,14 @@ function BookingForm(props) {
               onChange={(event, newValue) => handleTimeChange(event, newValue)}
               renderInput={(params) => <TextField {...params} error={time.error} placeholder="Times" />}
             />
-            <Box
-              sx={{
-                height: '24px',
-              }}
-            >
-              <Typography
-                variant="caption"
-                sx={{
-                  color: 'red',
-                }}
-              >
+            <Box className="bookingTab-form-item-errorBox">
+              <Typography variant="caption" className="bookingTab-form-item-errorText">
                 {time.error ? '*Required' : ''}
               </Typography>
             </Box>
           </Stack>
         </FormControl>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
+        <Box className="bookingTab-form-buttons">
           <Button variant="contained" onClick={handleBack}>
             Back
           </Button>
