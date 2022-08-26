@@ -8,7 +8,6 @@ function BookingComplete(props) {
   const context = useContext(BookingData)
   const { activeStep, setActiveStep } = props
   const navigate = useNavigate()
-  console.log(context)
 
   const handleBooking = () => {
     context.setCustomer({

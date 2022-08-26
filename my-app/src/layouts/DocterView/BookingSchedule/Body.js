@@ -15,14 +15,12 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay'
 import moment from 'moment'
 
 import { loginState } from '../../../recoil/loginState'
 import { useRecoilValue } from 'recoil'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { set } from 'date-fns'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
@@ -40,7 +38,6 @@ function Body() {
   const callAPI = async () => {
     const res = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${isLogin.id}`)
     if (res.data) {
-      console.log(res.data.bookings)
       setBookingSchedule(res.data.bookings)
       if (date.error === null && date.value === null) {
         setShows(res.data.bookings)
@@ -53,10 +50,8 @@ function Body() {
   }, [])
 
   useEffect(() => {
-    console.log(date.value)
     if (date.error === null) {
       if (date.value === null) {
-        console.log('1')
         setShows(bookingSchedule)
       } else {
         let arr = []
@@ -82,8 +77,6 @@ function Body() {
       error,
     })
   }
-
-  console.log(shows)
 
   return (
     <Box className="drBs">

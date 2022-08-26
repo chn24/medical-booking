@@ -7,10 +7,9 @@ import {
   FormControlLabel,
   FormGroup,
   IconButton,
-  OutlinedInput,
   TextField,
 } from '@mui/material'
-import { Grid, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import axios from 'axios'
 import React, { useState } from 'react'
@@ -20,7 +19,6 @@ import HomeIcon from '@mui/icons-material/Home'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 
-const specialChars = ['!', ',', '.', '/']
 const roles = ['User', 'Doctor']
 
 const validationSchema = yup.object({
@@ -42,23 +40,8 @@ const validationSchema = yup.object({
 
 function SignUp() {
   const navigate = useNavigate()
-  const [username, setUsername] = useState({
-    value: '',
-    changed: false,
-    error: false,
-  })
-  const [password, setPassword] = useState({
-    value: '',
-    changed: false,
-    error: {
-      length: false,
-      numSL: 0,
-      specialLetter: false,
-      isError: false,
-    },
-  })
+
   const [role, setRole] = useState('')
-  const [email, setEmail] = useState('')
   const [gender, setGender] = useState('')
 
   const formik = useFormik({
@@ -75,7 +58,6 @@ function SignUp() {
         email: values.email.trim(),
         gender,
       }
-      console.log(newValues)
       navigate('/signIn')
     },
   })
@@ -90,31 +72,6 @@ function SignUp() {
   //     }
   //     var post = await axios.post('https://62c65d1874e1381c0a5d833e.mockapi.io/signUpRequest', postValue);
   // }
-
-  const handleRegister = () => {
-    if (username.changed === false) {
-      setUsername({
-        ...username,
-        changed: true,
-        error: true,
-      })
-    }
-    if (username.changed === false) {
-      setPassword({
-        ...password,
-        changed: true,
-        error: {
-          length: true,
-          numSL: 0,
-          specialLetter: true,
-          isError: true,
-        },
-      })
-    }
-    if (password.changed && username.changed && !username.error && !password.error.isError) {
-      navigate('/signIn')
-    }
-  }
 
   const handleHomeClick = () => {
     navigate('/')

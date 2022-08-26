@@ -5,7 +5,7 @@ import SignIn from './layouts/SignInSignUp/SignIn'
 import SignUp from './layouts/SignInSignUp/SignUp'
 import DoctorInformation from './layouts/Doctors/DoctorIn4/DoctorInormation'
 import Booking from './layouts/Doctors/Booking/Booking'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect } from 'react'
 import DoctorList from './layouts/Doctors/doctorList'
 import DoctorSchedule from './layouts/DocterView/DocterSchedule'
 import DoctorProfile from './layouts/DocterView/DoctorProfile'
@@ -21,7 +21,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 export const LogginContext = createContext()
 
 function App() {
-  const loginData = useRecoilValue(dataState)
   const setLoginData = useSetRecoilState(dataState)
   const isLogin = useRecoilValue(loginState)
 

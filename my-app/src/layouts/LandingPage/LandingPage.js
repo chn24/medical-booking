@@ -24,9 +24,6 @@ function LandingPage() {
   //   setLoading(false)
   // }, [])
 
-  console.log(loginData)
-  console.log(isLogin)
-
   return (
     <div
       className="lPmain"
