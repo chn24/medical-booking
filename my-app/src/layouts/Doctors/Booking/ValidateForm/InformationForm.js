@@ -31,7 +31,7 @@ function InformationForm(props) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      if (Object.keys(formik.errors).length === 0) {
+      if (!Object.keys(formik.errors).length) {
         let newValues = {
           ...values,
           firstName: values.firstName.trim(),
@@ -72,7 +72,7 @@ function InformationForm(props) {
             <Typography variant="subtitle1">Title</Typography>
             <Autocomplete
               options={titleList}
-              value={title === '' ? null : title}
+              value={title ?? ''}
               onChange={(event, newValue) => {
                 setTitle(newValue)
               }}
@@ -81,47 +81,23 @@ function InformationForm(props) {
           </Stack>
           <Stack className="in4Tab-form-item1-2">
             <Typography variant="subtitle1">First Name</Typography>
-            <TextField
-              name="firstName"
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
+            <CustomTextField name="firstName" formik={formik} />
           </Stack>
           <Stack className="in4Tab-form-item1-3">
             <Typography variant="subtitle1">Last Name</Typography>
-            <TextField
-              name="lastName"
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
+            <CustomTextField name="lastName" formik={formik} />
           </Stack>
         </FormControl>
         <FormControl className="in4Tab-form-item2">
           <Stack className="in4Tab-form-item-4">
             <Typography variant="subtitle1">Email</Typography>
-            <TextField
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
+            <CustomTextField name="email" formik={formik} />
           </Stack>
         </FormControl>
         <FormControl className="in4Tab-form-item3">
           <Stack className="in4Tab-form-item-5">
             <Typography variant="subtitle1">Phone number</Typography>
-            <TextField
-              name="phoneNumber"
-              value={formik.values.phoneNumber}
-              onChange={formik.handleChange}
-              error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
-              helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-            />
+            <CustomTextField name="phoneNumber" formik={formik} />
           </Stack>
         </FormControl>
         <Button className="in4Tab-form-button" type="submit" variant="contained">
@@ -132,51 +108,16 @@ function InformationForm(props) {
   )
 }
 
+const CustomTextField = ({ name, formik }) => {
+  return (
+    <TextField
+      name={name}
+      value={formik.values[name]}
+      onChange={formik.handleChange}
+      error={formik.touched[name] && !!formik.errors[name]}
+      helperText={formik.touched[name] && formik.errors[name]}
+    />
+  )
+}
+
 export default InformationForm
-/*
-<Box
-        className="b-container"
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1 },
-          position: 'relative',
-          // display:'flex',
-          // flexDirection: 'column'
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <FormControl
-          className="b-item margin1"
-          sx={{
-            boxSizing: 'border-box',
-            width: '20%',
-          }}
-        >
-          <Stack>
-            <Typography variant="subtitle1">Title</Typography>
-            <Autocomplete
-              options={titleList}
-              value={title === '' ? null : title}
-              onChange={(event, newValue) => {
-                setTitle(newValue)
-              }}
-              renderInput={(params) => <TextField {...params} placeholder="Title" />}
-            />
-          </Stack>
-        </FormControl>
-        
-        <FormControl
-          className="form-btn"
-          sx={{
-            position: 'absolute',
-            right: '1%',
-            bottom: '1%',
-          }}
-        >
-          <Button variant="contained" onClick={handleClick}>
-            Next
-          </Button>
-        </FormControl>
-      </Box>
-*/

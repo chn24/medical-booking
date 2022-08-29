@@ -28,10 +28,8 @@ function BookingForm(props) {
 
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
     const stringifiedDate = moment(date).format('YYYY-MM-DD')
-    if (full.includes(stringifiedDate)) {
-      return <PickersDay {...pickersDayProps} disabled />
-    }
-    return <PickersDay {...pickersDayProps} />
+
+    return <PickersDay {...pickersDayProps} disabled={full.includes(stringifiedDate)} />
   }
 
   const defaultProps = {
@@ -53,7 +51,7 @@ function BookingForm(props) {
   }
 
   useEffect(() => {
-    if (context.doctorList.length === 0) {
+    if (!context.doctorList.length) {
       doctorInfor()
     }
   }, [])
@@ -85,8 +83,8 @@ function BookingForm(props) {
   }
 
   const handleDoctorChange = (event, newValue) => {
-    var error = false
-    newValue === null ? (error = true) : (error = false)
+    const error = !newValue
+
     setDoctorName({
       value: newValue,
       isChoosen: true,
@@ -109,15 +107,15 @@ function BookingForm(props) {
 
   useEffect(() => {
     //handle change doctor schedule api
-    if (doctorName.isChoosen && doctorName.value !== null) {
+    if (doctorName?.isChoosen && doctorName?.value) {
       doctorSchedule()
     }
   }, [doctorName])
 
   useEffect(() => {
-    if (date.value !== null) {
+    if (date.value) {
       const stringifiedDate = moment(date.value).format('YYYY-MM-DD')
-      var timesArr = []
+      let timesArr = []
       if (morning.includes(stringifiedDate)) {
         timesArr = ['Afternoon']
       } else if (afternoon.includes(stringifiedDate)) {
@@ -176,32 +174,16 @@ function BookingForm(props) {
   }
 
   const handleDateError = (error, newValue) => {
-    if (error === 'invalidDate') {
-      setDate({
-        ...date,
-        error,
-      })
-    } else if (error === null) {
-      setDate({
-        ...date,
-        error: 'Required',
-      })
-    } else {
-      setDate({
-        ...date,
-        error,
-      })
-    }
+    setDate({
+      ...date,
+      error: error ?? 'Required',
+    })
   }
 
   const handleTimeChange = (event, newValue) => {
-    var error = false
-    if (newValue === null) {
-      error = true
-    }
     setTime({
       value: newValue,
-      error,
+      error: !newValue,
       isChoosen: true,
     })
   }
@@ -244,14 +226,7 @@ function BookingForm(props) {
   }
 
   const handleFinish = () => {
-    if (
-      doctorName.isChoosen &&
-      !doctorName.error &&
-      date.isChoosen &&
-      date.error === null &&
-      time.isChoosen &&
-      !time.error
-    ) {
+    if (doctorName.isChoosen && !doctorName.error && date.isChoosen && !date.error && time.isChoosen && !time.error) {
       pushBooking()
       context.setBooking({
         doctorName,
@@ -273,7 +248,7 @@ function BookingForm(props) {
             isChoosen: true,
             error: 'Required',
           })
-        } else if (date.isChoosen && date.error === null) {
+        } else if (date.isChoosen && !date.error) {
           if (!time.isChoosen) {
             setTime({
               ...time,
@@ -306,7 +281,7 @@ function BookingForm(props) {
             <Autocomplete
               {...defaultProps}
               value={doctorName.value}
-              onChange={(event, newValue) => handleDoctorChange(event, newValue)}
+              onChange={handleDoctorChange}
               renderInput={(params) => <TextField {...params} error={doctorName.error} placeholder="Doctors" />}
             />
             <Box className="bookingTab-form-item-errorBox">
@@ -316,16 +291,18 @@ function BookingForm(props) {
             </Box>
           </Stack>
         </FormControl>
+
         <FormControl className="b-item bookingTab-form-item margin1 bookingTab-form-item-2">
           <Stack>
             <Typography variant="subtitle1">Choose Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 disabled={doctorName.value === null || doctorName.value === ''}
+                // !doctorName.value
                 value={date.value}
-                onError={(error, newValue) => handleDateError(error, newValue)}
+                onError={handleDateError}
                 disablePast
-                onChange={(newValue) => handleDateChange(newValue)}
+                onChange={handleDateChange}
                 renderInput={(params) => <TextField {...params} error={date.error !== null} />}
                 renderDay={customDayRenderer}
               />
@@ -337,6 +314,7 @@ function BookingForm(props) {
             </Box>
           </Stack>
         </FormControl>
+
         <FormControl className="b-item bookingTab-form-item margin1 bookingTab-form-item-3">
           <Stack>
             <Typography variant="subtitle1">Time</Typography>
@@ -344,7 +322,7 @@ function BookingForm(props) {
               disabled={date.error !== null || !date.isChoosen}
               options={doctorTimes}
               value={time.value}
-              onChange={(event, newValue) => handleTimeChange(event, newValue)}
+              onChange={handleTimeChange}
               renderInput={(params) => <TextField {...params} error={time.error} placeholder="Times" />}
             />
             <Box className="bookingTab-form-item-errorBox">
@@ -354,6 +332,7 @@ function BookingForm(props) {
             </Box>
           </Stack>
         </FormControl>
+
         <Box className="bookingTab-form-buttons">
           <Button variant="contained" onClick={handleBack}>
             Back
