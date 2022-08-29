@@ -11,7 +11,7 @@ function BookingComplete(props) {
 
   const handleBooking = () => {
     context.setCustomer({
-      title: '',
+      title: null,
       firstName: '',
       lastName: '',
       name: '',

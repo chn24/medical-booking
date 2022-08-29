@@ -11,7 +11,7 @@ const steps = ['Your Details', 'Booking']
 function BookingLeft() {
   const [activeStep, setActiveStep] = useState(0)
   const [customer, setCustomer] = useState({
-    title: '',
+    title: null,
     firstName: '',
     lastName: '',
     name: '',

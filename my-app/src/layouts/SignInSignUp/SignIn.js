@@ -70,6 +70,7 @@ function SignIn() {
     setIsLogin({
       login: true,
       id: index,
+      roll: 'User',
     })
 
     navigate('/')
@@ -87,6 +88,7 @@ function SignIn() {
       setIsLogin({
         login: true,
         id: res.data.id,
+        roll: 'User',
       })
     }
     navigate('/')
