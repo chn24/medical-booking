@@ -12,29 +12,11 @@ function BookingComplete(props) {
   const handleBooking = () => {
     context.setCustomer({
       title: '',
-      firstName: {
-        value: '',
-        isChanged: false,
-        error: false,
-      },
-      lastName: {
-        value: '',
-        isChanged: false,
-        error: false,
-      },
+      firstName: '',
+      lastName: '',
       name: '',
       email: '',
-      phoneNumber: {
-        value: '',
-        isChanged: false,
-        error: {
-          isError: false,
-          required: false,
-          justNumber: false,
-          notNum: 0,
-          length: false,
-        },
-      },
+      phoneNumber: '',
     })
     context.setBooking({
       doctorName: {

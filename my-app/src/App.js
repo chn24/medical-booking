@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
 import LandingPage from './layouts/LandingPage/LandingPage'
 import SignIn from './layouts/SignInSignUp/SignIn'
 import SignUp from './layouts/SignInSignUp/SignUp'
@@ -82,13 +82,23 @@ function App() {
   }, [])
   // const [isLogin, setIsLogin] = useState(false)
 
+  // ==> protected route
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/signIn" element={<SignIn />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
-        <Route path="/doctor-list" element={<DoctorList />}></Route>
+        <Route
+          path="/doctor-list"
+          element={
+            <ProtectedRoute isLogin={isLogin.login} path="">
+              {' '}
+              <DoctorList />{' '}
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route path="doctor-list/doctor-information">
           <Route path=":doctorid" element={<DoctorInformation />}></Route>
           {/* <Route path=":tabname" element={<CommentTab/>}></Route> */}
@@ -104,4 +114,14 @@ function App() {
   )
 }
 
+const ProtectedRoute = ({ isLogin, path, children }) => {
+  console.log(isLogin)
+  if (!isLogin) {
+    return <p>error</p>
+  }
+  return children
+}
+
 export default App
+
+// features , pages , còn layouts ~ components common, const navigation  = useNavigation()
