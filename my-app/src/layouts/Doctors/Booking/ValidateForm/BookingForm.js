@@ -1,17 +1,21 @@
 import { Autocomplete, Box, Button, FormControl, Stack, TextField, Typography } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import { BookingData } from '../BookingLeft'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay'
 import moment from 'moment'
+import { useContext, useEffect, useState } from 'react'
+import axios from 'axios'
+import { loginState } from '../../../../recoil/loginState'
+
+import { BookingData } from '../BookingLeft'
+import { useRecoilValue } from 'recoil'
 
 const times = ['Morning', 'Afternoon']
 
 function BookingForm(props) {
   const context = useContext(BookingData)
+  const loginData = useRecoilValue(loginState)
   const { activeStep, setActiveStep } = props
   const [doctorName, setDoctorName] = useState(context.booking.doctorName)
   const [time, setTime] = useState(context.booking.time)
@@ -29,7 +33,10 @@ function BookingForm(props) {
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
     const stringifiedDate = moment(date).format('YYYY-MM-DD')
 
-    return <PickersDay {...pickersDayProps} disabled={full.includes(stringifiedDate)} />
+    if (full.includes(stringifiedDate)) {
+      return <PickersDay {...pickersDayProps} disabled />
+    }
+    return <PickersDay {...pickersDayProps} />
   }
 
   const defaultProps = {
@@ -191,25 +198,51 @@ function BookingForm(props) {
   //button action
 
   const pushBooking = async () => {
-    const res = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`)
-    if (res.data) {
-      let arr = [...res.data.bookings]
-      arr.splice(arr.length, 0, {
-        docterId: doctorName.value.id,
-        patientName: context.customer.name,
-        date: moment(date.value).format('YYYY-MM-DD'),
-        time: time.value,
-        id: arr.length + 1,
+    let data = {}
+    await axios
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`)
+      .then((response) => {
+        let arr = [...response.data.bookings]
+        arr.splice(arr.length, 0, {
+          docterId: doctorName.value.id,
+          patientName: context.customer.name,
+          date: moment(date.value).format('YYYY-MM-DD'),
+          time: time.value,
+          id: arr.length + 1,
+        })
+        data = {
+          bookings: arr,
+        }
       })
-      const data = {
-        bookings: arr,
-      }
-      const put = await axios.put(
-        `https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`,
-        data,
-      )
+      .catch((error) => {
+        console.log(error)
+      })
+
+    await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`, data)
+
+    if (loginData.roll === 'User') {
+      let data2 = {}
+      await axios
+        .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${loginData.id}`)
+        .then((response) => {
+          let arr = [...response.data.dates]
+          arr.splice(arr.length, 0, {
+            docterName: doctorName.value.name,
+            patientName: context.customer.name,
+            date: moment(date.value).format('YYYY-MM-DD'),
+            time: time.value,
+            id: arr.length + 1,
+          })
+          data2 = {
+            dates: arr,
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${loginData.id}`, data2)
     }
-    // const push = await axios.put()
   }
 
   const handleBack = () => {

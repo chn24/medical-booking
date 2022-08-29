@@ -11,6 +11,7 @@ export const loginState = atom({
   default: {
     login: false,
     id: null,
+    roll: null,
   },
   effects_UNSTABLE: [persistAtom],
 })

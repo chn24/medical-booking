@@ -72,7 +72,7 @@ function InformationForm(props) {
             <Typography variant="subtitle1">Title</Typography>
             <Autocomplete
               options={titleList}
-              value={title ?? ''}
+              value={title}
               onChange={(event, newValue) => {
                 setTitle(newValue)
               }}
