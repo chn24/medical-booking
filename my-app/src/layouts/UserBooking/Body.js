@@ -1,5 +1,6 @@
 import {
   Box,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -15,11 +16,13 @@ import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 
 import { loginState } from '../../recoil/loginState'
+import BRow from './BRow'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
   const [dates, setDates] = useState([])
   const [page, setPage] = useState(0)
+  const [deleteDateId, setDeleteDateId] = useState()
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -30,6 +33,46 @@ function Body() {
       setDates(res.data.dates)
     }
   }
+
+  const deleteDateApi = async () => {
+    //----------------user
+    const arr = dates.filter((date) => date.id !== deleteDateId)
+
+    const docterId = deleteDateId.split('-')
+
+    const userData = {
+      dates: arr,
+    }
+    let doctorData = {}
+    // console.log(docterId)
+    await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${isLogin.id}`, userData).catch((error) => {
+      console.log(error)
+    })
+    await axios
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${docterId[0]}`)
+      .then((response) => {
+        console.log(response.data.bookings)
+        const arr2 = response.data.bookings.filter((item) => item.id !== deleteDateId)
+        doctorData = {
+          bookings: arr2,
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${docterId[0]}`, doctorData)
+      .catch((error) => {
+        console.log(error)
+      })
+    await callApi()
+  }
+
+  useEffect(() => {
+    if (deleteDateId) {
+      deleteDateApi()
+    }
+  }, [deleteDateId])
 
   useEffect(() => {
     callApi()
@@ -53,19 +96,12 @@ function Body() {
                   <TableCell align="left">Patient name</TableCell>
                   <TableCell align="left">Date</TableCell>
                   <TableCell align="left">Time</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dates.slice(page * 5, page * 5 + 5).map((date) => {
-                  return (
-                    <TableRow key={date.id}>
-                      <TableCell align="left">{date.id}</TableCell>
-                      <TableCell align="left">{date.docterName}</TableCell>
-                      <TableCell align="left">{date.patientName}</TableCell>
-                      <TableCell align="left">{date.date}</TableCell>
-                      <TableCell align="left">{date.time}</TableCell>
-                    </TableRow>
-                  )
+                {dates.slice(page * 5, page * 5 + 5).map((date, index) => {
+                  return <BRow key={date.id} index={index} date={date} setDeleteDateId={setDeleteDateId} />
                 })}
               </TableBody>
             </Table>

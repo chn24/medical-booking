@@ -21,31 +21,31 @@
         padding: 10px 32px;
     }
 
-    &-breadcrumbs {
+    &-right {
+        min-width: max-content;
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
+    }
+
+    &-middle {
+        min-width: 50%;
+        width: max-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
 
         &-link {
             text-decoration: none;
-            color: #000;
-        }
-    }
+            color: #797979;
+            line-height: 55.6px;
+            box-sizing: border-box;
+            padding: 5px 8px;
 
-    &-right {
-        min-width: max-content;
-        width: 30%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-
-        &-search {
-            display: flex;
-            align-items: center;
-            width: max-content;
-
-            &-icon-button {
-                background-color: #fff;
+            &:hover {
+                color: rgb(52, 71, 103);
+                // border-bottom: 1px solid rgb(52, 71, 103);
             }
         }
     }

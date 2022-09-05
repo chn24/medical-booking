@@ -70,7 +70,7 @@ function SignIn() {
     setIsLogin({
       login: true,
       id: index,
-      roll: 'User',
+      roll: 'Doctor',
     })
 
     navigate('/')

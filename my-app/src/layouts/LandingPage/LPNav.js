@@ -7,12 +7,51 @@ import LoadingPage from '../LoadingPage'
 import { Breadcrumbs, ClickAwayListener, Skeleton, Stack, Typography } from '@mui/material'
 import { TextField, Box, IconButton } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
-import { tabState } from '../../recoil/tabState'
 import { useRecoilValue, useResetRecoilState } from 'recoil'
+
+const docNav = [
+  {
+    id: 1,
+    title: 'Home',
+    to: '/',
+  },
+  {
+    id: 2,
+    title: 'Your Schedules',
+    to: '/your-schedule',
+  },
+  {
+    id: 3,
+    title: 'Your Profile',
+    to: '/your-profile',
+  },
+  {
+    id: 4,
+    title: 'News',
+    to: '/news',
+  },
+]
+const userNav = [
+  {
+    id: 1,
+    title: 'Home',
+    to: '/',
+  },
+  {
+    id: 2,
+    title: 'Booking Schedules',
+    to: '/your-booking',
+  },
+  {
+    id: 3,
+    title: 'News',
+    to: '/news',
+  },
+]
 
 function LPNav(props) {
   const { tabs } = props
@@ -22,8 +61,6 @@ function LPNav(props) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [scroll, setScroll] = useState(false)
-  const tabName = useRecoilValue(tabState)
-  const setDefaultTabName = useResetRecoilState(tabState)
 
   const handleClick = () => {
     setOpen(!open)
@@ -35,8 +72,9 @@ function LPNav(props) {
     }
   }
 
+  const handleLinkClick = (to) => {}
+
   const handleHomeClick = () => {
-    setDefaultTabName()
     navigate('/')
   }
 
@@ -85,92 +123,24 @@ function LPNav(props) {
       }}
     >
       <Box className=" nav-container">
-        <Stack
-          sx={{
-            width: 'max-content',
-          }}
-        >
-          <Box
-            className="nav-breadcrumbs"
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <Box role="presentation">
-              {isLogin.login && loginData.roll === '' ? (
-                <div
-                  style={{
-                    width: '60px',
-                    height: '20px',
-                  }}
-                >
-                  <Skeleton variant="text" animation="wave" />
-                </div>
-              ) : (
-                <Breadcrumbs aria-label="breadcrumb">
-                  <IconButton onClick={handleHomeClick}>
-                    <HomeIcon />
-                  </IconButton>
-
-                  <div className="mobile-dis-none">
-                    <Breadcrumbs aria-label="breadcrumb">
-                      {tabs !== undefined
-                        ? tabs.map((tab, index) => {
-                            return (
-                              <Link
-                                key={index}
-                                to={tab.to}
-                                className="nav-breadcrumbs-link "
-                                onClick={handleBreadcrumsClick}
-                              >
-                                {tab.name}
-                              </Link>
-                            )
-                          })
-                        : ''}
-                    </Breadcrumbs>
-                  </div>
-                </Breadcrumbs>
-              )}
-            </Box>
-          </Box>
-          <Box>
-            <Typography
-              variant="h6"
-              sx={{
-                fontSize: '16px',
-              }}
-            >
-              {isLogin.login && loginData.roll === '' ? (
-                <Skeleton variant="text" animation="wave" />
-              ) : tabs !== undefined ? (
-                tabs[tabs.length - 1].name
-              ) : (
-                'Home'
-              )}
-            </Typography>
-          </Box>
-        </Stack>
+        <Box className="nav-middle">
+          {isLogin.roll === 'Doctor'
+            ? docNav.map((item) => {
+                return (
+                  <NavLink className="nav-middle-link" key={item.id} to={item.to}>
+                    {item.title}
+                  </NavLink>
+                )
+              })
+            : userNav.map((item) => {
+                return (
+                  <NavLink className="nav-middle-link" key={item.id} to={item.to}>
+                    {item.title}
+                  </NavLink>
+                )
+              })}
+        </Box>
         <Box className="nav-right">
-          <Box className="nav-right-search">
-            <TextField className="nav-mobile-disnone" id="standard-basic" placeholder="Search" variant="standard" />
-            {isLogin.login && loginData.roll === '' ? (
-              <div
-                style={{
-                  width: '20px',
-                  height: '20px',
-                }}
-              >
-                <Skeleton variant="circular" animation="wave" />
-              </div>
-            ) : (
-              <IconButton aria-label="Search" className="nav-right-search-icon-button">
-                <SearchIcon />
-              </IconButton>
-            )}
-          </Box>
           <ClickAwayListener onClickAway={handleClickAway}>
             {isLogin.login && loginData.roll === '' ? (
               <div

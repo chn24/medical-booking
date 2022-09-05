@@ -24,7 +24,15 @@ function LandingPage() {
   //   setLoading(false)
   // }, [])
 
-  return (
+  return isLogin.login ? (
+    loginData.roll === '' ? (
+      <LoadingPage />
+    ) : loginData.roll === 'Doctor' ? (
+      <DoctorHome />
+    ) : (
+      <UserHome />
+    )
+  ) : (
     <div
       className="lPmain"
       style={{
@@ -34,25 +42,15 @@ function LandingPage() {
       }}
     >
       <LPNav />
-      {isLogin.login ? (
-        loginData.roll === '' ? (
-          <LoadingPage />
-        ) : loginData.roll === 'Doctor' ? (
-          <DoctorHome />
-        ) : (
-          <UserHome />
-        )
-      ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          Đăng nhập để xem thêm
-        </Box>
-      )}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        Đăng nhập để xem thêm
+      </Box>
     </div>
   )
 }
