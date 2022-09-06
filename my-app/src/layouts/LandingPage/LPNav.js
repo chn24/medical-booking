@@ -1,10 +1,22 @@
 import AccountIcon from '@mui/icons-material/AccountCircle'
 import SearchIcon from '@mui/icons-material/Search'
 import HomeIcon from '@mui/icons-material/Home'
+import ListIcon from '@mui/icons-material/FormatListBulleted'
 import LPNavIcon from './LPNavIcon'
 import LoadingPage from '../LoadingPage'
 
-import { Breadcrumbs, ClickAwayListener, Skeleton, Stack, Typography } from '@mui/material'
+import {
+  Breadcrumbs,
+  ClickAwayListener,
+  Divider,
+  Drawer,
+  List,
+  ListItemButton,
+  Skeleton,
+  Stack,
+  SwipeableDrawer,
+  Typography,
+} from '@mui/material'
 import { TextField, Box, IconButton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
@@ -61,6 +73,7 @@ function LPNav(props) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [scroll, setScroll] = useState(false)
+  const [drawer, setDrawer] = useState(false)
 
   const handleClick = () => {
     setOpen(!open)
@@ -72,14 +85,8 @@ function LPNav(props) {
     }
   }
 
-  const handleLinkClick = (to) => {}
-
-  const handleHomeClick = () => {
-    navigate('/')
-  }
-
-  const handleBreadcrumsClick = (event) => {
-    event.preventDefault()
+  const handleDrawerClick = () => {
+    setDrawer(true)
   }
 
   useEffect(() => {
@@ -91,23 +98,6 @@ function LPNav(props) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-  const flexRowStylesLink = {
-    display: 'flex',
-    flexDirection: 'row',
-    textDecoration: 'none',
-  }
-
-  const boxStyles = {
-    position: 'absolute',
-    right: 0,
-    zIndex: 1,
-    border: '1px solid',
-    p: 1,
-    bgcolor: '#fff',
-    with: 'max-content',
-    borderRadius: '15px',
-  }
 
   return (
     <Box
@@ -123,6 +113,30 @@ function LPNav(props) {
       }}
     >
       <Box className=" nav-container">
+        <Box className="nav-left">
+          <IconButton onClick={handleDrawerClick}>
+            <ListIcon />
+          </IconButton>
+          <Drawer open={drawer} onClose={() => setDrawer(false)}>
+            <Box className="nav-left-drawerBox">
+              {isLogin.roll === 'Doctor'
+                ? docNav.map((item) => {
+                    return (
+                      <NavLink className="nav-left-link" key={item.id} to={item.to}>
+                        {item.title}
+                      </NavLink>
+                    )
+                  })
+                : userNav.map((item) => {
+                    return (
+                      <NavLink className="nav-left-link" key={item.id} to={item.to}>
+                        {item.title}
+                      </NavLink>
+                    )
+                  })}
+            </Box>
+          </Drawer>
+        </Box>
         <Box className="nav-middle">
           {isLogin.roll === 'Doctor'
             ? docNav.map((item) => {

@@ -26,12 +26,13 @@ import { de } from 'date-fns/locale'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
-  const [bookingSchedule, setBookingSchedule] = useState([])
-  const [shows, setShows] = useState([])
+  const [bookingSchedule, setBookingSchedule] = useState()
+  const [shows, setShows] = useState()
   const [date, setDate] = useState({
     value: null,
     error: null,
   })
+  console.log(shows)
   const [page, setPage] = useState(0)
   const [deleteInfo, setDeleteInfo] = useState()
 
@@ -48,6 +49,10 @@ function Body() {
       }
     }
   }
+
+  useEffect(() => {
+    callAPI()
+  }, [])
 
   const deleteDataApi = async () => {
     const arr = shows.filter((show) => show.id !== deleteInfo.id)
@@ -79,10 +84,6 @@ function Body() {
       })
     await callAPI()
   }
-
-  useEffect(() => {
-    callAPI()
-  }, [])
 
   useEffect(() => {
     if (deleteInfo) {
@@ -165,7 +166,7 @@ function Body() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {shows.length === 0 ? (
+                {shows === undefined ? (
                   <TableRow>
                     <TableCell align="left">
                       <Skeleton variant="text" animation="wave" />
@@ -178,6 +179,9 @@ function Body() {
                     </TableCell>
                     <TableCell align="left">
                       <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -199,7 +203,7 @@ function Body() {
               rowsPerPageOptions={[5]}
               rowsPerPage={5}
               component="div"
-              count={shows.length}
+              count={shows !== undefined ? shows.length : 0}
               page={page}
               onPageChange={handleChangePage}
             />

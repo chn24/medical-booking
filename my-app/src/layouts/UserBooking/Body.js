@@ -2,6 +2,7 @@ import {
   Box,
   IconButton,
   Paper,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -20,7 +21,7 @@ import BRow from './BRow'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
-  const [dates, setDates] = useState([])
+  const [dates, setDates] = useState()
   const [page, setPage] = useState(0)
   const [deleteDateId, setDeleteDateId] = useState()
   const handleChangePage = (event, newPage) => {
@@ -100,9 +101,32 @@ function Body() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dates.slice(page * 5, page * 5 + 5).map((date, index) => {
-                  return <BRow key={date.id} index={index} date={date} setDeleteDateId={setDeleteDateId} />
-                })}
+                {dates === undefined ? (
+                  <TableRow>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  dates.slice(page * 5, page * 5 + 5).map((date, index) => {
+                    return <BRow key={date.id} index={index} date={date} setDeleteDateId={setDeleteDateId} />
+                  })
+                )}
               </TableBody>
             </Table>
 
@@ -110,7 +134,7 @@ function Body() {
               rowsPerPageOptions={[5]}
               rowsPerPage={5}
               component="div"
-              count={dates.length}
+              count={dates !== undefined ? dates.length : 0}
               page={page}
               onPageChange={handleChangePage}
             />

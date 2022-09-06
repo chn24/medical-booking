@@ -5,6 +5,17 @@
     .nav-mobile-disnone {
         display: none !important;
     }
+
+    .nav {
+
+        &-left {
+            display: block !important;
+        }
+
+        &-middle {
+            display: none;
+        }
+    }
 }
 
 @media screen and (max-width:424px) {

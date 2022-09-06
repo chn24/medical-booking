@@ -1,6 +1,7 @@
 import LPNav from './LPNav'
 import DoctorHome from '../Home/DoctorHome'
 import UserHome from '../Home/UserHome'
+import SignIn from '../SignInSignUp/SignIn'
 import LoadingPage from '../LoadingPage'
 import { loginState } from '../../recoil/loginState'
 import { dataState } from '../../recoil/dataState'
@@ -25,33 +26,13 @@ function LandingPage() {
   // }, [])
 
   return isLogin.login ? (
-    loginData.roll === '' ? (
-      <LoadingPage />
-    ) : loginData.roll === 'Doctor' ? (
+    loginData.roll === '' ? null : loginData.roll === 'Doctor' ? (
       <DoctorHome />
     ) : (
       <UserHome />
     )
   ) : (
-    <div
-      className="lPmain"
-      style={{
-        minHeight: `${Height - 1}px`,
-        padding: '1.5rem',
-        boxSizing: 'border-box',
-      }}
-    >
-      <LPNav />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        Đăng nhập để xem thêm
-      </Box>
-    </div>
+    <SignIn />
   )
 }
 

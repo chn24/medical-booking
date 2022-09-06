@@ -72,8 +72,6 @@ function SignIn() {
       id: index,
       roll: 'Doctor',
     })
-
-    navigate('/')
   }
 
   const getUserData = async (index) => {
@@ -91,7 +89,6 @@ function SignIn() {
         roll: 'User',
       })
     }
-    navigate('/')
   }
 
   const testApi = async () => {
@@ -138,10 +135,6 @@ function SignIn() {
     setLoading(false)
   }
 
-  const handleHomeClick = () => {
-    navigate('/')
-  }
-
   return (
     <div className="signIn">
       <Box
@@ -154,11 +147,6 @@ function SignIn() {
           <Box className="sI-bg signIn-bg"></Box>
         </Box>
         <Box className="signIn-item2">
-          <Box className="signIn-item2-head">
-            <IconButton onClick={handleHomeClick}>
-              <HomeIcon />
-            </IconButton>
-          </Box>
           <Box className="signIn-item2-body">
             <Box className=" signIn-item2-formBox" sx={{ width: '50%', position: 'relative' }}>
               <SignInAlert in={error} changeAlert={setError} title={'Login fail'} />

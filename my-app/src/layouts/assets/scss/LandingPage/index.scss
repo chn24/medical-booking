@@ -21,6 +21,23 @@
         padding: 10px 32px;
     }
 
+    &-left {
+        display: none;
+
+        &-drawerBox {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-link {
+            text-decoration: none;
+            color: #797979;
+            box-sizing: border-box;
+            padding: 16px;
+        }
+    }
+
     &-right {
         min-width: max-content;
         display: flex;
