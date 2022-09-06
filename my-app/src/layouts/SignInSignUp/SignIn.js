@@ -13,21 +13,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 
-const doctors = [
-  'doctor1',
-  'doctor2',
-  'doctor3',
-  'doctor4',
-  'doctor5',
-  'doctor6',
-  'doctor7',
-  'doctor8',
-  'doctor9',
-  'doctor10',
-]
-
-const users = ['user1', 'user2', 'user3', 'user4', 'user5']
-
 const validationSchema = yup.object({
   username: yup.string().required(),
   password: yup.string().required(),
@@ -91,48 +76,38 @@ function SignIn() {
     }
   }
 
-  const testApi = async () => {
-    // const postValue = {
-    //   username: username.value,
-    //   password: password.value,
-    // }
-    // var post = await axios.post(
-    //   "https://62c65d1874e1381c0a5d833e.mockapi.io/signInRequest",
-    //   postValue
-    // );
-    const res = await axios.get('https://62c65d1874e1381c0a5d833e.mockapi.io/signinEr')
-    if (res.data) {
-      const random = Math.floor(Math.random() * res.data.length)
-      if (res.data[random].isError) {
-        setError(true)
-        if (res.data[random].usernameError) {
-          setUsernameAlert(true)
-        } else {
-          setUsernameAlert(false)
-        }
-        if (res.data[random].passwordError) {
-          setPasswordAlert(true)
-        } else {
-          setPasswordAlert(false)
-        }
-      }
-    }
-  }
-
   const handleClick = async (values) => {
     setUsernameAlert(false)
     setPasswordAlert(false)
     setLoading(true)
-    if (doctors.includes(values.username)) {
-      let index = doctors.indexOf(values.username) + 1
-      await getDoctorData(index)
-    } else if (users.includes(values.username)) {
-      let index = users.includes(values.username) + 10
-      getUserData(index)
-    } else {
-      await testApi()
-    }
-    setLoading(false)
+    let arr
+    let id
+    await axios.get('https://6316fc9e82797be77fefdcfc.mockapi.io/data').then((response) => {
+      arr = response.data.filter((data) => data.username === values.username)
+      if (arr.length !== 0) {
+        if (arr[0].password === values.password) {
+          id = arr[0].id
+        } else {
+          setError(true)
+          setUsernameAlert(false)
+          setPasswordAlert(true)
+          setLoading(false)
+        }
+      } else {
+        setError(true)
+        setUsernameAlert(true)
+        setPasswordAlert(false)
+        setLoading(false)
+      }
+      if (id !== undefined) {
+        id = Number(id)
+        if (id <= 10) {
+          getDoctorData(id)
+        } else {
+          getUserData(id)
+        }
+      }
+    })
   }
 
   return (
