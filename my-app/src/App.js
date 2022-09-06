@@ -88,7 +88,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
-        <Route path="/signIn" element={<SignIn />}></Route>
         <Route path="/signUp" element={<SignUp />}></Route>
         <Route
           path="/doctor-list"

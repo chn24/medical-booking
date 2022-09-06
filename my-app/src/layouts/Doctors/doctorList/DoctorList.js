@@ -20,29 +20,6 @@ import DoctorRow from './DoctorRow'
 import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
-const list = [
-  {
-    name: 'Id',
-    src: '',
-  },
-  {
-    name: 'Name',
-    src: PersonIcon,
-  },
-  {
-    name: 'Email',
-    src: EmailIcon,
-  },
-  {
-    name: 'Phone number',
-    src: ContactPhoneIcon,
-  },
-  {
-    name: '',
-    src: '',
-  },
-]
-
 function DoctorList() {
   const loginData = useRecoilValue(dataState)
   const [dataLoading, setDataLoading] = useState(true)
@@ -70,7 +47,10 @@ function DoctorList() {
     <Box className="table-box dList">
       <Paper className="dList-paper">
         <Box className="dList-paper-head">
-          <Typography variant="h6">Doctor list</Typography>
+          <Box className="dList-paper-head-left">
+            <Typography variant="h6">Doctor list</Typography>
+          </Box>
+          <Box className="dList-paper-head-right"></Box>
         </Box>
         <Box className="dList-paper-body">
           <TableContainer
@@ -85,10 +65,10 @@ function DoctorList() {
                 <TableRow>
                   <TableCell align="left">Id</TableCell>
                   <TableCell align="left">Name</TableCell>
-                  <TableCell align="left">Email</TableCell>
                   <TableCell className="mobile-hide" align="left">
-                    Phone number
+                    Email
                   </TableCell>
+                  <TableCell align="left">Rating</TableCell>
                   <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>

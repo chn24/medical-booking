@@ -21,16 +21,21 @@ import { loginState } from '../../../recoil/loginState'
 import { useRecoilValue } from 'recoil'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import DBRow from './DBRow'
+import { de } from 'date-fns/locale'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
-  const [bookingSchedule, setBookingSchedule] = useState([])
-  const [shows, setShows] = useState([])
+  const [bookingSchedule, setBookingSchedule] = useState()
+  const [shows, setShows] = useState()
   const [date, setDate] = useState({
     value: null,
     error: null,
   })
+  console.log(shows)
   const [page, setPage] = useState(0)
+  const [deleteInfo, setDeleteInfo] = useState()
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -48,6 +53,43 @@ function Body() {
   useEffect(() => {
     callAPI()
   }, [])
+
+  const deleteDataApi = async () => {
+    const arr = shows.filter((show) => show.id !== deleteInfo.id)
+    const doctorData = {
+      bookings: arr,
+    }
+    let userData
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${isLogin.id}`, doctorData)
+      .catch((error) => {
+        console.log(error)
+      })
+    await axios
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${deleteInfo.patientId}`)
+      .then((response) => {
+        const arr2 = response.data.dates.filter((item) => item.id != deleteInfo.id)
+        console.log(arr2)
+        userData = {
+          dates: arr2,
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${deleteInfo.patientId}`, userData)
+      .catch((error) => {
+        console.log(error)
+      })
+    await callAPI()
+  }
+
+  useEffect(() => {
+    if (deleteInfo) {
+      deleteDataApi()
+    }
+  }, [deleteInfo])
 
   useEffect(() => {
     if (date.error === null) {
@@ -120,10 +162,11 @@ function Body() {
                   <TableCell align="left">Name</TableCell>
                   <TableCell align="left">Date</TableCell>
                   <TableCell align="left">Time</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {shows.length === 0 ? (
+                {shows === undefined ? (
                   <TableRow>
                     <TableCell align="left">
                       <Skeleton variant="text" animation="wave" />
@@ -137,16 +180,20 @@ function Body() {
                     <TableCell align="left">
                       <Skeleton variant="text" animation="wave" />
                     </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
+                    </TableCell>
                   </TableRow>
                 ) : (
                   shows.slice(page * 5, page * 5 + 5).map((show, index) => {
                     return (
-                      <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell align="left">{index + 1}</TableCell>
-                        <TableCell align="left">{show.patientName}</TableCell>
-                        <TableCell align="left">{show.date}</TableCell>
-                        <TableCell align="left">{show.time}</TableCell>
-                      </TableRow>
+                      <DBRow
+                        key={index}
+                        index={index}
+                        show={show}
+                        deleteInfo={deleteInfo}
+                        setDeleteInfo={setDeleteInfo}
+                      />
                     )
                   })
                 )}
@@ -156,7 +203,7 @@ function Body() {
               rowsPerPageOptions={[5]}
               rowsPerPage={5}
               component="div"
-              count={shows.length}
+              count={shows !== undefined ? shows.length : 0}
               page={page}
               onPageChange={handleChangePage}
             />

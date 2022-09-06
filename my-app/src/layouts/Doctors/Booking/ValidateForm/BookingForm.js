@@ -198,20 +198,24 @@ function BookingForm(props) {
   //button action
 
   const pushBooking = async () => {
+    let id
     let data = {}
     await axios
       .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`)
       .then((response) => {
         let arr = [...response.data.bookings]
+        id = `${doctorName.value.id}-${response.data.length + 1}-${time.value === 'Morning' ? 'M' : 'A'}`
         arr.splice(arr.length, 0, {
           docterId: doctorName.value.id,
           patientName: context.customer.name,
+          patientId: loginData.id,
           date: moment(date.value).format('YYYY-MM-DD'),
           time: time.value,
-          id: arr.length + 1,
+          id,
         })
         data = {
           bookings: arr,
+          length: response.data.length + 1,
         }
       })
       .catch((error) => {
@@ -227,11 +231,13 @@ function BookingForm(props) {
         .then((response) => {
           let arr = [...response.data.dates]
           arr.splice(arr.length, 0, {
+            docterId: doctorName.value.id,
             docterName: doctorName.value.name,
             patientName: context.customer.name,
+            patientId: loginData.id,
             date: moment(date.value).format('YYYY-MM-DD'),
             time: time.value,
-            id: arr.length + 1,
+            id,
           })
           data2 = {
             dates: arr,

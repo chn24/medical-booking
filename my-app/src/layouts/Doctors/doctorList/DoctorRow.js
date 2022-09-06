@@ -1,10 +1,12 @@
-import { Box, Collapse, IconButton, TableCell, TableRow } from '@mui/material'
+import { Box, Collapse, IconButton, Rating, TableCell, TableRow } from '@mui/material'
 import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { LoadingButton } from '@mui/lab'
+
+const star = Math.floor(Math.random() * 5) + 1
 function DoctorRow(props) {
   const { datas, id, roll } = props
 
@@ -32,11 +34,11 @@ function DoctorRow(props) {
         <TableCell align="left" key={`name-${datas.id}`}>
           {datas.name}
         </TableCell>
-        <TableCell align="left" key={`email-${datas.id}`}>
+        <TableCell className="mobile-hide" align="left" key={`email-${datas.id}`}>
           {datas.email}
         </TableCell>
-        <TableCell className="mobile-hide" align="left" key={`phone-${datas.id}`}>
-          {datas.phone}
+        <TableCell align="left" key={`rating-${datas.id}`}>
+          <Rating value={star} readOnly />
         </TableCell>
         <TableCell align="left" key={`button-${datas.id}`}>
           <IconButton onClick={() => setOpen(!open)}>{open ? <ArrowUp /> : <ArrowDown />}</IconButton>
