@@ -52,7 +52,6 @@ function Body() {
     await axios
       .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${docterId[0]}`)
       .then((response) => {
-        console.log(response.data.bookings)
         const arr2 = response.data.bookings.filter((item) => item.id !== deleteDateId)
         doctorData = {
           bookings: arr2,

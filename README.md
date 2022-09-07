@@ -31,6 +31,9 @@
     * Riêng :
         -Người dùng :
             + Xem lịch khám đã đặt (Booking schedules)
+                Mỗi ngày :  người dùng chỉ được đặt 2 lần (1 buổi 1 lần)
+                            người dùng chỉ được đặt 1 bác sĩ 1 lần
+                            bác sĩ chỉ khám 10 người 1 ngày (5 người khác nhau 1 buổi)
 
         -Bác sĩ :
             + Xem và chỉnh sửa profile của bác sĩ đó (Your profile)
