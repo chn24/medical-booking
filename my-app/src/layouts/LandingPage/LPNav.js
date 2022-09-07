@@ -55,7 +55,7 @@ const userNav = [
   },
   {
     id: 2,
-    title: 'Booking Schedules',
+    title: 'Your Bookings',
     to: '/your-booking',
   },
   {

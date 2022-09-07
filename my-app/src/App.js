@@ -12,6 +12,8 @@ import DoctorProfile from './layouts/DocterView/DoctorProfile'
 import BookingSchedule from './layouts/DocterView/BookingSchedule'
 import News from './layouts/News'
 import UserBooking from './layouts/UserBooking'
+import NotFound from './layouts/ErrorPages/Error404'
+import Error403 from './layouts/ErrorPages/Error403'
 
 import axios from 'axios'
 import { dataState } from './recoil/dataState'
@@ -26,36 +28,10 @@ function App() {
 
   const getDoctorData = async (index) => {
     const information = await axios.get(`https://jsonplaceholder.typicode.com/users/${index}`)
-    // const schedule = await axios.get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${index}`)
-    // if (schedule.data) {
-    //   let arr = schedule.data.dates
-    //   let fullArr = []
-    //   let morningArr = []
-    //   let afternoonArr = []
-    //   for (let key in arr) {
-    //     switch (arr[key].time) {
-    //       case 'Full':
-    //         fullArr.splice(fullArr.length, 0, arr[key].date)
-    //         break
-    //       case 'Morning':
-    //         morningArr.splice(morningArr.length, 0, arr[key].date)
-    //         break
-    //       default:
-    //         afternoonArr.splice(afternoonArr.length, 0, arr[key].date)
-    //         break
-    //     }
-    //   }
-    // }
+
     setLoginData({
       information: information.data,
       roll: 'Doctor',
-      // schedule: {
-      //   value: schedule.data.dates,
-      //   full: fullArr,
-      //   morning: morningArr,
-      //   afternoon: afternoonArr,
-      // },
-      // booking: schedule.data.bookings,
     })
   }
 
@@ -88,35 +64,92 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
+
         <Route path="/signUp" element={<SignUp />}></Route>
+
         <Route
           path="/doctor-list"
           element={
             <ProtectedRoute isLogin={isLogin.login} path="">
-              {' '}
-              <DoctorList />{' '}
+              <DoctorList />
             </ProtectedRoute>
           }
         ></Route>
+
         <Route path="doctor-list/doctor-information">
           <Route path=":doctorid" element={<DoctorInformation />}></Route>
           {/* <Route path=":tabname" element={<CommentTab/>}></Route> */}
         </Route>
-        <Route path="/doctor-list/booking" element={<Booking />}></Route>
-        <Route path="/your-schedule" element={<DoctorSchedule />}></Route>
-        <Route path="/your-profile" element={<DoctorProfile />}></Route>
-        <Route path="/booking-schedule" element={<BookingSchedule />}></Route>
-        <Route path="news" element={<News />}></Route>
-        <Route path="your-booking" element={<UserBooking />}></Route>
+
+        <Route
+          path="/doctor-list/booking"
+          element={
+            <ProtectedRoute isLogin={isLogin.login} path="">
+              <Booking />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/your-schedule"
+          element={
+            <DoctorRoute isLogin={isLogin} path="">
+              <DoctorSchedule />
+            </DoctorRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/your-profile"
+          element={
+            <DoctorRoute isLogin={isLogin} path="">
+              <DoctorProfile />
+            </DoctorRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/booking-schedule"
+          element={
+            <ProtectedRoute isLogin={isLogin.login} path="">
+              <BookingSchedule />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="news"
+          element={
+            <ProtectedRoute isLogin={isLogin.login} path="">
+              <News />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="your-booking"
+          element={
+            <ProtectedRoute isLogin={isLogin.login} path="">
+              <UserBooking />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
   )
 }
 
 const ProtectedRoute = ({ isLogin, path, children }) => {
-  console.log(isLogin)
   if (!isLogin) {
-    return <p>error</p>
+    return <Error403 />
+  }
+  return children
+}
+
+const DoctorRoute = ({ isLogin, path, children }) => {
+  if (!isLogin.login || (isLogin.login && isLogin.roll === 'User')) {
+    return <Error403 />
   }
   return children
 }
