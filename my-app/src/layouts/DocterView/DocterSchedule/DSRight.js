@@ -16,7 +16,7 @@ import { dataState } from '../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
 
 function DSRight(props) {
-  const { schedules, setSchedules } = props
+  const { schedules, setDeleteDate, setEditInformation } = props
   const loginData = useRecoilValue(dataState)
   const [page, setPage] = useState(0)
 
@@ -40,12 +40,19 @@ function DSRight(props) {
                   <TableCell align="left">Id</TableCell>
                   <TableCell align="left">Date</TableCell>
                   <TableCell align="left">Time</TableCell>
-                  <TableCell align="left"></TableCell>
+                  <TableCell align="center">Edit</TableCell>
+                  <TableCell align="center">Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {schedules.value.slice(page * 5, page * 5 + 5).map((schedule, index) => (
-                  <TRow key={index} schedule={schedule} id={index} />
+                  <TRow
+                    key={index}
+                    schedule={schedule}
+                    id={index}
+                    setDeleteDate={setDeleteDate}
+                    setEditInformation={setEditInformation}
+                  />
                 ))}
               </TableBody>
             </Table>
