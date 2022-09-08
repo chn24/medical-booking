@@ -1,36 +1,69 @@
-import { IconButton, TableCell, TableRow } from '@mui/material'
+import { DialogContent, IconButton, TableCell, TableRow } from '@mui/material'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 import moment from 'moment'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { useEffect, useState } from 'react'
-import { set } from 'date-fns'
-import { dataState } from '../../../recoil/dataState'
-import { useRecoilState } from 'recoil'
-import { concatSchedule } from '../../../function/concatSchedule'
-import axios from 'axios'
+import EditIcon from '@mui/icons-material/ModeEdit'
+import { useState } from 'react'
 
 function TRow(props) {
-  const { schedule, id, setDeleteDate } = props
-  const [loginData, setLoginData] = useRecoilState(dataState)
-  const [openDialog, setOpenDialog] = useState(false)
+  const { schedule, id, setDeleteDate, setEditInformation } = props
+  const [deleteDialog, setDeleteDialog] = useState(false)
+  const [editDialog, setEditDialog] = useState(false)
   // const [timeDelete, setTimeDelete] = useState('')
 
-  const getTimeDelete = () => {}
+  ///-----------------------------------------------Delete
   const handleDelete = () => {
-    setOpenDialog(true)
+    setDeleteDialog(true)
   }
 
-  const handleClose = () => {
-    setOpenDialog(false)
+  const handleDeleteClose = () => {
+    setDeleteDialog(false)
   }
 
   const handleDissagree = () => {
-    setOpenDialog(false)
+    setDeleteDialog(false)
   }
 
   const handleAgree = () => {
     setDeleteDate(moment(schedule.date).format('YYYY-MM-DD'))
-    setOpenDialog(false)
+    setDeleteDialog(false)
+  }
+
+  ///-----------------------------------------------Edit
+
+  const handleEdit = () => {
+    setEditDialog(true)
+  }
+
+  const handleEditClose = () => {
+    setEditDialog(false)
+  }
+
+  const handleEditMorning = () => {
+    setEditInformation({
+      date: moment(schedule.date).format('YYYY-MM-DD'),
+      prevTime: schedule.time,
+      time: 'Morning',
+    })
+    setEditDialog(false)
+  }
+
+  const handleEditAfternoon = () => {
+    setEditInformation({
+      date: moment(schedule.date).format('YYYY-MM-DD'),
+      prevTime: schedule.time,
+      time: 'Afternoon',
+    })
+    setEditDialog(false)
+  }
+
+  const handleEditFull = () => {
+    setEditInformation({
+      date: moment(schedule.date).format('YYYY-MM-DD'),
+      prevTime: schedule.time,
+      time: 'Full',
+    })
+    setEditDialog(false)
   }
 
   /*
@@ -118,15 +151,21 @@ function TRow(props) {
     <>
       <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell align="left">{id + 1}</TableCell>
-        <TableCell align="left">{moment(schedule.date).format('dddd DD MMMM YYYY')}</TableCell>
+        <TableCell align="left">{moment(schedule.date).format('dddd YYYY-MM-DD')}</TableCell>
         <TableCell align="left">{schedule.time}</TableCell>
+        <TableCell align="center">
+          <IconButton onClick={handleEdit}>
+            <EditIcon />
+          </IconButton>
+        </TableCell>
         <TableCell align="center">
           <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </TableCell>
       </TableRow>
-      <Dialog open={openDialog} onClose={handleClose} aria-labelledby="responsive-dialog-title">
+
+      <Dialog open={deleteDialog} onClose={handleDeleteClose} aria-labelledby="responsive-dialog-title">
         <DialogTitle>
           <span>Are you sure ?</span>
         </DialogTitle>
@@ -136,6 +175,26 @@ function TRow(props) {
           </Button>
           <Button autoFocus onClick={handleAgree}>
             Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={editDialog} onClose={handleEditClose} aria-labelledby="responsive-dialog-title">
+        <DialogTitle>
+          <span>Edit schedule</span>
+        </DialogTitle>
+        <DialogContent>
+          <span>Choose 1</span>
+        </DialogContent>
+        <DialogActions>
+          <Button disabled={schedule.time === 'Morning'} autoFocus onClick={handleEditMorning}>
+            Morning
+          </Button>
+          <Button disabled={schedule.time === 'Afternoon'} autoFocus onClick={handleEditAfternoon}>
+            Afternoon
+          </Button>
+          <Button disabled={schedule.time === 'Full'} autoFocus onClick={handleEditFull}>
+            Full
           </Button>
         </DialogActions>
       </Dialog>

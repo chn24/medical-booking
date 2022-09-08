@@ -14,6 +14,7 @@ function Body() {
   const [openDialog, setOpenDialog] = useState(false)
   const [schedules, setSchedules] = useState()
   const [deleteDate, setDeleteDate] = useState('')
+  const [editInformation, setEditInformation] = useState('')
   const isLogin = useRecoilValue(loginState)
 
   const getSchedule = async () => {
@@ -77,6 +78,50 @@ function Body() {
     }
   }, [deleteDate])
 
+  useEffect(() => {
+    if (editInformation?.time) {
+      console.log(editInformation)
+      let full = [...schedules.full]
+      let morningArr = [...schedules.morning]
+      let afternoonArr = [...schedules.afternoon]
+
+      switch (editInformation.prevTime) {
+        case 'Morning':
+          morningArr.splice(morningArr.indexOf(editInformation.date), 1)
+          console.log(morningArr)
+          break
+        case 'Full':
+          full.splice(full.indexOf(editInformation.date), 1)
+          console.log(full)
+          break
+        default:
+          afternoonArr.splice(afternoonArr.indexOf(editInformation.date), 1)
+          console.log(afternoonArr)
+          break
+      }
+
+      switch (editInformation.time) {
+        case 'Morning':
+          morningArr.splice(morningArr.length, 0, editInformation.date)
+          console.log(morningArr)
+          break
+        case 'Full':
+          full.splice(full.length, 0, editInformation.date)
+          console.log(full)
+          break
+        default:
+          afternoonArr.splice(afternoonArr.length, 0, editInformation.date)
+          console.log(afternoonArr)
+          break
+      }
+
+      let arr = concatSchedule(full, morningArr, afternoonArr)
+
+      setEditInformation('')
+      putSchedlues(arr)
+    }
+  }, [editInformation])
+
   if (schedules === undefined) {
     return <LoadingPage />
   }
@@ -92,7 +137,7 @@ function Body() {
           <DSLeft schedules={schedules} setSchedules={setSchedules} />
         </Box>
         <Box className="ds-body-item-2">
-          <DSRight schedules={schedules} setDeleteDate={setDeleteDate} />
+          <DSRight schedules={schedules} setDeleteDate={setDeleteDate} setEditInformation={setEditInformation} />
         </Box>
       </Box>
     </Box>
