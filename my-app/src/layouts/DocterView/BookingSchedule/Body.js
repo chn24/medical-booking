@@ -130,7 +130,6 @@ function Body() {
               <DatePicker
                 value={date.value}
                 onError={(error, newValue) => handleDateError(error, newValue)}
-                disablePast
                 onChange={(newValue) =>
                   setDate({
                     ...date,

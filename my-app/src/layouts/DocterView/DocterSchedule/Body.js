@@ -13,6 +13,7 @@ import { useRecoilValue } from 'recoil'
 function Body() {
   const [openDialog, setOpenDialog] = useState(false)
   const [schedules, setSchedules] = useState()
+  const [bookings, setBookings] = useState()
   const [deleteDate, setDeleteDate] = useState('')
   const [editInformation, setEditInformation] = useState('')
   const isLogin = useRecoilValue(loginState)
@@ -42,6 +43,7 @@ function Body() {
         morning: morningArr,
         afternoon: afternoonArr,
       })
+      setBookings(response.data.bookings)
     })
   }
 
@@ -127,7 +129,7 @@ function Body() {
         </Button>
         <ResDialog open={openDialog} setOpen={setOpenDialog} />
         <Box className="ds-body-item-1 ">
-          <DSLeft schedules={schedules} setSchedules={setSchedules} />
+          <DSLeft schedules={schedules} setSchedules={setSchedules} bookings={bookings} />
         </Box>
         <Box className="ds-body-item-2">
           <DSRight schedules={schedules} setDeleteDate={setDeleteDate} setEditInformation={setEditInformation} />
