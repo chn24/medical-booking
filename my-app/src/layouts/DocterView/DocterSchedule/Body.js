@@ -80,7 +80,6 @@ function Body() {
 
   useEffect(() => {
     if (editInformation?.time) {
-      console.log(editInformation)
       let full = [...schedules.full]
       let morningArr = [...schedules.morning]
       let afternoonArr = [...schedules.afternoon]
@@ -88,30 +87,24 @@ function Body() {
       switch (editInformation.prevTime) {
         case 'Morning':
           morningArr.splice(morningArr.indexOf(editInformation.date), 1)
-          console.log(morningArr)
           break
         case 'Full':
           full.splice(full.indexOf(editInformation.date), 1)
-          console.log(full)
           break
         default:
           afternoonArr.splice(afternoonArr.indexOf(editInformation.date), 1)
-          console.log(afternoonArr)
           break
       }
 
       switch (editInformation.time) {
         case 'Morning':
           morningArr.splice(morningArr.length, 0, editInformation.date)
-          console.log(morningArr)
           break
         case 'Full':
           full.splice(full.length, 0, editInformation.date)
-          console.log(full)
           break
         default:
           afternoonArr.splice(afternoonArr.length, 0, editInformation.date)
-          console.log(afternoonArr)
           break
       }
 

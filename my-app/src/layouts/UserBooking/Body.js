@@ -45,7 +45,7 @@ function Body() {
       dates: arr,
     }
     let doctorData = {}
-    // console.log(docterId)
+
     await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${isLogin.id}`, userData).catch((error) => {
       console.log(error)
     })

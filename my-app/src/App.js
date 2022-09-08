@@ -56,7 +56,6 @@ function App() {
       }
     }
   }, [])
-  // const [isLogin, setIsLogin] = useState(false)
 
   // ==> protected route
 

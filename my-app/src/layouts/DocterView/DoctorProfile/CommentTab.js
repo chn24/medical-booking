@@ -105,12 +105,3 @@ function CommentTab() {
 }
 
 export default CommentTab
-// <Fade
-//   in={profileTabData === 'comment'}
-//   mountOnEnter
-//   unmountOnExit
-//   {...(profileTabData === 'comment' ? { timeout: 1000 } : {})}
-// >
-{
-  /* </Fade> */
-}

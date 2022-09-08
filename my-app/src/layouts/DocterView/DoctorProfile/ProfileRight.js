@@ -22,20 +22,6 @@ function ProfileRight() {
     setSearchParams({ tab: 'comment' })
   }
 
-  // const useNavigateParams = () => {
-  //   const navigate = useNavigate()
-
-  //   return (url, params) => {
-  //     const path = generatePath(':url?:queryString', {
-  //       url,
-  //       queryString: params,
-  //     })
-  //     navigate(path)
-  //   }
-  // }
-
-  // const navigate = useNavigateParams()
-
   return (
     <Box className="pR">
       <Paper className="pR-paper">

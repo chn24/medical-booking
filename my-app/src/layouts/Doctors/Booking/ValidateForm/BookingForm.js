@@ -28,9 +28,6 @@ function BookingForm(props) {
   const [customerBooking, setCustomerBooking] = useState([])
   const [doctorBooking, setDoctorBooking] = useState([])
 
-  // console.log(parseInt(moment(value).format("DD")));
-  // console.log(moment(value).format('dddd MMMM DD YYYY'));
-
   //----------------------------------------------------------------------render
 
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
@@ -152,6 +149,7 @@ function BookingForm(props) {
 
   useEffect(() => {
     //handle change doctor schedule api
+
     if (doctorName?.isChoosen && doctorName?.value) {
       doctorSchedule()
     }
@@ -189,7 +187,6 @@ function BookingForm(props) {
 
   const timeCondition1 = (dateValue, timeValue) => {
     const arr = customerBooking.filter((item) => String(item.date) === String(dateValue) && item.time === timeValue)
-    // console.log(arr.length)
     return arr.length === 1
   }
 

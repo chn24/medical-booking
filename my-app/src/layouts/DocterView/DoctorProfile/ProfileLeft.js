@@ -9,16 +9,6 @@ import { TabContext } from './Body'
 function ProfileLeft() {
   const tabContext = useContext(TabContext)
 
-  // useEffect(() => {
-  //   profileTabData === 'profile'
-  //     ? setSearchParams(createSearchParams({ tab: 'profile' }))
-  //     : setSearchParams(createSearchParams({ tab: 'comments' }))
-  // }, [profileTabData])
-  // for (const entry of searchParams.entries()) {
-  //   const [param, value] = entry
-  //   console.log(param, value)
-  // }
-
   return (
     <Box className="pL">
       <Box className="pL-Bg"></Box>

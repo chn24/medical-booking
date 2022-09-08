@@ -16,15 +16,6 @@ function LandingPage() {
   const [loginData, setLoginData] = useRecoilState(dataState)
   const [loading, setLoading] = useState(false)
 
-  // useEffect(() => {
-  //   if (lSLoginData.login === true) {
-  //     setLogin(true)
-  //     setLoginData(lSLoginData.data)
-  //   }
-
-  //   setLoading(false)
-  // }, [])
-
   return isLogin.login ? (
     loginData.roll === '' ? null : loginData.roll === 'Doctor' ? (
       <DoctorHome />

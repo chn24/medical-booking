@@ -69,7 +69,7 @@ function LPNav(props) {
   const { tab } = props
   const loginData = useRecoilValue(dataState)
   const isLogin = useRecoilValue(loginState)
-  // console.log(loading)
+
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [scroll, setScroll] = useState(false)

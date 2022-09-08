@@ -32,7 +32,6 @@ function Body() {
     value: null,
     error: null,
   })
-  console.log(shows)
   const [page, setPage] = useState(0)
   const [deleteInfo, setDeleteInfo] = useState()
 
@@ -69,7 +68,7 @@ function Body() {
       .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${deleteInfo.patientId}`)
       .then((response) => {
         const arr2 = response.data.dates.filter((item) => item.id != deleteInfo.id)
-        console.log(arr2)
+
         userData = {
           dates: arr2,
         }
@@ -98,11 +97,8 @@ function Body() {
       } else {
         let arr = []
         let stringifyDate = moment(date.value).format('YYYY-MM-DD')
-        for (let key in bookingSchedule) {
-          if (bookingSchedule[key].date === stringifyDate) {
-            arr.push(bookingSchedule[key])
-          }
-        }
+        arr = bookingSchedule.filter((item) => item.date === stringifyDate)
+
         setShows(arr)
         setPage(0)
       }

@@ -67,8 +67,6 @@ function BookingComplete(props) {
           sx={{
             '& > :not(style)': { m: 1 },
             position: 'relative',
-            // display:'flex',
-            // flexDirection: 'column'
           }}
           noValidate
           autoComplete="off"

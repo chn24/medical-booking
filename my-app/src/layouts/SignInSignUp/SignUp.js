@@ -62,17 +62,6 @@ function SignUp() {
     },
   })
 
-  // const signUpRequest = async() => {
-  //     const postValue = {
-  //         username : username.value,
-  //         password : password.value,
-  //         email : email,
-  //         gender : gender,
-  //         role : role,
-  //     }
-  //     var post = await axios.post('https://62c65d1874e1381c0a5d833e.mockapi.io/signUpRequest', postValue);
-  // }
-
   const handleHomeClick = () => {
     navigate('/')
   }

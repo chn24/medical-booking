@@ -15,20 +15,6 @@ function InformationRight(props) {
   const [schedule, setSchedule] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // const useNavigateParams = () => {
-  //   const navigate = useNavigate()
-
-  //   return (url, params) => {
-  //     const path = generatePath(':url?:queryString', {
-  //       url,
-  //       queryString: params,
-  //     })
-  //     navigate(path)
-  //   }
-  // }
-
-  // const navigate = useNavigateParams()
-
   useEffect(() => {
     search === '?tab=schedule' || search === '' ? setTab('1') : setTab('2')
   }, [search])

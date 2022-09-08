@@ -15,10 +15,6 @@ export default function SignInAlert({ ...prop }) {
     }
   }, [prop.in])
 
-  // const handleChange = () => {
-  //   setChecked((prev) => !prev);
-  // };
-
   return (
     <Box className="sIAlert">
       <Box className="sIAlert-box">

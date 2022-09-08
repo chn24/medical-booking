@@ -10,12 +10,7 @@ function SlideNews(props) {
         justifyContent: 'center',
       }}
     >
-      <Box
-        className="slideNews-bg"
-        // sx={{
-        //   width: '95%',
-        // }}
-      >
+      <Box className="slideNews-bg">
         <Box className="slideNews-inforation">
           <Typography variant="h4" className="slideNews-inforation-title">
             {data.title}

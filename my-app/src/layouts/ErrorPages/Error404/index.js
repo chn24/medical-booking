@@ -2,7 +2,6 @@ import { Box, Button } from '@mui/material'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 function index() {
-  // const navigate = useNavigate()
   return (
     <Box className="errorPage" sx={{ height: `${window.innerHeight}px` }}>
       <Box className="errorPage-container">
