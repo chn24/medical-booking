@@ -13,7 +13,7 @@ import { concatSchedule } from '../../../function/concatSchedule'
 const times = ['Morning', 'Afternoon']
 
 function DSLeft(props) {
-  const { schedules, setSchedules } = props
+  const { schedules, setSchedules, bookings } = props
   const [loginData, setLoginData] = useRecoilState(dataState)
 
   const [DSFdate, setDSFdate] = useState({
@@ -34,7 +34,21 @@ function DSLeft(props) {
 
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
     const stringifiedDate = moment(date).format('YYYY-MM-DD')
-    if (schedules.full.includes(stringifiedDate)) {
+
+    const dateCondition1 = schedules.morning.includes(stringifiedDate)
+
+    const dateCondition2 = schedules.afternoon.includes(stringifiedDate)
+
+    const timeCondition1 = bookings.some((item) => item.date === stringifiedDate && item.time === 'Morning')
+
+    const timeCondition2 = bookings.some((item) => item.date === stringifiedDate && item.time === 'Afternoon')
+
+    if (
+      schedules.full.includes(stringifiedDate) ||
+      (timeCondition1 && timeCondition2) ||
+      (dateCondition1 && timeCondition2) ||
+      (dateCondition2 && timeCondition1)
+    ) {
       return <PickersDay {...pickersDayProps} disabled />
     }
     return <PickersDay {...pickersDayProps} />
@@ -43,17 +57,24 @@ function DSLeft(props) {
   useEffect(() => {
     if (DSFdate.value !== null) {
       const stringifiedDate = moment(DSFdate.value).format('YYYY-MM-DD')
-      var timesArr = []
-      if (schedules.morning.includes(stringifiedDate)) {
-        timesArr = ['Afternoon']
-      } else if (schedules.afternoon.includes(stringifiedDate)) {
-        timesArr = ['Morning']
-      } else {
-        timesArr = times
+
+      let timesArr = ['Morning', 'Afternoon']
+
+      const timeCondition1 = bookings.some((item) => item.date === stringifiedDate && item.time === 'Morning')
+
+      const timeCondition2 = bookings.some((item) => item.date === stringifiedDate && item.time === 'Afternoon')
+      if (schedules.morning.includes(stringifiedDate) || timeCondition1) {
+        timesArr.splice(timesArr.indexOf('Morning'), 1)
+      }
+      if (schedules.afternoon.includes(stringifiedDate) || timeCondition2) {
+        timesArr.splice(timesArr.indexOf('Afternoon'), 1)
       }
       setTimeTable(timesArr)
     }
-  }, [DSFtime])
+    return () => {
+      setTimeTable()
+    }
+  }, [DSFdate])
 
   //--------------------------------------------------------------------Handle changes
 

@@ -32,7 +32,6 @@ function Body() {
     value: null,
     error: null,
   })
-  console.log(shows)
   const [page, setPage] = useState(0)
   const [deleteInfo, setDeleteInfo] = useState()
 
@@ -134,7 +133,6 @@ function Body() {
               <DatePicker
                 value={date.value}
                 onError={(error, newValue) => handleDateError(error, newValue)}
-                disablePast
                 onChange={(newValue) =>
                   setDate({
                     ...date,
