@@ -1,7 +1,7 @@
 import { IconButton, TableCell, TableRow } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 import moment from 'moment'
 import DeleteIcon from '@mui/icons-material/Delete'
-import DeleteDialog from './DeleteDialog'
 import { useEffect, useState } from 'react'
 import { set } from 'date-fns'
 import { dataState } from '../../../recoil/dataState'
@@ -10,21 +10,32 @@ import { concatSchedule } from '../../../function/concatSchedule'
 import axios from 'axios'
 
 function TRow(props) {
+  const { schedule, id, setDeleteDate } = props
   const [loginData, setLoginData] = useRecoilState(dataState)
-  const { schedule, id } = props
   const [openDialog, setOpenDialog] = useState(false)
-  const [timeDelete, setTimeDelete] = useState('')
+  // const [timeDelete, setTimeDelete] = useState('')
 
   const getTimeDelete = () => {}
-
   const handleDelete = () => {
-    if (schedule.time === 'Full') {
-      setOpenDialog(true)
-    } else {
-      setTimeDelete(schedule.time)
-    }
+    setOpenDialog(true)
   }
 
+  const handleClose = () => {
+    setOpenDialog(false)
+  }
+
+  const handleDissagree = () => {
+    setOpenDialog(false)
+  }
+
+  const handleAgree = () => {
+    setDeleteDate(moment(schedule.date).format('YYYY-MM-DD'))
+    setOpenDialog(false)
+  }
+
+  /*
+  
+  
   const putSchedlue = async (arr) => {
     let data = {
       dates: arr,
@@ -101,7 +112,7 @@ function TRow(props) {
       setTimeDelete('')
       putSchedlue(valueArr)
     }
-  }, [timeDelete])
+  }, [timeDelete])*/
 
   return (
     <>
@@ -115,7 +126,19 @@ function TRow(props) {
           </IconButton>
         </TableCell>
       </TableRow>
-      <DeleteDialog open={openDialog} setOpen={setOpenDialog} timeDelete={timeDelete} setTimeDelete={setTimeDelete} />
+      <Dialog open={openDialog} onClose={handleClose} aria-labelledby="responsive-dialog-title">
+        <DialogTitle>
+          <span>Are you sure ?</span>
+        </DialogTitle>
+        <DialogActions>
+          <Button autoFocus onClick={handleDissagree}>
+            Disagree
+          </Button>
+          <Button autoFocus onClick={handleAgree}>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

@@ -2,7 +2,6 @@ import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useState } from 'react'
-import DBDialog from './DBDialog'
 
 function DBRow(props) {
   const { index, show, deleteInfo, setDeleteInfo } = props

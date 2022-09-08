@@ -5,6 +5,7 @@ import DSLeft from './DSLeft'
 import DSRight from './DSRight'
 import ResDialog from './ResDialog'
 import LoadingPage from '../../LoadingPage'
+import { concatSchedule } from '../../../function/concatSchedule'
 
 import { loginState } from '../../../recoil/loginState'
 import { useRecoilValue } from 'recoil'
@@ -12,6 +13,7 @@ import { useRecoilValue } from 'recoil'
 function Body() {
   const [openDialog, setOpenDialog] = useState(false)
   const [schedules, setSchedules] = useState()
+  const [deleteDate, setDeleteDate] = useState('')
   const isLogin = useRecoilValue(loginState)
 
   const getSchedule = async () => {
@@ -46,6 +48,35 @@ function Body() {
     getSchedule()
   }, [])
 
+  const putSchedlues = async (arr) => {
+    const data = {
+      dates: arr,
+    }
+    await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${isLogin.id}`, data).catch((error) => {
+      console.log(error)
+    })
+
+    await getSchedule()
+  }
+
+  useEffect(() => {
+    if (deleteDate) {
+      let full = [...schedules.full]
+      let morningArr = [...schedules.morning]
+      let afternoonArr = [...schedules.afternoon]
+      if (full.indexOf(deleteDate) >= 0) {
+        full.splice(full.indexOf(deleteDate), 1)
+      } else if (morningArr.indexOf(deleteDate) >= 0) {
+        morningArr.splice(morningArr.indexOf(deleteDate), 1)
+      } else if (afternoonArr.indexOf(deleteDate) >= 0) {
+        afternoonArr.splice(afternoonArr.indexOf(deleteDate), 1)
+      }
+      let arr = concatSchedule(full, morningArr, afternoonArr)
+
+      putSchedlues(arr)
+    }
+  }, [deleteDate])
+
   if (schedules === undefined) {
     return <LoadingPage />
   }
@@ -61,7 +92,7 @@ function Body() {
           <DSLeft schedules={schedules} setSchedules={setSchedules} />
         </Box>
         <Box className="ds-body-item-2">
-          <DSRight schedules={schedules} setSchedules={setSchedules} />
+          <DSRight schedules={schedules} setDeleteDate={setDeleteDate} />
         </Box>
       </Box>
     </Box>
