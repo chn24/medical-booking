@@ -12,7 +12,7 @@ function index() {
         boxSizing: 'border-box',
       }}
     >
-      <LPNav tabs={[{ name: 'News', to: '' }]} />
+      <LPNav tab={'News'} />
       <Body />
     </Box>
   )

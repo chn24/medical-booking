@@ -66,7 +66,7 @@ const userNav = [
 ]
 
 function LPNav(props) {
-  const { tabs } = props
+  const { tab } = props
   const loginData = useRecoilValue(dataState)
   const isLogin = useRecoilValue(loginState)
   // console.log(loading)
@@ -141,14 +141,28 @@ function LPNav(props) {
           {isLogin.roll === 'Doctor'
             ? docNav.map((item) => {
                 return (
-                  <NavLink className="nav-middle-link" key={item.id} to={item.to}>
+                  <NavLink
+                    className="nav-middle-link"
+                    key={item.id}
+                    to={item.to}
+                    style={{
+                      color: `${String(item.title) === tab ? '#002a72' : '#77809a'}`,
+                    }}
+                  >
                     {item.title}
                   </NavLink>
                 )
               })
             : userNav.map((item) => {
                 return (
-                  <NavLink className="nav-middle-link" key={item.id} to={item.to}>
+                  <NavLink
+                    className="nav-middle-link"
+                    key={item.id}
+                    to={item.to}
+                    style={{
+                      color: `${String(item.title) === tab ? '#002a72' : '#77809a'}`,
+                    }}
+                  >
                     {item.title}
                   </NavLink>
                 )
