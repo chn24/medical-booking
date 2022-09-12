@@ -1,19 +1,23 @@
 import './App.css'
-import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
-import LandingPage from './layouts/LandingPage/LandingPage'
-import SignIn from './layouts/SignInSignUp/SignIn'
-import SignUp from './layouts/SignInSignUp/SignUp'
-import DoctorInformation from './layouts/Doctors/DoctorIn4/DoctorInormation'
-import Booking from './layouts/Doctors/Booking/Booking'
 import { createContext, useEffect } from 'react'
-import DoctorList from './layouts/Doctors/doctorList'
-import DoctorSchedule from './layouts/DocterView/DocterSchedule'
-import DoctorProfile from './layouts/DocterView/DoctorProfile'
-import BookingSchedule from './layouts/DocterView/BookingSchedule'
-import News from './layouts/News'
-import UserBooking from './layouts/UserBooking'
-import NotFound from './layouts/ErrorPages/Error404'
-import Error403 from './layouts/ErrorPages/Error403'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
+
+//------------------------------------------------------------Route
+import ProtectedRoute from './components/common/ProtectedRoute'
+import DoctorRoute from './components/common/DoctorRoute'
+
+//------------------------------------------------------------Components
+import LandingPage from './components/screens/LandingPage/LandingPage'
+import SignUp from './components/screens/SignInSignUp/SignUp'
+import DoctorInformation from './components/screens/DoctorIn4/DoctorInormation'
+import Booking from './components/screens/Booking/Booking'
+import DoctorList from './components/screens/doctorList'
+import DoctorSchedule from './components/screens/DocterSchedule'
+import DoctorProfile from './components/screens/DoctorProfile'
+import BookingSchedule from './components/screens/BookingSchedule'
+import News from './components/screens/News'
+import UserBooking from './components/screens/UserBooking'
+import NotFound from './components/screens/ErrorPages/Error404'
 
 import axios from 'axios'
 import { dataState } from './recoil/dataState'
@@ -56,7 +60,6 @@ function App() {
       }
     }
   }, [])
-  // const [isLogin, setIsLogin] = useState(false)
 
   // ==> protected route
 
@@ -138,20 +141,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   )
-}
-
-const ProtectedRoute = ({ isLogin, path, children }) => {
-  if (!isLogin) {
-    return <Error403 />
-  }
-  return children
-}
-
-const DoctorRoute = ({ isLogin, path, children }) => {
-  if (!isLogin.login || (isLogin.login && isLogin.roll === 'User')) {
-    return <Error403 />
-  }
-  return children
 }
 
 export default App
