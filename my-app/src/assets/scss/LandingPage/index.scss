@@ -1,0 +1,69 @@
+//----------------------------------LandingPage.js
+.lPmain {
+    position: relative;
+    background-color: rgb(240, 242, 245);
+}
+
+//----------------------------------LPNav.js
+
+.nav {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 5;
+    margin: 0 16px;
+    border-radius: 15px !important;
+
+    &-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 32px;
+    }
+
+    &-left {
+        display: none;
+
+        &-drawerBox {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-link {
+            text-decoration: none;
+            color: #797979;
+            box-sizing: border-box;
+            padding: 16px;
+        }
+    }
+
+    &-right {
+        min-width: max-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    &-middle {
+        min-width: 50%;
+        width: max-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        &-link {
+            text-decoration: none;
+            color: #77809a;
+            line-height: 55.6px;
+            box-sizing: border-box;
+            padding: 5px 8px;
+
+            &:hover {
+                color: #004ed4 !important;
+                // border-bottom: 1px solid rgb(52, 71, 103);
+            }
+        }
+    }
+}

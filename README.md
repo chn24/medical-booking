@@ -38,4 +38,5 @@
         -Bác sĩ :
             + Xem và chỉnh sửa profile của bác sĩ đó (Your profile)
             + Chỉnh sửa các ngày bận (Your schedule)
+                Bác sĩ không thể thêm lịch khám vào những lúc có người khám
             + Xem lịch khám các bệnh nhân đã book bác sĩ đó (Booking schedule)
