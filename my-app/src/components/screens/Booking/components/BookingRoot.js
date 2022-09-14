@@ -1,10 +1,14 @@
 import { Box, Grid } from '@mui/material'
 import BookingLeft from './BookingLeft'
 import BookingRight from './BookingRight'
+import ComAlert from '../../../common/Alert'
 
 function BookingRoot() {
   return (
     <Box className="booking">
+      <Box className="booking-alert">
+        <ComAlert direction="left" />
+      </Box>
       <Box
         className="booking-container"
         sx={{

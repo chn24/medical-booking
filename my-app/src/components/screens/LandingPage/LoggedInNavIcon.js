@@ -4,10 +4,11 @@ import { useState } from 'react'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useNavigate } from 'react-router-dom'
 import { loginState } from '../../../recoil/loginState'
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
 import { dataState } from '../../../recoil/dataState'
 import { tabState } from '../../../recoil/tabState'
 import { profileTab } from '../../../recoil/profileTab'
+import { bookingState } from '../../../recoil/bookingState'
 
 function LoggedInNavIcon(props) {
   const { open, setOpen } = props
@@ -17,6 +18,7 @@ function LoggedInNavIcon(props) {
   const restProileTab = useResetRecoilState(profileTab)
   const loginData = useRecoilValue(dataState)
   const setDefaultTabName = useResetRecoilState(tabState)
+  const setDefaultBookingIn4 = useResetRecoilState(bookingState)
 
   const handleClick = () => {
     setOpen(!open)
@@ -24,6 +26,7 @@ function LoggedInNavIcon(props) {
     resetLoginData()
     setDefaultTabName()
     restProileTab()
+    setDefaultBookingIn4()
     navigate('/')
   }
 

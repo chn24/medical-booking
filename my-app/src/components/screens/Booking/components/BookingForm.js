@@ -6,29 +6,64 @@ import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay'
 import moment from 'moment'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { loginState } from '../../../../recoil/loginState'
 
 import { BookingData } from './BookingLeft'
-import { useRecoilValue } from 'recoil'
+import { alertState } from '../../../../recoil/alertState'
+import { loginState } from '../../../../recoil/loginState'
+import { bookingState } from '../../../../recoil/bookingState'
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { set } from 'date-fns'
 
 const times = ['Morning', 'Afternoon']
 
 function BookingForm(props) {
+  const { activeStep, setActiveStep } = props
+
   const context = useContext(BookingData)
   const loginData = useRecoilValue(loginState)
-  const { activeStep, setActiveStep } = props
-  const [doctorName, setDoctorName] = useState(context.booking.doctorName)
-  const [time, setTime] = useState(context.booking.time)
-  const [date, setDate] = useState(context.booking.date)
-  const [doctorTimes, setDoctorTimes] = useState(context.booking.doctorTimes)
-  const [full, setFull] = useState(context.booking.full)
-  const [morning, setMorning] = useState(context.booking.morning)
-  const [afternoon, setAfternoon] = useState(context.booking.afternoon)
-  const [customerBooking, setCustomerBooking] = useState([])
+  const setAlertText = useSetRecoilState(alertState)
+  const setDefaultAlert = useResetRecoilState(alertState)
+  const [bookingIn4, setBookingIn4] = useRecoilState(bookingState)
+
+  const [alerInfo, setAlertInfo] = useState()
+  const [isAlert, setIsAlert] = useState(false)
   const [doctorBooking, setDoctorBooking] = useState([])
+  const [customerBooking, setCustomerBooking] = useState([])
+  const [time, setTime] = useState(bookingIn4.booking.time)
+  const [date, setDate] = useState(bookingIn4.booking.date)
+  const [full, setFull] = useState(bookingIn4.booking.full)
+  const [morning, setMorning] = useState(bookingIn4.booking.morning)
+  const [afternoon, setAfternoon] = useState(bookingIn4.booking.afternoon)
+  const [doctorName, setDoctorName] = useState(bookingIn4.booking.doctorName)
+  const [doctorTimes, setDoctorTimes] = useState(bookingIn4.booking.doctorTimes)
 
   //----------------------------------------------------------------------render
+
+  useEffect(() => {
+    if (isAlert) {
+      setAlertText(alerInfo)
+      let func = setTimeout(() => {
+        setDefaultAlert()
+        setIsAlert(false)
+      }, 2000)
+      return () => {
+        clearTimeout(func)
+      }
+    } else {
+      setDefaultAlert()
+    }
+  }, [isAlert])
+
+  const handleMouseOver = (e, value) => {
+    setAlertInfo(value)
+    setIsAlert(true)
+  }
+
+  const handleMouseOut = () => {
+    if (isAlert) {
+      setIsAlert(false)
+    }
+  }
 
   const customDayRenderer = (date, selectedDates, pickersDayProps) => {
     const stringifiedDate = moment(date).format('YYYY-MM-DD')
@@ -48,7 +83,30 @@ function BookingForm(props) {
       condition2.length === 10 ||
       condition3.length === 2
     ) {
-      return <PickersDay {...pickersDayProps} disabled />
+      let value = {
+        closeBtn: false,
+        open: true,
+        type: 'info',
+        information: {
+          text: `${
+            condition1.length !== 0
+              ? 'You have booked this doctor on this day'
+              : condition2.length === 10
+              ? 'Schedule full'
+              : full.includes(stringifiedDate)
+              ? 'Doctor buysy this day'
+              : 'You hae booked 2 times on this day'
+          }`,
+        },
+      }
+      return (
+        <PickersDay
+          {...pickersDayProps}
+          className="pointerENone"
+          onMouseOver={(e, values = value) => handleMouseOver(e, value)}
+          onMouseOut={handleMouseOut}
+        />
+      )
     }
     return <PickersDay {...pickersDayProps} />
   }
@@ -268,7 +326,7 @@ function BookingForm(props) {
         id = `${doctorName.value.id}-${response.data.length + 1}-${time.value === 'Morning' ? 'M' : 'A'}`
         arr.splice(arr.length, 0, {
           docterId: doctorName.value.id,
-          patientName: context.customer.name,
+          patientName: bookingIn4.customer.name,
           patientId: loginData.id,
           date: moment(date.value).format('YYYY-MM-DD'),
           time: time.value,
@@ -280,10 +338,33 @@ function BookingForm(props) {
         }
       })
       .catch((error) => {
+        let value = {
+          closeBtn: false,
+          open: true,
+          type: 'error',
+          information: {
+            text: 'Booking failed',
+          },
+        }
+        setAlertInfo(value)
+        setIsAlert(true)
         console.log(error)
       })
 
-    await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`, data)
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${doctorName.value.id}`, data)
+      .catch(() => {
+        let value = {
+          closeBtn: false,
+          open: true,
+          type: 'error',
+          information: {
+            text: 'Booking failed',
+          },
+        }
+        setAlertInfo(value)
+        setIsAlert(true)
+      })
 
     if (loginData.roll === 'User') {
       let data2 = {}
@@ -294,7 +375,7 @@ function BookingForm(props) {
           arr.splice(arr.length, 0, {
             docterId: doctorName.value.id,
             docterName: doctorName.value.name,
-            patientName: context.customer.name,
+            patientName: bookingIn4.customer.name,
             patientId: loginData.id,
             date: moment(date.value).format('YYYY-MM-DD'),
             time: time.value,
@@ -305,22 +386,63 @@ function BookingForm(props) {
           }
         })
         .catch((error) => {
+          let value = {
+            closeBtn: false,
+            open: true,
+            type: 'error',
+            information: {
+              text: 'Booking failed',
+            },
+          }
+          setAlertInfo(value)
+          setIsAlert(true)
           console.log(error)
         })
 
-      await axios.put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${loginData.id}`, data2)
+      await axios
+        .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${loginData.id}`, data2)
+        .then(() => {
+          setBookingIn4({
+            ...bookingIn4,
+            booking: {
+              doctorName,
+              date,
+              time,
+              doctorTimes,
+              morning,
+              afternoon,
+              full,
+            },
+          })
+          setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        })
+        .catch(() => {
+          let value = {
+            closeBtn: false,
+            open: true,
+            type: 'error',
+            information: {
+              text: 'Booking failed',
+            },
+          }
+          setAlertInfo(value)
+          setIsAlert(true)
+        })
     }
   }
 
   const handleBack = () => {
-    context.setBooking({
-      doctorName,
-      date,
-      time,
-      doctorTimes,
-      morning,
-      afternoon,
-      full,
+    setBookingIn4({
+      ...bookingIn4,
+      booking: {
+        doctorName,
+        date,
+        time,
+        doctorTimes,
+        morning,
+        afternoon,
+        full,
+      },
     })
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
@@ -328,12 +450,6 @@ function BookingForm(props) {
   const handleFinish = () => {
     if (doctorName.isChoosen && !doctorName.error && date.isChoosen && !date.error && time.isChoosen && !time.error) {
       pushBooking()
-      context.setBooking({
-        doctorName,
-        date,
-        time,
-      })
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
     } else {
       if (!doctorName.isChoosen) {
         setDoctorName({

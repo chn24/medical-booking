@@ -1,14 +1,18 @@
-import { Box, Collapse, IconButton, Rating, TableCell, TableRow } from '@mui/material'
-import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
-import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useState } from 'react'
 import { LoadingButton } from '@mui/lab'
+import { useNavigate } from 'react-router-dom'
+import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
+import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
+import { Box, Collapse, IconButton, Rating, TableCell, TableRow } from '@mui/material'
+
+import { bookingState } from '../../../../recoil/bookingState'
+import { useRecoilState } from 'recoil'
 
 const star = Math.floor(Math.random() * 5) + 1
 function DoctorRow(props) {
   const { datas, id, roll } = props
+
+  const [bookingIn4, setBookingIn4] = useRecoilState(bookingState)
 
   const [button1Load, setButton1Load] = useState(false)
   const [button2Load, setButton2Load] = useState(false)
@@ -21,6 +25,17 @@ function DoctorRow(props) {
   }
 
   const handleBooking = async () => {
+    await setBookingIn4({
+      ...bookingIn4,
+      booking: {
+        ...bookingIn4.booking,
+        doctorName: {
+          value: datas,
+          isChoosen: true,
+          error: false,
+        },
+      },
+    })
     await setButton2Load(true)
     await navigate('/doctor-list/booking')
   }

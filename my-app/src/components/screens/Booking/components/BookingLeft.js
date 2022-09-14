@@ -10,46 +10,11 @@ const steps = ['Your Details', 'Booking']
 
 function BookingLeft() {
   const [activeStep, setActiveStep] = useState(0)
-  const [customer, setCustomer] = useState({
-    title: null,
-    firstName: '',
-    lastName: '',
-    name: '',
-    email: '',
-    phoneNumber: '',
-  })
-  const [booking, setBooking] = useState({
-    doctorName: {
-      value: null,
-      isChoosen: false,
-      error: false,
-    },
-    date: {
-      value: null,
-      day: '',
-      month: '',
-      year: '',
-      isChoosen: false,
-      error: null,
-    },
-    time: {
-      value: null,
-      isChoosen: false,
-      error: false,
-    },
-    doctorTimes: ['Morning', 'Afternoon'],
-    morning: [],
-    afternoon: [],
-    full: [],
-  })
+
   const [doctorList, setDoctorList] = useState([])
   return (
     <BookingData.Provider
       value={{
-        customer,
-        setCustomer,
-        booking,
-        setBooking,
         doctorList,
         setDoctorList,
       }}

@@ -17,15 +17,22 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import moment from 'moment'
 
+import { alertState } from '../../../../recoil/alertState'
 import { loginState } from '../../../../recoil/loginState'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+
+import ComAlert from '../../../common/Alert'
 import DBRow from './DBRow'
 import { de } from 'date-fns/locale'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
+  const setAlertText = useSetRecoilState(alertState)
+  const setDefaultAlert = useResetRecoilState(alertState)
+  const [deleteAlert, setDeleteAlert] = useState(false)
+
   const [bookingSchedule, setBookingSchedule] = useState()
   const [shows, setShows] = useState()
   const [date, setDate] = useState({
@@ -52,6 +59,27 @@ function Body() {
   useEffect(() => {
     callAPI()
   }, [])
+
+  useEffect(() => {
+    if (deleteAlert) {
+      setAlertText({
+        closeBtn: false,
+        open: true,
+        type: 'success',
+        information: {
+          text: 'Delete successfully',
+        },
+      })
+      let timeOut = setTimeout(() => {
+        setDefaultAlert()
+        setDeleteAlert(false)
+      }, 2000)
+
+      return () => {
+        clearTimeout(timeOut)
+      }
+    }
+  }, [deleteAlert])
 
   const deleteDataApi = async () => {
     const arr = shows.filter((show) => show.id !== deleteInfo.id)
@@ -81,7 +109,9 @@ function Body() {
       .catch((error) => {
         console.log(error)
       })
-    await callAPI()
+    await callAPI().then(() => {
+      setDeleteAlert(true)
+    })
   }
 
   useEffect(() => {
@@ -119,6 +149,9 @@ function Body() {
   return (
     <Box className="drBs">
       <Paper className="drBs-paper">
+        <Box className="drBs-paper-alert">
+          <ComAlert direction="right" />
+        </Box>
         <Box className="drBs-paper-header">
           <Box className="drBs-paper-header-1">
             <Typography variant="h5" sx={{ color: '#fff' }}>

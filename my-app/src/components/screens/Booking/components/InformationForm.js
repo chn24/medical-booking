@@ -1,8 +1,9 @@
-import { Autocomplete, Box, Button, FormControl, OutlinedInput, Stack, TextField, Typography } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
-import { BookingData } from './BookingLeft'
+import { Autocomplete, Box, Button, FormControl, Stack, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
+import { bookingState } from '../../../../recoil/bookingState'
+import { useRecoilState } from 'recoil'
 
 const titleList = ['Mr', 'Mrs']
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -17,17 +18,18 @@ const validationSchema = yup.object({
 })
 
 function InformationForm(props) {
-  const context = useContext(BookingData)
+  const [bookingIn4, setBookingIn4] = useRecoilState(bookingState)
+
   const { activeStep, setActiveStep } = props
 
-  const [title, setTitle] = useState(context.customer.title)
+  const [title, setTitle] = useState(bookingIn4.customer.title)
 
   const formik = useFormik({
     initialValues: {
-      firstName: context.customer.firstName,
-      lastName: context.customer.lastName,
-      phoneNumber: context.customer.phoneNumber,
-      email: context.customer.email,
+      firstName: bookingIn4.customer.firstName,
+      lastName: bookingIn4.customer.lastName,
+      phoneNumber: bookingIn4.customer.phoneNumber,
+      email: bookingIn4.customer.email,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -44,14 +46,18 @@ function InformationForm(props) {
     },
   })
   const handleClick = (values) => {
-    context.setCustomer({
-      title,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      name: `${values.firstName} ${values.lastName}`,
-      email: values.email,
-      phoneNumber: values.phoneNumber,
+    setBookingIn4({
+      ...bookingIn4,
+      customer: {
+        title,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        name: `${values.firstName} ${values.lastName}`,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
+      },
     })
+
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
 
