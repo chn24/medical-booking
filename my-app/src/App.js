@@ -8,7 +8,7 @@ import DoctorRoute from './components/common/DoctorRoute'
 
 //------------------------------------------------------------Components
 import LandingPage from './components/screens/LandingPage/LandingPage'
-import SignUp from './components/screens/SignInSignUp/SignUp'
+import SignUp from './components/layouts/SignUp/SignUp'
 import DoctorInformation from './components/screens/DoctorIn4/DoctorInormation'
 import Booking from './components/screens/Booking/Booking'
 import DoctorList from './components/screens/doctorList'

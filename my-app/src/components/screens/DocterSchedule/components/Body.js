@@ -64,9 +64,9 @@ function Body() {
       setAlertText({
         closeBtn: false,
         open: true,
-        type: 'success',
+        type: type === 'Failed' ? 'error' : 'success',
         information: {
-          text: `${type} successfully`,
+          text: type === 'Failed' ? 'Edit failed' : `${type} successfully`,
         },
       })
       let timeOut = setTimeout(() => {
@@ -119,34 +119,51 @@ function Body() {
       let morningArr = [...schedules.morning]
       let afternoonArr = [...schedules.afternoon]
 
-      switch (editInformation.prevTime) {
-        case 'Morning':
-          morningArr.splice(morningArr.indexOf(editInformation.date), 1)
-          break
-        case 'Full':
-          full.splice(full.indexOf(editInformation.date), 1)
-          break
-        default:
-          afternoonArr.splice(afternoonArr.indexOf(editInformation.date), 1)
-          break
+      let conditional
+
+      if (editInformation.time !== 'Full') {
+        conditional = bookings.some((item) => item.date === editInformation.date && item.time === editInformation.time)
+      } else {
+        conditional = bookings.some(
+          (item) =>
+            item.date === editInformation.date &&
+            item.time === `${editInformation.time === 'Morning' ? 'Afternoon' : 'Morning'}`,
+        )
       }
 
-      switch (editInformation.time) {
-        case 'Morning':
-          morningArr.splice(morningArr.length, 0, editInformation.date)
-          break
-        case 'Full':
-          full.splice(full.length, 0, editInformation.date)
-          break
-        default:
-          afternoonArr.splice(afternoonArr.length, 0, editInformation.date)
-          break
+      if (!conditional) {
+        switch (editInformation.prevTime) {
+          case 'Morning':
+            morningArr.splice(morningArr.indexOf(editInformation.date), 1)
+            break
+          case 'Full':
+            full.splice(full.indexOf(editInformation.date), 1)
+            break
+          default:
+            afternoonArr.splice(afternoonArr.indexOf(editInformation.date), 1)
+            break
+        }
+
+        switch (editInformation.time) {
+          case 'Morning':
+            morningArr.splice(morningArr.length, 0, editInformation.date)
+            break
+          case 'Full':
+            full.splice(full.length, 0, editInformation.date)
+            break
+          default:
+            afternoonArr.splice(afternoonArr.length, 0, editInformation.date)
+            break
+        }
+
+        let arr = concatSchedule(full, morningArr, afternoonArr)
+
+        setEditInformation('')
+        putSchedlues(arr)
+      } else {
+        setType('Failed')
+        setAlert(true)
       }
-
-      let arr = concatSchedule(full, morningArr, afternoonArr)
-
-      setEditInformation('')
-      putSchedlues(arr)
     }
   }, [editInformation])
 
