@@ -1,11 +1,40 @@
+import { useEffect, useState } from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { useState } from 'react'
+
+import { alertState } from '../../../../recoil/alertState'
+import { useResetRecoilState, useSetRecoilState } from 'recoil'
 
 function DBRow(props) {
   const { index, show, deleteInfo, setDeleteInfo } = props
   const [open, setOpen] = useState(false)
+  const [deleteAlert, setDeleteAlert] = useState(false)
+
+  const setAlertText = useSetRecoilState(alertState)
+  const setDefaultAlert = useResetRecoilState(alertState)
+
+  useEffect(() => {
+    if (deleteAlert) {
+      setAlertText({
+        closeBtn: false,
+        open: true,
+        type: 'warning',
+        information: {
+          text: 'In delete progress',
+        },
+      })
+      let timeOut = setTimeout(() => {
+        console.log(1)
+        setDefaultAlert()
+        setDeleteAlert(false)
+      }, 2000)
+
+      return () => {
+        clearTimeout(timeOut)
+      }
+    }
+  }, [deleteAlert])
 
   const handleDelete = () => {
     setOpen(true)
@@ -16,6 +45,7 @@ function DBRow(props) {
       id: show.id,
       patientId: show.patientId,
     })
+    setDeleteAlert(true)
     setOpen(false)
   }
 

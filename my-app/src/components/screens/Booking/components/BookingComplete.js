@@ -4,49 +4,24 @@ import { BookingData } from './BookingLeft'
 import logo from '../../../../assets/image/logo.png'
 import { useNavigate } from 'react-router-dom'
 
+import { bookingState } from '../../../../recoil/bookingState'
+import { useRecoilValue, useResetRecoilState } from 'recoil'
+
 function BookingComplete(props) {
   const context = useContext(BookingData)
+  const bookingIn4 = useRecoilValue(bookingState)
+  const resetBooking = useResetRecoilState(bookingState)
   const { activeStep, setActiveStep } = props
   const navigate = useNavigate()
 
   const handleBooking = () => {
-    context.setCustomer({
-      title: null,
-      firstName: '',
-      lastName: '',
-      name: '',
-      email: '',
-      phoneNumber: '',
-    })
-    context.setBooking({
-      doctorName: {
-        value: null,
-        isChoosen: false,
-        error: false,
-      },
-      date: {
-        value: null,
-        day: '',
-        month: '',
-        year: '',
-        isChoosen: false,
-        error: null,
-      },
-      time: {
-        value: null,
-        isChoosen: false,
-        error: false,
-      },
-      doctorTimes: ['Morning', 'Afternoon'],
-      morning: [],
-      afternoon: [],
-      full: [],
-    })
+    resetBooking()
     context.setDoctorList([])
     setActiveStep(0)
   }
 
   const handleHome = () => {
+    resetBooking()
     navigate('/')
   }
 
@@ -79,7 +54,7 @@ function BookingComplete(props) {
               className="bComplete-body-form-item-detail"
               variant="standard"
               disabled
-              defaultValue={`${context.customer.name}`}
+              defaultValue={`${bookingIn4.customer.name}`}
             ></TextField>
           </Box>
           <Box className="bComplete-body-form-item">
@@ -90,7 +65,7 @@ function BookingComplete(props) {
               className="bComplete-body-form-item-detail"
               variant="standard"
               disabled
-              defaultValue={`${context.booking.doctorName.value.name}`}
+              defaultValue={`${bookingIn4.booking.doctorName.value.name}`}
             ></TextField>
           </Box>
           <Box className="bComplete-body-form-item">
@@ -101,7 +76,7 @@ function BookingComplete(props) {
               className="bComplete-body-form-item-detail"
               variant="standard"
               disabled
-              defaultValue={`${context.booking.time.value} ${context.booking.date.day} ${context.booking.date.month} ${context.booking.date.year} 
+              defaultValue={`${bookingIn4.booking.time.value} ${bookingIn4.booking.date.day} ${bookingIn4.booking.date.month} ${bookingIn4.booking.date.year} 
                         `}
             ></TextField>
           </Box>

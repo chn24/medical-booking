@@ -7,6 +7,16 @@
 .booking {
     padding: 64px 32px 32px;
     box-sizing: content-box;
+    position: relative;
+
+    &-alert {
+        z-index: 1000;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        min-width: max-content;
+        max-width: 30%;
+    }
 
     &-container {
         display: flex;
