@@ -5,7 +5,7 @@ export const alertState = atom({
   open: false,
   key: 'alertState',
   default: {
-    type: '',
+    type: 'info',
     information: {},
   },
 })
