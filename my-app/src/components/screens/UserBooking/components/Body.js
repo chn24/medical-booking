@@ -14,15 +14,22 @@ import {
 } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { loginState } from '../../../../recoil/loginState'
+import { alertState } from '../../../../recoil/alertState'
+
 import BRow from './BRow'
+import ComAlert from '../../../common/Alert'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
+  const setAlertText = useSetRecoilState(alertState)
+  const resetAlertText = useResetRecoilState(alertState)
+
   const [dates, setDates] = useState()
   const [page, setPage] = useState(0)
+  const [status, setStatus] = useState(false)
+  const [isAlert, setIsAlert] = useState(false)
   const [deleteDateId, setDeleteDateId] = useState()
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -34,6 +41,27 @@ function Body() {
       setDates(res.data.dates)
     }
   }
+
+  useEffect(() => {
+    if (isAlert) {
+      setAlertText({
+        closeBtn: false,
+        open: true,
+        type: `${status ? 'success' : 'error'}`,
+        information: {
+          text: `Delete ${status ? 'successfully' : 'failed'}`,
+        },
+      })
+      let timeOut = setTimeout(() => {
+        resetAlertText()
+        setIsAlert(false)
+      }, 2000)
+
+      return () => {
+        clearTimeout(timeOut)
+      }
+    }
+  }, [isAlert])
 
   const deleteDateApi = async () => {
     //----------------user
@@ -62,7 +90,13 @@ function Body() {
       })
     await axios
       .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${docterId[0]}`, doctorData)
+      .then(() => {
+        setIsAlert(true)
+        setStatus(true)
+      })
       .catch((error) => {
+        setIsAlert(true)
+        setStatus(false)
         console.log(error)
       })
     await callApi()
@@ -80,6 +114,9 @@ function Body() {
 
   return (
     <Box className="uBooking">
+      <Box className="uBooking-alert">
+        <ComAlert direction="left" />
+      </Box>
       <Paper className="uBooking-paper">
         <Box className="uBooking-paper-head">
           <Typography sx={{ color: '#fff' }} variant="h5">

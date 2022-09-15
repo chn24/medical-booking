@@ -1,12 +1,19 @@
+import { useEffect, useState } from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { TableRow, IconButton, TableCell } from '@mui/material'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { useState } from 'react'
+
+import { alertState } from '../../../../recoil/alertState'
+import { useResetRecoilState, useSetRecoilState } from 'recoil'
 
 function BRow(props) {
   const { index, date, setDeleteDateId } = props
 
+  const [isAlert, setIsAlert] = useState(false)
   const [deleteDialog, setDeleteDialog] = useState(false)
+
+  const setAlertText = useSetRecoilState(alertState)
+  const resetAlertText = useResetRecoilState(alertState)
 
   const handleDelete = () => {
     setDeleteDialog(true)
@@ -23,8 +30,29 @@ function BRow(props) {
   const handleAgree = () => {
     setDeleteDateId(date.id)
     setDeleteDialog(false)
+    setIsAlert(true)
   }
 
+  useEffect(() => {
+    if (isAlert) {
+      setAlertText({
+        closeBtn: false,
+        open: true,
+        type: 'warning',
+        information: {
+          text: 'In Delete progress',
+        },
+      })
+      let timeOut = setTimeout(() => {
+        resetAlertText()
+        setIsAlert(false)
+      }, 1200)
+
+      return () => {
+        clearTimeout(timeOut)
+      }
+    }
+  }, [isAlert])
   // const handleDelete = () => {
   //   setDeleteDateId(date.id)
   // }
