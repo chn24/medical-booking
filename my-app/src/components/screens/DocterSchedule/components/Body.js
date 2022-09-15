@@ -127,7 +127,7 @@ function Body() {
         conditional = bookings.some(
           (item) =>
             item.date === editInformation.date &&
-            item.time === `${editInformation.time === 'Morning' ? 'Afternoon' : 'Morning'}`,
+            item.time === `${editInformation.prevTime === 'Morning' ? 'Afternoon' : 'Morning'}`,
         )
       }
 
