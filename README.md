@@ -40,3 +40,13 @@
             + Chỉnh sửa các ngày bận (Your schedule)
                 Bác sĩ không thể thêm lịch khám vào những lúc có người khám
             + Xem lịch khám các bệnh nhân đã book bác sĩ đó (Booking schedule)
+
+# Các chức năng dự kiến sẽ thêm :
+
+    * Bác sĩ :
+        - Đánh dấu người bệnh nhân đã được khám xong hay chưa
+        - Thông báo
+    * Người dùng :
+        - Sau khi được đánh dấu sẽ được đánh giá, bình luận góp ý vào profile của bsi
+        - Tìm kiếm lịch khám theo ngày
+        - Thông báo
