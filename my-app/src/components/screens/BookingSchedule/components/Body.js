@@ -33,6 +33,7 @@ function Body() {
   const setDefaultAlert = useResetRecoilState(alertState)
   const [deleteAlert, setDeleteAlert] = useState(false)
 
+  const [statusInfo, setStatusInfo] = useState()
   const [bookingSchedule, setBookingSchedule] = useState()
   const [shows, setShows] = useState()
   const [date, setDate] = useState({
@@ -59,6 +60,8 @@ function Body() {
   useEffect(() => {
     callAPI()
   }, [])
+
+  //------------------------------------------------------------------------------Delete
 
   useEffect(() => {
     if (deleteAlert) {
@@ -119,6 +122,60 @@ function Body() {
       deleteDataApi()
     }
   }, [deleteInfo])
+
+  //------------------------------------------------------------------------------Edit status
+
+  const editStatusApi = async () => {
+    let arr = [...shows]
+    for (let key in arr) {
+      if (arr[key].id === statusInfo.id) {
+        arr[key].status += 1
+      }
+    }
+    const doctorData = {
+      bookings: arr,
+    }
+    let userData
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${isLogin.id}`, doctorData)
+      .catch((error) => {
+        console.log(error)
+      })
+
+    await axios
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${statusInfo.patientId}`)
+      .then((response) => {
+        let arr2 = [...response.data.dates]
+        for (let key in arr2) {
+          if (arr2[key].id === statusInfo.id) {
+            console.log('1')
+            arr2[key].status += 1
+          }
+        }
+        userData = {
+          dates: arr2,
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    await axios
+      .put(`https://62c65d1874e1381c0a5d833e.mockapi.io/userData/${statusInfo.patientId}`, userData)
+      .catch((error) => {
+        console.log(error)
+      })
+
+    await callAPI()
+  }
+
+  useEffect(() => {
+    if (statusInfo) {
+      editStatusApi()
+    }
+  }, [statusInfo])
+
+  //------------------------------------------------------------------------------Check date
 
   useEffect(() => {
     if (date.error === null) {
@@ -190,7 +247,8 @@ function Body() {
                   <TableCell align="left">Name</TableCell>
                   <TableCell align="left">Date</TableCell>
                   <TableCell align="left">Time</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell align="left">Status</TableCell>
+                  <TableCell align="left">Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -209,8 +267,20 @@ function Body() {
                       <Skeleton variant="text" animation="wave" />
                     </TableCell>
                     <TableCell align="left">
+                      <Skeleton variant="text" animation="wave" />
+                    </TableCell>
+                    <TableCell align="left">
                       <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
                     </TableCell>
+                  </TableRow>
+                ) : shows.length === 0 ? (
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>You haven't been booked yet</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 ) : (
                   shows.slice(page * 5, page * 5 + 5).map((show, index) => {
@@ -221,6 +291,7 @@ function Body() {
                         show={show}
                         deleteInfo={deleteInfo}
                         setDeleteInfo={setDeleteInfo}
+                        setStatusInfo={setStatusInfo}
                       />
                     )
                   })

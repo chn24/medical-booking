@@ -29,6 +29,17 @@
                 width: 100%;
                 height: 100%;
             }
+
+            &-link {
+                text-decoration: none;
+                display: inline-block;
+                color: #000;
+                width: 100%;
+
+                &:hover {
+                    color: #004ed4;
+                }
+            }
         }
     }
 }

@@ -134,6 +134,7 @@ function Body() {
                   <TableCell align="left">Date</TableCell>
                   <TableCell align="left">Time</TableCell>
                   <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -157,6 +158,19 @@ function Body() {
                     <TableCell align="left">
                       <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
                     </TableCell>
+                    <TableCell align="left">
+                      <Skeleton variant="circular" animation="wave" sx={{ width: '16px' }} />
+                    </TableCell>
+                  </TableRow>
+                ) : dates.length === 0 ? (
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>You haven't booked yet</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 ) : (
                   dates.slice(page * 5, page * 5 + 5).map((date, index) => {

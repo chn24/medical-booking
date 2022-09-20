@@ -7,7 +7,7 @@ import { alertState } from '../../../../recoil/alertState'
 import { useResetRecoilState, useSetRecoilState } from 'recoil'
 
 function DBRow(props) {
-  const { index, show, deleteInfo, setDeleteInfo } = props
+  const { index, show, deleteInfo, setDeleteInfo, setStatusInfo } = props
   const [open, setOpen] = useState(false)
   const [deleteAlert, setDeleteAlert] = useState(false)
 
@@ -57,6 +57,17 @@ function DBRow(props) {
     setOpen(false)
   }
 
+  //----------------------------------------------------edit status
+
+  const handleStatus = () => {
+    if (show.status < 2) {
+      setStatusInfo({
+        id: show.id,
+        patientId: show.patientId,
+      })
+    }
+  }
+
   return (
     <>
       <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -64,6 +75,11 @@ function DBRow(props) {
         <TableCell align="left">{show.patientName}</TableCell>
         <TableCell align="left">{show.date}</TableCell>
         <TableCell align="left">{show.time}</TableCell>
+        <TableCell align="left">
+          <Button color={show.status === 0 ? 'info' : show.status === 1 ? 'warning' : 'success'} onClick={handleStatus}>
+            {show.status === 0 ? 'Ready' : show.status === 1 ? 'In Progress' : 'Done'}
+          </Button>
+        </TableCell>
         <TableCell align="left">
           <IconButton onClick={handleDelete}>
             <DeleteIcon />

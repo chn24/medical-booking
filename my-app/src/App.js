@@ -17,6 +17,7 @@ import DoctorProfile from './components/screens/DoctorProfile'
 import BookingSchedule from './components/screens/BookingSchedule'
 import News from './components/screens/News'
 import UserBooking from './components/screens/UserBooking'
+import Feedback from './components/screens/Feedback'
 import NotFound from './components/screens/ErrorPages/Error404'
 
 import axios from 'axios'
@@ -112,7 +113,7 @@ function App() {
         ></Route>
 
         <Route
-          path="/booking-schedule"
+          path="booking-schedule"
           element={
             <ProtectedRoute isLogin={isLogin.login} path="">
               <BookingSchedule />
@@ -137,6 +138,18 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+
+        <Route path="/feedback">
+          <Route
+            path=":doctorId"
+            element={
+              <ProtectedRoute isLogin={isLogin.login} path="">
+                <Feedback />
+              </ProtectedRoute>
+            }
+          ></Route>
+        </Route>
+
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
