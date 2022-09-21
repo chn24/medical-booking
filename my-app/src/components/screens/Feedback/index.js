@@ -1,8 +1,10 @@
 import { Box } from '@mui/material'
+import { useParams } from 'react-router-dom'
 import LPNav from '../LandingPage/LPNav'
 import Body from './components/Body'
 
-const index = () => {
+const Feedback = () => {
+  const { doctorId } = useParams()
   return (
     <Box
       sx={{
@@ -13,9 +15,9 @@ const index = () => {
       }}
     >
       <LPNav />
-      <Body />
+      <Body doctorId={doctorId} />
     </Box>
   )
 }
 
-export default index
+export default Feedback

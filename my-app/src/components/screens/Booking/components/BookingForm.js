@@ -384,6 +384,7 @@ function BookingForm(props) {
             date: moment(date.value).format('YYYY-MM-DD'),
             time: time.value,
             status: 0,
+            isComment: false,
             id,
           })
           data2 = {
