@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
+import FeedbackIcon from '@mui/icons-material/Feedback'
 import { TableRow, IconButton, TableCell } from '@mui/material'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 
+import { feedbackState } from '../../../../recoil/feedbackState'
 import { alertState } from '../../../../recoil/alertState'
 import { useResetRecoilState, useSetRecoilState } from 'recoil'
 
@@ -12,8 +15,11 @@ function BRow(props) {
   const [isAlert, setIsAlert] = useState(false)
   const [deleteDialog, setDeleteDialog] = useState(false)
 
+  const setFeedback = useSetRecoilState(feedbackState)
   const setAlertText = useSetRecoilState(alertState)
   const resetAlertText = useResetRecoilState(alertState)
+
+  const navigate = useNavigate()
 
   const handleDelete = () => {
     setDeleteDialog(true)
@@ -57,6 +63,14 @@ function BRow(props) {
   //   setDeleteDateId(date.id)
   // }
 
+  const handleFeedback = () => {
+    setFeedback({
+      canFeedback: true,
+      information: date,
+    })
+    navigate(`/feedback/${date.docterId}`)
+  }
+
   return (
     <>
       <TableRow>
@@ -66,7 +80,12 @@ function BRow(props) {
         <TableCell align="left">{date?.date}</TableCell>
         <TableCell align="left">{date?.time}</TableCell>
         <TableCell align="left">
-          <IconButton onClick={handleDelete}>
+          <IconButton disabled={date.status !== 2 || date.isComment} onClick={handleFeedback}>
+            <FeedbackIcon />
+          </IconButton>
+        </TableCell>
+        <TableCell align="left">
+          <IconButton disabled={date.status !== 0} onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </TableCell>

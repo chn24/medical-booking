@@ -1,18 +1,20 @@
-import { Autocomplete, Box, Button, FormControl, Stack, TextField, Typography } from '@mui/material'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import LoadingButton from '@mui/lab/LoadingButton'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay'
-import moment from 'moment'
-import { useContext, useEffect, useState } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { Autocomplete, Box, Button, FormControl, Stack, TextField, Typography } from '@mui/material'
+
 import axios from 'axios'
+import moment from 'moment'
+import { set } from 'date-fns'
+import { useContext, useEffect, useState } from 'react'
 
 import { BookingData } from './BookingLeft'
 import { alertState } from '../../../../recoil/alertState'
 import { loginState } from '../../../../recoil/loginState'
 import { bookingState } from '../../../../recoil/bookingState'
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
-import { set } from 'date-fns'
 
 const times = ['Morning', 'Afternoon']
 
@@ -25,6 +27,7 @@ function BookingForm(props) {
   const setDefaultAlert = useResetRecoilState(alertState)
   const [bookingIn4, setBookingIn4] = useRecoilState(bookingState)
 
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const [alerInfo, setAlertInfo] = useState()
   const [isAlert, setIsAlert] = useState(false)
   const [doctorBooking, setDoctorBooking] = useState([])
@@ -330,6 +333,7 @@ function BookingForm(props) {
           patientId: loginData.id,
           date: moment(date.value).format('YYYY-MM-DD'),
           time: time.value,
+          status: 0,
           id,
         })
         data = {
@@ -379,6 +383,8 @@ function BookingForm(props) {
             patientId: loginData.id,
             date: moment(date.value).format('YYYY-MM-DD'),
             time: time.value,
+            status: 0,
+            isComment: false,
             id,
           })
           data2 = {
@@ -417,6 +423,7 @@ function BookingForm(props) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1)
         })
         .catch(() => {
+          setLoadingBtn(false)
           let value = {
             closeBtn: false,
             open: true,
@@ -449,6 +456,7 @@ function BookingForm(props) {
 
   const handleFinish = () => {
     if (doctorName.isChoosen && !doctorName.error && date.isChoosen && !date.error && time.isChoosen && !time.error) {
+      setLoadingBtn(true)
       pushBooking()
     } else {
       if (!doctorName.isChoosen) {
@@ -553,9 +561,13 @@ function BookingForm(props) {
           <Button variant="contained" onClick={handleBack}>
             Back
           </Button>
-          <Button variant="contained" onClick={handleFinish}>
+
+          <LoadingButton loading={loadingBtn} variant="contained" onClick={handleFinish}>
             Finish
-          </Button>
+          </LoadingButton>
+          {/* <Button variant="contained" onClick={handleFinish}>
+            Finish
+          </Button> */}
         </Box>
       </Box>
     </Box>

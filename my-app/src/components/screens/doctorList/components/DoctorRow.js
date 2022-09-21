@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { LoadingButton } from '@mui/lab'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import { Box, Collapse, IconButton, Rating, TableCell, TableRow } from '@mui/material'
@@ -47,7 +47,9 @@ function DoctorRow(props) {
           {datas.id}
         </TableCell>
         <TableCell align="left" key={`name-${datas.id}`}>
-          {datas.name}
+          <NavLink className="dList-paper-body-link" to={`/doctor-list/doctor-information/${datas.id}`}>
+            {datas.name}
+          </NavLink>
         </TableCell>
         <TableCell className="mobile-hide" align="left" key={`email-${datas.id}`}>
           {datas.email}
@@ -56,39 +58,9 @@ function DoctorRow(props) {
           <Rating value={star} readOnly />
         </TableCell>
         <TableCell align="left" key={`button-${datas.id}`}>
-          <IconButton onClick={() => setOpen(!open)}>{open ? <ArrowUp /> : <ArrowDown />}</IconButton>
-        </TableCell>
-      </TableRow>
-
-      <TableRow>
-        <TableCell
-          style={{
-            paddingBottom: `${open ? '16px' : '0'}`,
-            paddingTop: `${open ? '16px' : '0'}`,
-          }}
-          colSpan={6}
-        >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}
-            >
-              <LoadingButton loading={button1Load} variant="contained" onClick={handleMoreIn4}>
-                More information
-              </LoadingButton>
-              <LoadingButton
-                disabled={id === datas.id && roll === 'Doctor'}
-                loading={button2Load}
-                variant="contained"
-                onClick={handleBooking}
-              >
-                Booking
-              </LoadingButton>
-            </Box>
-          </Collapse>
+          <LoadingButton disabled={id === datas.id && roll === 'Doctor'} loading={button2Load} onClick={handleBooking}>
+            Booking
+          </LoadingButton>
         </TableCell>
       </TableRow>
     </>

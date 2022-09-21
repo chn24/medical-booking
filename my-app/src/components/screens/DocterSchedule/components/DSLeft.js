@@ -378,7 +378,7 @@ function DSLeft(props) {
       <Paper className="dsL-paper">
         <Box className="dsL-paper-head">
           <Typography className="dsL-paper-head-typography" variant="h5" sx={{ color: '#fff' }}>
-            New schedule
+            New busy schedule
           </Typography>
         </Box>
 

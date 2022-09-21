@@ -29,7 +29,7 @@ function DSRight(props) {
       <Paper className="dsR-paper">
         <Box className="dsR-paper-head">
           <Typography variant="h5" sx={{ color: '#fff' }}>
-            Schedule table
+            Busy schedule table
           </Typography>
         </Box>
         <Box className="dsR-paper-body">
@@ -45,15 +45,27 @@ function DSRight(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {schedules.value.slice(page * 5, page * 5 + 5).map((schedule, index) => (
-                  <TRow
-                    key={index}
-                    schedule={schedule}
-                    id={index}
-                    setDeleteDate={setDeleteDate}
-                    setEditInformation={setEditInformation}
-                  />
-                ))}
+                {schedules.value.length === 0 ? (
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>You do not have busy schedule</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                ) : (
+                  schedules.value
+                    .slice(page * 5, page * 5 + 5)
+                    .map((schedule, index) => (
+                      <TRow
+                        key={index}
+                        schedule={schedule}
+                        id={index}
+                        setDeleteDate={setDeleteDate}
+                        setEditInformation={setEditInformation}
+                      />
+                    ))
+                )}
               </TableBody>
             </Table>
             <TablePagination

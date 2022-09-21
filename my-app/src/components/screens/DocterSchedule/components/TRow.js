@@ -150,7 +150,14 @@ setAlertText({
         </TableCell>
       </TableRow>
 
-      <Dialog open={deleteDialog} onClose={handleDeleteClose} aria-labelledby="responsive-dialog-title">
+      <Dialog
+        sx={{
+          position: 'fixed',
+        }}
+        open={deleteDialog}
+        onClose={handleDeleteClose}
+        aria-labelledby="responsive-dialog-title"
+      >
         <DialogTitle>
           <span>Are you sure ?</span>
         </DialogTitle>
