@@ -12,18 +12,15 @@ import {
   Typography,
 } from '@mui/material'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
-import PersonIcon from '@mui/icons-material/Person'
-import EmailIcon from '@mui/icons-material/Email'
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
-import DoctorRow from './DoctorRow'
-import { dataState } from '../../../../recoil/dataState'
 import { useRecoilValue } from 'recoil'
+import { useEffect, useState } from 'react'
+import { dataState } from '../../../../recoil/dataState'
+
+import DoctorRow from './DoctorRow'
+import ComBox from '../../../common/ComBox'
 
 function DoctorList() {
   const loginData = useRecoilValue(dataState)
-  const [dataLoading, setDataLoading] = useState(true)
-  const [loading, setLoading] = useState(true)
   const [datas, setDatas] = useState([])
 
   const [page, setPage] = useState(0)
@@ -43,16 +40,15 @@ function DoctorList() {
     doctorInfor()
   }, [])
 
+  const data = {
+    title: 'Doctor list',
+    aHalf: true,
+  }
+
   return (
     <Box className="table-box dList">
-      <Paper className="dList-paper">
-        <Box className="dList-paper-head">
-          <Box className="dList-paper-head-left">
-            <Typography variant="h6">Doctor list</Typography>
-          </Box>
-          <Box className="dList-paper-head-right"></Box>
-        </Box>
-        <Box className="dList-paper-body">
+      <ComBox data={data}>
+        {
           <TableContainer
             className="dList-paper-body-table"
             sx={{
@@ -106,8 +102,8 @@ function DoctorList() {
               onPageChange={handleChangePage}
             />
           </TableContainer>
-        </Box>
-      </Paper>
+        }
+      </ComBox>
     </Box>
   )
 }

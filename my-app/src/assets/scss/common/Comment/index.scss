@@ -1,0 +1,30 @@
+.comment {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+
+    &-information {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 16px;
+
+        &-text {
+            font-size: 12px !important;
+            padding: 6px 12px;
+            background-color: #f0f2f5;
+            border-radius: 15px;
+            margin: 0 8px !important;
+        }
+
+        &-contentBox {
+            width: 90%;
+            background-color: #f5f5f5  !important;
+            border-radius: 15px;
+
+            &-text {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    }
+}

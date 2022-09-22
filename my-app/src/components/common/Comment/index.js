@@ -1,8 +1,7 @@
-import { Avatar, Box, Stack, TextField, Typography } from '@mui/material'
-import ava1 from '../../../../assets/image/ava1.jpg'
+import ava1 from '../../../assets/image/ava1.jpg'
+import { Avatar, Box, Paper, Stack, TextField, Typography } from '@mui/material'
 
 const CommentCom = ({ feedback }) => {
-  console.log(feedback)
   return (
     <Box className="comment">
       <Box
@@ -26,13 +25,10 @@ const CommentCom = ({ feedback }) => {
             {feedback?.date}
           </Typography>
         </Box>
-        <Box>
-          <TextField
-            variant="filled"
-            className="comment-information-content"
-            defaultValue={feedback.content}
-            disabled={true}
-          />
+        <Box className="comment-information-contentBox">
+          <Typography className="comment-information-contentBox-text" variant="subtitle1">
+            {feedback.content}
+          </Typography>
         </Box>
       </Stack>
     </Box>
