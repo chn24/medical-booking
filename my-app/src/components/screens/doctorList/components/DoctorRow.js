@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import { LoadingButton } from '@mui/lab'
-import { NavLink, useNavigate } from 'react-router-dom'
-import ArrowUp from '@mui/icons-material/KeyboardArrowUp'
-import ArrowDown from '@mui/icons-material/KeyboardArrowDown'
-import { Box, Collapse, IconButton, Rating, TableCell, TableRow } from '@mui/material'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Box, Button, Rating, Typography } from '@mui/material'
 
-import { bookingState } from '../../../../recoil/bookingState'
 import { useRecoilState } from 'recoil'
+import { bookingState } from '../../../../recoil/bookingState'
 
 const star = Math.floor(Math.random() * 5) + 1
 function DoctorRow(props) {
@@ -38,31 +36,24 @@ function DoctorRow(props) {
     })
     await setButton2Load(true)
     await navigate('/doctor-list/booking')
+    ///
   }
 
   return (
     <>
-      <TableRow key={datas.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-        <TableCell align="left" key={`id-${datas.id}`}>
-          {datas.id}
-        </TableCell>
-        <TableCell align="left" key={`name-${datas.id}`}>
-          <NavLink className="dList-paper-body-link" to={`/doctor-list/doctor-information/${datas.id}`}>
-            {datas.name}
-          </NavLink>
-        </TableCell>
-        <TableCell className="mobile-hide" align="left" key={`email-${datas.id}`}>
-          {datas.email}
-        </TableCell>
-        <TableCell align="left" key={`rating-${datas.id}`}>
+      <Box className="doctorIn4">
+        <Box className="doctorIn4-ava" id={`doctorIn4-ava${datas.id}`}></Box>
+        <Box className="doctorIn4-content">
+          <Link to={`doctor-list/doctor-information/${datas.id}`} className="doctorIn4-content-link">
+            <Typography variant="subtitle1">Name:{datas.name}</Typography>
+          </Link>
+          <Typography variant="subtitle1">Email:{datas.email}</Typography>
           <Rating value={star} readOnly />
-        </TableCell>
-        <TableCell align="left" key={`button-${datas.id}`}>
-          <LoadingButton disabled={id === datas.id && roll === 'Doctor'} loading={button2Load} onClick={handleBooking}>
+          <Button className="doctorIn4-content-btn" onClick={handleBooking}>
             Booking
-          </LoadingButton>
-        </TableCell>
-      </TableRow>
+          </Button>
+        </Box>
+      </Box>
     </>
   )
 }

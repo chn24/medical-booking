@@ -46,64 +46,15 @@ function DoctorList() {
   }
 
   return (
-    <Box className="table-box dList">
-      <ComBox data={data}>
-        {
-          <TableContainer
-            className="dList-paper-body-table"
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <Table stickyHeader={true}>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="left">Id</TableCell>
-                  <TableCell align="left">Name</TableCell>
-                  <TableCell className="mobile-hide" align="left">
-                    Email
-                  </TableCell>
-                  <TableCell align="left">Rating</TableCell>
-                  <TableCell align="left"></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loginData.roll === '' ? (
-                  <TableRow>
-                    <TableCell align="left">
-                      <Skeleton variant="text" animation="wave" />
-                    </TableCell>
-                    <TableCell align="left">
-                      <Skeleton variant="text" animation="wave" />
-                    </TableCell>
-                    <TableCell align="left">
-                      <Skeleton variant="text" animation="wave" />
-                    </TableCell>
-                    <TableCell align="left">
-                      <Skeleton variant="text" animation="wave" />
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  <>
-                    {datas.slice(page * 5, page * 5 + 5).map((data, index) => (
-                      <DoctorRow key={index} datas={data} id={loginData.information.id} roll={loginData.roll} />
-                    ))}
-                  </>
-                )}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[5]}
-              rowsPerPage={5}
-              component="div"
-              count={datas.length}
-              page={page}
-              onPageChange={handleChangePage}
-            />
-          </TableContainer>
-        }
-      </ComBox>
+    <Box>
+      <Box>
+        <Typography variant="h3">Doctor list</Typography>
+      </Box>
+      <Box className="dList">
+        {datas.map((data, index) => (
+          <DoctorRow key={index} datas={data} id={loginData.information.id} roll={loginData.roll} />
+        ))}
+      </Box>
     </Box>
   )
 }
