@@ -5,6 +5,7 @@ import { DocIn4Context } from './InformationRight'
 import ava1 from '../../../../assets/image/ava1.jpg'
 import ava2 from '../../../../assets/image/ava2.jpg'
 import ava3 from '../../../../assets/image/ava3.png'
+import CommentCom from '../../../common/Comment'
 
 const avaList = [ava1, ava2, ava3]
 function CommentTab() {
@@ -13,9 +14,9 @@ function CommentTab() {
 
   const callApi = async () => {
     var res = await axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${context.docId}/comments`)
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${context.docId}`)
       .then((response) => {
-        setComments(response.data)
+        setComments(response.data.feedbacks)
       })
       .catch((error) => {
         console.log(error)
@@ -29,19 +30,7 @@ function CommentTab() {
   return (
     <Stack className="commentsTab">
       {comments.map((comment, index) => {
-        return (
-          <Grid className="commentsTab-commentContainer" container key={index}>
-            <Grid item className="commentsTab-commentItem-1" xs={2}>
-              <Avatar alt={`user-${index}`} src={avaList[Math.floor(Math.random() * 3)]} />
-            </Grid>
-            <Grid className="commentsTab-commentItem-2" item xs={9}>
-              <Paper className="commentsTab-commentItem-2-paper">
-                <Typography variant="overline">{`user ${index + 1}`}</Typography>
-                <Typography variant="body1">{`${comment.body}`}</Typography>
-              </Paper>
-            </Grid>
-          </Grid>
-        )
+        return <CommentCom key={index} feedback={comment} />
       })}
     </Stack>
   )

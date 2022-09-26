@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ava from '../../../../assets/image/ava.jpg'
 import ava1 from '../../../../assets/image/ava1.jpg'
 import { Avatar, Box, Divider, IconButton, Stack, TextField, Typography } from '@mui/material'
 
-import CommentCom from './CommentCom'
+import CommentCom from '../../../common/Comment'
 import LoadingPage from '../../../common/LoadingPage'
 
 import SendIcon from '@mui/icons-material/Send'
@@ -20,6 +20,7 @@ const Body = ({ doctorId }) => {
   const feedbackData = useRecoilValue(feedbackState)
   const resetFeedbackData = useResetRecoilState(feedbackState)
 
+  const textRef = useRef(null)
   const [feedbacks, setFeedbacks] = useState()
   const [feedbackText, setFeedbackText] = useState()
 
@@ -37,6 +38,12 @@ const Body = ({ doctorId }) => {
   useEffect(() => {
     getData()
   }, [])
+
+  useEffect(() => {
+    if (textRef.current) {
+      textRef.current.focus()
+    }
+  }, [textRef.current])
 
   const sendFeedback = async () => {
     let arr = [...feedbacks]
@@ -163,12 +170,15 @@ const Body = ({ doctorId }) => {
               <Typography className="feedback-content-newFeedBack-information-text" variant="subtitle1">
                 {userData.information.name}
               </Typography>
-              <Typography className="feedback-content-newFeedBack-information-text" variant="subtitle1">
-                {feedbackData.information.date}
-              </Typography>
+              {feedbackData.information.date && (
+                <Typography className="feedback-content-newFeedBack-information-text" variant="subtitle1">
+                  {feedbackData.information.date}
+                </Typography>
+              )}
             </Box>
             <Box className="feedback-content-newFeedBack-inputBox">
               <TextField
+                inputRef={textRef}
                 className="feedback-content-newFeedBack-input"
                 label="Feedback"
                 variant="filled"

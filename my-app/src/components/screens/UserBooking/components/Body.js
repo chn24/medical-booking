@@ -14,12 +14,14 @@ import {
 } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
+
 import { loginState } from '../../../../recoil/loginState'
 import { alertState } from '../../../../recoil/alertState'
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
 
 import BRow from './BRow'
 import ComAlert from '../../../common/Alert'
+import ComBox from '../../../common/ComBox'
 
 function Body() {
   const isLogin = useRecoilValue(loginState)
@@ -112,18 +114,18 @@ function Body() {
     callApi()
   }, [])
 
+  const props = {
+    title: 'Your booking list',
+    aHalf: true,
+  }
+
   return (
     <Box className="uBooking">
       <Box className="uBooking-alert">
         <ComAlert direction="left" />
       </Box>
-      <Paper className="uBooking-paper">
-        <Box className="uBooking-paper-head">
-          <Typography sx={{ color: '#fff' }} variant="h5">
-            Your booking list
-          </Typography>
-        </Box>
-        <Box>
+      <ComBox data={props}>
+        {
           <TableContainer className="uBooking-paper-table">
             <Table stickyHeader={true}>
               <TableHead>
@@ -189,8 +191,8 @@ function Body() {
               onPageChange={handleChangePage}
             />
           </TableContainer>
-        </Box>
-      </Paper>
+        }
+      </ComBox>
     </Box>
   )
 }

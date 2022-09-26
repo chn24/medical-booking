@@ -1,14 +1,17 @@
-import { Avatar, Box, Divider, Fade, Grid, Paper, Stack, Typography } from '@mui/material'
-import { dataState } from '../../../../recoil/dataState'
+import axios from 'axios'
 import { useRecoilValue } from 'recoil'
+import { useEffect, useState } from 'react'
+import { Avatar, Box, Divider, Fade, Grid, Paper, Stack, Typography } from '@mui/material'
 
 import ava from '../../../../assets/image/ava.jpg'
 import ava1 from '../../../../assets/image/ava1.jpg'
 import ava2 from '../../../../assets/image/ava2.jpg'
 import ava3 from '../../../../assets/image/ava3.png'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+
+import { dataState } from '../../../../recoil/dataState'
+
 import Options from './Options'
+import CommentCom from '../../../common/Comment'
 
 const avaList = [ava1, ava2, ava3]
 
@@ -18,9 +21,9 @@ function CommentTab() {
 
   const getComments = async () => {
     const res = await axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${loginData.information.id}/comments`)
+      .get(`https://62c65d1874e1381c0a5d833e.mockapi.io/doctorSchedule/${loginData.information.id}`)
       .then((response) => {
-        setComments(response.data)
+        setComments(response.data.feedbacks)
       })
       .catch((error) => {
         console.log(error)
@@ -72,31 +75,8 @@ function CommentTab() {
         }}
       />
       <Stack>
-        {comments.map((comment) => {
-          return (
-            <Box className="commentTab-comment" key={comment.id}>
-              <Box className="commentTab-comment-avaBox">
-                <Avatar
-                  className="commentTab-comment-avaBox-ava"
-                  alt={`user-${comment.id}`}
-                  src={avaList[Math.floor(Math.random() * 3)]}
-                />
-              </Box>
-              <Box
-                sx={{
-                  width: '75%',
-                }}
-              >
-                <Paper className="commentTab-comment-paper">
-                  <Typography variant="overline">{`user ${comment.id}`}</Typography>
-                  <Typography
-                    className="commentTab-comment-paper-detail"
-                    variant="body1"
-                  >{`${comment.body}`}</Typography>
-                </Paper>
-              </Box>
-            </Box>
-          )
+        {comments.map((comment, index) => {
+          return <CommentCom key={index} feedback={comment} />
         })}
       </Stack>
     </Stack>
