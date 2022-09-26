@@ -2,30 +2,100 @@
 .dList {
     height: max-content;
     padding: 48px 64px 32px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
 
-    &-paper {
+//-------------------------------DoctorRow.js
+.doctorIn4 {
+    min-height: max-content;
+    width: 30%;
+    border-radius: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-bottom: 32px;
+    box-shadow: rgb(255 255 255 / 90%) 0rem 0rem 0.0625rem 0.0625rem inset, rgb(0 0 0 / 15%) 0rem 1.25rem 1.6875rem 0rem;;
 
-        &-body {
+    &-ava {
+        height: 150px;
+        width: 100%;
+        background-color: #B7DFFF;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    
+    &-content {
+        height: 150px;
+        position: relative;
+        background-color: #e9e9e9;
+        padding: 16px;
+        box-sizing: border-box;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        
+        &-link {
+            color: #000;
+            text-decoration: none;
             
-
-            &-table {
-                width: 100%;
-                height: 100%;
+            &:hover {
+                color: #004ed4;
             }
+        }
 
-            &-link {
-                text-decoration: none;
-                display: inline-block;
-                color: #000;
-                width: 100%;
-
-                &:hover {
-                    color: #004ed4;
-                }
-            }
+        &-btn {
+            position: absolute !important;
+            right: 6px;
+            bottom: 6px;
         }
     }
 }
 
-//-------------------------------DoctorRow.js
+
+    #doctorIn4-ava1{
+        background-image: url('../../../image/face1.png');
+    }
+
+    #doctorIn4-ava2{
+        background-image: url('../../../image/face2.png');
+    }
+    
+    #doctorIn4-ava3{
+        background-image: url('../../../image/face3.png');
+    }
+
+    #doctorIn4-ava4{
+        background-image: url('../../../image/face4.png');
+    }
+
+    #doctorIn4-ava5{
+        background-image: url('../../../image/face5.png');
+    }
+
+    #doctorIn4-ava6{
+        background-image: url('../../../image/face6.png');
+    }
+
+    #doctorIn4-ava7{
+        background-image: url('../../../image/face1.png');
+    }
+
+    #doctorIn4-ava8{
+        background-image: url('../../../image/face2.png');
+    }
+
+    #doctorIn4-ava9{
+        background-image: url('../../../image/face3.png');
+    }
+
+    #doctorIn4-ava10{
+        background-image: url('../../../image/face4.png');
+    }
+
 
