@@ -47,7 +47,9 @@ function DoctorRow(props) {
           <Link to={`doctor-list/doctor-information/${datas.id}`} className="doctorIn4-content-link">
             <Typography variant="subtitle1">Name:{datas.name}</Typography>
           </Link>
-          <Typography variant="subtitle1">Email:{datas.email}</Typography>
+          <Typography className="doctorIn4-content-email" variant="subtitle1">
+            Email:{datas.email}
+          </Typography>
           <Rating value={star} readOnly />
           <Button className="doctorIn4-content-btn" onClick={handleBooking}>
             Booking

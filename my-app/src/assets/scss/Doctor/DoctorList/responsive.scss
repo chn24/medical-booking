@@ -3,7 +3,21 @@
         padding: 48px 0 32px !important;
     }
 
-    .mobile-hide {
-        display: none !important;
+    .doctorIn4 {
+        width: 45%;
+    
+        &-ava {
+        }
+        
+        &-content {
+            height: 175px;
+            position: relative;
+            background-color: #e9e9e9;
+            padding: 16px;
+            box-sizing: border-box;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            
+        }
     }
 }
