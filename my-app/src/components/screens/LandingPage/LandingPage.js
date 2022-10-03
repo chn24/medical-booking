@@ -1,25 +1,13 @@
-import DoctorHome from '../Home/DoctorHome'
 import UserHome from '../Home/UserHome'
-import SignIn from '../../layouts/SignIn/SignIn'
-import { loginState } from '../../../recoil/loginState'
-import { dataState } from '../../../recoil/dataState'
-import { useRecoilState } from 'recoil'
+import DoctorHome from '../Home/DoctorHome'
 
-const Height = window.innerHeight
+import { useRecoilState } from 'recoil'
+import { dataState } from '../../../recoil/dataState'
 
 function LandingPage() {
-  const [isLogin, setLogin] = useRecoilState(loginState)
   const [loginData, setLoginData] = useRecoilState(dataState)
 
-  return isLogin.login ? (
-    loginData.roll === '' ? null : loginData.roll === 'Doctor' ? (
-      <DoctorHome />
-    ) : (
-      <UserHome />
-    )
-  ) : (
-    <SignIn />
-  )
+  return loginData.roll === '' ? null : loginData.roll === 'Doctor' ? <DoctorHome /> : <UserHome />
 }
 
 export default LandingPage
