@@ -34,19 +34,21 @@
                 Mỗi ngày :  người dùng chỉ được đặt 2 lần (1 buổi 1 lần)
                             người dùng chỉ được đặt 1 bác sĩ 1 lần
                             bác sĩ chỉ khám 10 người 1 ngày (5 người khác nhau 1 buổi)
+            + Sau khi được đánh dấu sẽ được đánh giá, bình luận góp ý vào profile của bsi
+            + Tìm kiếm lịch khám theo ngày
+            + Thông báo
 
         -Bác sĩ :
             + Xem và chỉnh sửa profile của bác sĩ đó (Your profile)
             + Chỉnh sửa các ngày bận (Your schedule)
                 Bác sĩ không thể thêm lịch khám vào những lúc có người khám
             + Xem lịch khám các bệnh nhân đã book bác sĩ đó (Booking schedule)
+            + Đánh dấu người bệnh nhân đã được khám xong hay chưa
+            + Thông báo
 
 # Các chức năng dự kiến sẽ thêm :
 
     * Bác sĩ :
-        - Đánh dấu người bệnh nhân đã được khám xong hay chưa
-        - Thông báo
+        
     * Người dùng :
-        - Sau khi được đánh dấu sẽ được đánh giá, bình luận góp ý vào profile của bsi
-        - Tìm kiếm lịch khám theo ngày
-        - Thông báo
+        
